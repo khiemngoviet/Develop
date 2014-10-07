@@ -10,4 +10,6 @@ protocol MessageDelegate {
     func didReceiveMessage(fromContact: String, toContact:String, contentMess: String)
     func didChangeStatus(contact:String, status: ContactStatusEnum)
     func didReceiveContact(message: String)
+    
+  
 }

@@ -10,6 +10,7 @@ import UIKit
 
 class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbleTableViewDataSource, MessageDelegate {
     
+    @IBOutlet var mainView: UIView!
     @IBOutlet var viewInputContainer: UIView!
     @IBOutlet var textInput: UITextField!
     
@@ -20,22 +21,27 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     var contact: Contact!
     var isActive = false
     
+    
+    
     override func viewWillAppear(animated: Bool) {
         self.isActive = true
+        //tableView.reloadData()
     }
     
     override func viewWillDisappear(animated: Bool) {
         self.isActive = false
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        MessageSocket.sharedInstance.register(self)
+        MessageSocket.sharedInstance.register("ConversationViewController",observer: self)
         
         textInput.delegate = self
         self.navigationItem.title = contact.name
         tableView.bubbleDataSource = self
-        tableView.snapInterval = 60
+        tableView.snapInterval = 30
         tableView.reloadData()
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardWillShowNotification, object: nil)
@@ -75,10 +81,14 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         var kbSize: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
         
         UIView.beginAnimations(nil, context: nil)
-        UIView.setAnimationDuration(0.5)
-
-        viewInputContainer.frame = CGRectMake(viewInputContainer.frame.origin.x, (viewInputContainer.frame.origin.y - kbSize.height - 20), viewInputContainer.frame.size.width, viewInputContainer.frame.size.height)
+        UIView.setAnimationDuration(0.2)
+        
+        //        viewInputContainer.frame = CGRectMake(viewInputContainer.frame.origin.x, (viewInputContainer.frame.origin.y - kbSize.height - 20), viewInputContainer.frame.size.width, viewInputContainer.frame.size.height)
         tableView.setContentOffset(CGPointMake(0, tableView.contentSize.height -  tableView.frame.size.height), animated: false)
+        var frame = mainView.frame
+        frame.size.height -= kbSize.height
+        mainView.frame = frame
+        
         UIView.commitAnimations()
         
     }
@@ -87,13 +97,15 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         let userInfo = notification.userInfo!
         var kbSize: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
         
-        UIView.beginAnimations(nil, context: nil)
-        UIView.setAnimationDuration(0.5)
+        //        UIView.beginAnimations(nil, context: nil)
+        //        UIView.setAnimationDuration(0.7)
         
-        tableView.frame = CGRectMake(tableView.frame.origin.x, (tableView.frame.origin.y ), tableView.frame.size.width, tableView.frame.size.height + kbSize.height - 49)
-        viewInputContainer.frame = CGRectMake(viewInputContainer.frame.origin.x, (viewInputContainer.frame.origin.y + kbSize.height - 49), viewInputContainer.frame.size.width, viewInputContainer.frame.size.height)
-        
-        UIView.commitAnimations()
+        //        tableView.frame = CGRectMake(tableView.frame.origin.x, (tableView.frame.origin.y ), tableView.frame.size.width, tableView.frame.size.height + kbSize.height - 49)
+        //        viewInputContainer.frame = CGRectMake(viewInputContainer.frame.origin.x, (viewInputContainer.frame.origin.y + kbSize.height - 49), viewInputContainer.frame.size.width, viewInputContainer.frame.size.height)
+        var frame = mainView.frame
+        frame.size.height += kbSize.height
+        mainView.frame = frame
+        //UIView.commitAnimations()
     }
     
     
@@ -111,6 +123,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     
     override func viewDidDisappear(animated: Bool) {
         contact.isInConversation = false
+        MessageSocket.sharedInstance.unRegister("ConversationViewController", observer: self)
     }
     
     func didReceiveContact(message: String){

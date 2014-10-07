@@ -16,7 +16,7 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     var delegateAuthen: AuthenticateDelegate?
     var delegateNotification: NotificationDelegate?
     
-    var observers = [MessageDelegate]()
+    var observers = [String: MessageDelegate]()
     
     class var sharedInstance: MessageSocket {
         return _shareInstance
@@ -31,8 +31,13 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         socket.open()
     }
     
-    func register(observer: MessageDelegate) {
-        observers.append(observer)
+    func register(viewName:String, observer: MessageDelegate) {
+        observers[viewName] = observer
+    }
+    
+    func unRegister(viewName:String ,observer: MessageDelegate){
+       observers.removeValueForKey(viewName)
+        let count = observers.count
     }
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
@@ -42,17 +47,18 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         if indicator == MessageIndicator.IsAuthenticate.rawValue {
             if value == "True" {
                 delegateAuthen?.didAuthenticate(true)
+                self.getContact()
             } else {
                 delegateAuthen?.didAuthenticate(false)
             }
         } else if indicator == MessageIndicator.ContactList.rawValue {
-            for observer in observers {
+            for observer in observers.values {
                 observer.didReceiveContact(mess)
             }
         } else if indicator == MessageIndicator.StatusChange.rawValue {
             let contact = value.componentsSeparatedByString("#")[0]
             let status = ContactStatusEnum(rawValue: value.componentsSeparatedByString("#")[1])
-            for observer in observers{
+            for observer in observers.values{
                 observer.didChangeStatus(contact, status: status!)
             }
         } else if indicator == MessageIndicator.Message.rawValue {
@@ -61,7 +67,7 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
             let contentMess = value.componentsSeparatedByString("#")[2]
             
             self.updateBubbleMessage(fromContact, toContact: toContact, contentMess: contentMess)
-            for observer in observers{
+            for observer in observers.values{
                 observer.didReceiveMessage(fromContact, toContact: toContact, contentMess: contentMess)
             }
         }

@@ -13,14 +13,13 @@ class ContactViewController: UITableViewController, MessageDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        MessageSocket.sharedInstance.register(self)
-        MessageSocket.sharedInstance.getContact()
+        MessageSocket.sharedInstance.register("ContactViewController",observer: self)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        tableView.reloadData()
+    override func viewDidDisappear(animated: Bool) {
+        MessageSocket.sharedInstance.unRegister("ContactViewController", observer: self)
     }
+    
     
     func didReceiveContact(message: String) {
         if self.tabBarController?.selectedIndex == 0 {
@@ -91,6 +90,7 @@ class ContactViewController: UITableViewController, MessageDelegate {
         let nav = self.navigationController
         var conversationView: ConversationViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ConversationViewController") as ConversationViewController
         let key:String = Array(GlobalVariable.shareInstance.contactSource.keys)[indexPath.row]
+        let contacs =  GlobalVariable.shareInstance.contactSource[key]!
         conversationView.contact = GlobalVariable.shareInstance.contactSource[key]! as Contact
         conversationView.contact.showIndicator = false
         conversationView.contact.isInConversation = true
