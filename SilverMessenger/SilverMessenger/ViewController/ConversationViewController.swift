@@ -26,13 +26,21 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     override func viewWillAppear(animated: Bool) {
         self.isActive = true
         //tableView.reloadData()
+        //Load all message from core data for current contact
+        contact.messageSource.removeAll(keepCapacity: false)
+        let currentLoggedInContact = GlobalVariable.shareInstance.loginInfo.userName!
+        let messages = BusinessAccess.getMessageByContact(currentLoggedInContact, context: GlobalVariable.shareInstance.objectContext!)
+        for message in messages as Array<MessageEntity> {
+           
+            contact.messageSource.append(message)
+        }
+        tableView.reloadData()
     }
     
     override func viewWillDisappear(animated: Bool) {
         self.isActive = false
     }
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +50,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         self.navigationItem.title = contact.name
         tableView.bubbleDataSource = self
         tableView.snapInterval = 30
-        tableView.reloadData()
+        //tableView.reloadData()
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: "keyboardWillbeHidden:", name: UIKeyboardWillHideNotification, object: nil)
@@ -65,10 +73,17 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
             let fromContact:String = GlobalVariable.shareInstance.loginInfo.userName!
             let toContact:String = contact.name
             let messageRequest = "Message~\(fromContact)#\(toContact)#\(textInput.text)"
-            var bubbleData:NSBubbleData = NSBubbleData(text: textInput.text, date: NSDate(), type: BubbleTypeMine)
-            contact.bubbleData.append(bubbleData)
+            let message = BusinessAccess.createMessageEntity(GlobalVariable.shareInstance.objectContext!)
+            message.contact = fromContact
+            message.contactFrom = fromContact
+            message.contactTo = toContact
+            message.content = textInput.text
+            message.date = NSDate()
+            message.company = GlobalVariable.shareInstance.loginInfo.server!
+            BusinessAccess.saveMessageEntities(GlobalVariable.shareInstance.objectContext!)
+            contact.messageSource.append(message)
+            MessageSocket.sharedInstance.sendMessage(messageRequest)
             tableView.reloadData()
-            //socket.send(messageRequest)
         }
     }
     
@@ -114,11 +129,16 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         if contact == nil{
             return 0
         }
-        return contact.bubbleData.count
+        return contact.messageSource.count
     }
     
     func bubbleTableView(tableView: UIBubbleTableView!, dataForRow row: Int) -> NSBubbleData! {
-        return contact.bubbleData[row]
+        let message = contact.messageSource[row]
+        println(message.content)
+        let currentLoggedInContact = GlobalVariable.shareInstance.loginInfo.userName!
+        let bubbleType = message.contactFrom == currentLoggedInContact ? BubbleTypeMine : BubbleTypeSomeoneElse
+        var bubbleData:NSBubbleData = NSBubbleData(text: message.content, date: message.date, type: BubbleTypeSomeoneElse)
+        return bubbleData
     }
     
     override func viewDidDisappear(animated: Bool) {

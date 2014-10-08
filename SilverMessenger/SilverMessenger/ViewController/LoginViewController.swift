@@ -77,7 +77,8 @@ class Contact{
     var name:String
     var status: ContactStatusEnum
     var shortMessage: String
-    var bubbleData = [NSBubbleData]()
+    //var bubbleData = [NSBubbleData]()
+    var messageSource = [MessageEntity]()
     var showIndicator:Bool = false
     var isInConversation:Bool = false
     

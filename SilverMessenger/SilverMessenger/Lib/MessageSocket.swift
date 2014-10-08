@@ -79,11 +79,25 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         socket.send("ContactList~\(contact)")
     }
     
+    func sendMessage(message:String){
+        socket.send(message)
+    }
+    
     func updateBubbleMessage(fromContact: String, toContact:String, contentMess: String){
         var contact: Contact = GlobalVariable.shareInstance.contactSource[fromContact]!
         
-        var bubbleData:NSBubbleData = NSBubbleData(text: contentMess, date: NSDate(), type: BubbleTypeSomeoneElse)
-        contact.bubbleData.append(bubbleData)
+//        var bubbleData:NSBubbleData = NSBubbleData(text: contentMess, date: NSDate(), type: BubbleTypeSomeoneElse)
+//        contact.bubbleData.append(bubbleData)
+
+        var messageEntity =  BusinessAccess.createMessageEntity(GlobalVariable.shareInstance.objectContext!)
+        messageEntity.contact = toContact
+        messageEntity.contactFrom = fromContact
+        messageEntity.contactTo = toContact
+        messageEntity.content = contentMess
+        messageEntity.date = NSDate()
+        BusinessAccess.saveMessageEntities(GlobalVariable.shareInstance.objectContext!)
+        contact.messageSource.append(messageEntity)
+        //GlobalVariable.shareInstance.messageEntitiesSource.append(messageEntity)
         
         if countElements(contentMess) > 50{
             contact.shortMessage = (contentMess as NSString).substringWithRange(NSRange(location: 0, length: 50)) + "..."

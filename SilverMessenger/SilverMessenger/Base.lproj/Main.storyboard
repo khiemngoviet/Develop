@@ -206,6 +206,28 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="v3i-SX-8SS">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v3i-SX-8SS" id="06N-mB-d4N">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jQw-RL-8ZX">
+                                                    <rect key="frame" x="244" y="7" width="68" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="TUH-4a-PFA"/>
+                                                        <constraint firstAttribute="width" constant="68" id="m89-gq-hRO"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Log out">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="jQw-RL-8ZX" secondAttribute="centerY" id="Bzo-29-9MY"/>
+                                                <constraint firstAttribute="trailing" secondItem="jQw-RL-8ZX" secondAttribute="trailing" constant="8" id="s9i-nu-ujq"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -222,7 +244,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p3b-ht-SLn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="307" y="1447"/>
+            <point key="canvasLocation" x="307" y="1445"/>
         </scene>
         <!--Status View Controller-->
         <scene sceneID="OfV-1x-8pK">
@@ -261,25 +283,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8sV-YT-QfJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="677" y="1901"/>
-        </scene>
-        <!--Recents-->
-        <scene sceneID="y6S-fZ-H3I">
-            <objects>
-                <viewController id="ChM-eO-HiC" customClass="RecentViewController" customModule="SilverMessenger" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Ezr-eZ-9uf"/>
-                        <viewControllerLayoutGuide type="bottom" id="Dcl-g1-xtb"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="EWY-KV-aX8" userLabel="RecentsTab">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Recents" image="recent_icon" id="cN2-W7-k23"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mFK-h0-Bjn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="890" y="1260"/>
         </scene>
         <!--Conversation-->
         <scene sceneID="4PR-kn-gb8">
@@ -483,6 +486,77 @@
             </objects>
             <point key="canvasLocation" x="835" y="623"/>
         </scene>
+        <!--Recents-->
+        <scene sceneID="nAE-R0-VPv">
+            <objects>
+                <tableViewController id="0FJ-jU-aUY" customClass="RecentViewController" customModule="SilverMessenger" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="fbo-Jb-F0k">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecentCell" id="k4H-FO-XNh" customClass="RecentCell" customModule="SilverMessenger" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k4H-FO-XNh" id="QnS-Pj-aT6">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vea-SH-M31">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiP-tN-DYk" userLabel="Contact">
+                                                    <rect key="frame" x="8" y="3" width="312" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="HW3-PQ-L0d"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="KohinoorDevanagari-Medium" family="Kohinoor Devanagari" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6aV-OV-dJR" userLabel="Recent">
+                                                    <rect key="frame" x="8" y="22" width="282" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="rvz-BV-XRf"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="KohinoorDevanagari-Book" family="Kohinoor Devanagari" pointSize="11"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="6aV-OV-dJR" firstAttribute="leading" secondItem="Vea-SH-M31" secondAttribute="leading" constant="8" id="4b9-UJ-Zgk"/>
+                                                <constraint firstItem="EiP-tN-DYk" firstAttribute="top" secondItem="Vea-SH-M31" secondAttribute="top" constant="3" id="UGQ-nK-4D4"/>
+                                                <constraint firstItem="EiP-tN-DYk" firstAttribute="leading" secondItem="Vea-SH-M31" secondAttribute="leading" constant="8" id="Wfi-d3-yAm"/>
+                                                <constraint firstAttribute="trailing" secondItem="EiP-tN-DYk" secondAttribute="trailing" id="Y3P-TA-1d1"/>
+                                                <constraint firstAttribute="bottom" secondItem="6aV-OV-dJR" secondAttribute="bottom" constant="5" id="r5s-o0-SdU"/>
+                                                <constraint firstAttribute="trailing" secondItem="6aV-OV-dJR" secondAttribute="trailing" constant="30" id="wr3-Ae-xWV"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Vea-SH-M31" firstAttribute="top" secondItem="QnS-Pj-aT6" secondAttribute="top" id="C9g-xQ-6ia"/>
+                                        <constraint firstAttribute="trailing" secondItem="Vea-SH-M31" secondAttribute="trailing" id="SRh-lI-tJ7"/>
+                                        <constraint firstItem="Vea-SH-M31" firstAttribute="leading" secondItem="QnS-Pj-aT6" secondAttribute="leading" id="lTg-Fo-4bx"/>
+                                        <constraint firstAttribute="bottom" secondItem="Vea-SH-M31" secondAttribute="bottom" id="mWw-zR-Ngi"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="contactLabel" destination="EiP-tN-DYk" id="EY9-xO-c9s"/>
+                                    <outlet property="recentLabel" destination="6aV-OV-dJR" id="xdV-tN-cAg"/>
+                                    <outlet property="view" destination="Vea-SH-M31" id="19t-8V-Qfk"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0FJ-jU-aUY" id="yZB-8K-fvx"/>
+                            <outlet property="delegate" destination="0FJ-jU-aUY" id="RfQ-yT-BC9"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Recents" image="recent_icons" id="7dy-kY-FAb"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lL9-aW-QxW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="845" y="1251"/>
+        </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="byA-Ma-aRP">
             <objects>
@@ -496,7 +570,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="aB3-dM-vfg" kind="relationship" relationship="viewControllers" id="8H4-e1-gxo"/>
-                        <segue destination="ChM-eO-HiC" kind="relationship" relationship="viewControllers" id="R9e-7B-v8q"/>
+                        <segue destination="0FJ-jU-aUY" kind="relationship" relationship="viewControllers" id="iNM-R7-KGL"/>
                         <segue destination="978-5A-HOL" kind="relationship" relationship="viewControllers" id="fW4-QQ-Ong"/>
                     </connections>
                 </tabBarController>
@@ -530,7 +604,7 @@
     <resources>
         <image name="background_gradient_basic_background_gradient_gray_11_5000x4000.jpg" width="1920" height="1536"/>
         <image name="contact_icon" width="28" height="28"/>
-        <image name="recent_icon" width="28" height="28"/>
+        <image name="recent_icons" width="28" height="28"/>
         <image name="setting_icon" width="28" height="28"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
