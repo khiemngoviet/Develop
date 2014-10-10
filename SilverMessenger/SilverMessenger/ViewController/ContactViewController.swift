@@ -10,14 +10,37 @@ import UIKit
 
 class ContactViewController: UITableViewController, MessageDelegate {
     
+    var isHideOffline = false
+    var contactSourceFilterd = [String: Contact]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         MessageSocket.sharedInstance.register("ContactViewController", observer: self)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        var defaults = NSUserDefaults.standardUserDefaults()
+        self.isHideOffline = defaults.boolForKey(GlobalVariable.shareInstance.hideOfflineKey)
+        self.reloadTableView()
+    }
+    
     override func viewDidDisappear(animated: Bool) {
         MessageSocket.sharedInstance.unRegister("ContactViewController", observer: self)
+    }
+    
+    func reloadTableView(){
+        self.contactSourceFilterd.removeAll(keepCapacity: false)
+        if self.isHideOffline{
+            for (key, contact) in GlobalVariable.shareInstance.contactSource{
+                if contact.status != ContactStatusEnum.Offline{
+                    self.contactSourceFilterd[key] = contact
+                }
+            }
+        }
+        else{
+            self.contactSourceFilterd = GlobalVariable.shareInstance.contactSource
+        }
+        self.tableView.reloadData()
     }
     
     func didReceiveContact(message: String) {
@@ -30,7 +53,7 @@ class ContactViewController: UITableViewController, MessageDelegate {
                 let contact = Contact(name: name, status: status, recentMessage: "")
                 GlobalVariable.shareInstance.contactSource[name] = contact
             }
-            tableView.reloadData()
+            self.reloadTableView()
         }
     }
     
@@ -55,7 +78,7 @@ class ContactViewController: UITableViewController, MessageDelegate {
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if GlobalVariable.shareInstance.contactSource.isEmpty {
+        if self.contactSourceFilterd.isEmpty {
             return 0
         } else {
             return 1
@@ -63,13 +86,13 @@ class ContactViewController: UITableViewController, MessageDelegate {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return GlobalVariable.shareInstance.contactSource.count
+        return self.contactSourceFilterd.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("ContactCell") as ContactCell
-        let key = Array(GlobalVariable.shareInstance.contactSource.keys)[indexPath.row]
-        let contact = GlobalVariable.shareInstance.contactSource[key]!
+        let key = Array(self.contactSourceFilterd.keys)[indexPath.row]
+        let contact = self.contactSourceFilterd[key]!
         cell.contactLabel.text = contact.name
         cell.status = contact.status
         cell.newMessageIndicator.hidden = !contact.showIndicator
@@ -86,13 +109,15 @@ class ContactViewController: UITableViewController, MessageDelegate {
         //
         let nav = self.navigationController
         var conversationView: ConversationViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ConversationViewController") as ConversationViewController
-        let key:String = Array(GlobalVariable.shareInstance.contactSource.keys)[indexPath.row]
-        let contacs =  GlobalVariable.shareInstance.contactSource[key]!
-        conversationView.contact = GlobalVariable.shareInstance.contactSource[key]! as Contact
+        let key:String = Array(self.contactSourceFilterd.keys)[indexPath.row]
+        let contacs =  self.contactSourceFilterd[key]!
+        conversationView.contact = self.contactSourceFilterd[key]! as Contact
         conversationView.contact.showIndicator = false
         conversationView.contact.isInConversation = true
         conversationView.isFromRecent = false
         nav?.pushViewController(conversationView, animated: true)
     }
+    
+    
     
 }

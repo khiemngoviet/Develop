@@ -10,6 +10,7 @@ import UIKit
 
 class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbleTableViewDataSource, MessageDelegate {
     
+    @IBOutlet var navigationItems: UINavigationItem!
     @IBOutlet var mainView: UIView!
     @IBOutlet var viewInputContainer: UIView!
     @IBOutlet var textInput: UITextField!
@@ -27,13 +28,12 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     
     override func viewWillAppear(animated: Bool) {
         self.isActive = true
-        //tableView.reloadData()
+        navigationItem.title = contact.name
         //Load all message from core data for current contact
         contact.messageSource.removeAll(keepCapacity: false)
         let currentLoggedInContact = GlobalVariable.shareInstance.loginInfo.userName!
         let messages = BusinessAccess.getMessageByContact(contact.name)
         for message in messages as Array<MessageEntity> {
-            
             contact.messageSource.append(message)
         }
         tableView.reloadData()

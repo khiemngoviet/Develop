@@ -41,7 +41,6 @@ class LoginViewController: UIViewController, AuthenticateDelegate {
         activityIndicator.stopAnimating()
         if success {
             self.saveToKeyChain()
-            MessageSocket.sharedInstance.getContact() //getContact
             GlobalVariable.shareInstance.loginInfo.userName = userNameTextField.text
             let sb = UIStoryboard(name: "Main", bundle: nil)
             let tabVC = sb.instantiateViewControllerWithIdentifier("TabBarController") as UITabBarController

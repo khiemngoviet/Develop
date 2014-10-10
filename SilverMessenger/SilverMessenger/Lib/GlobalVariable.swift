@@ -14,13 +14,12 @@ class GlobalVariable: NSObject {
     let companyKey = "company"
     let usernameKey = "username"
     let passwordKey = "password"
+    let hideOfflineKey = "hideOffline"
+    let statusKey = "status"
     
     var loginInfo: LoginInfo = LoginInfo()
     var contactSource: Dictionary<String, Contact> = [String: Contact]()
-    var contactSourceFiltered: Dictionary<String, Contact> = [String: Contact]()
-    
-    
-    var hideOffline:Bool = false
+
     var contactStatus:ContactStatusEnum = ContactStatusEnum.Online
     
     class var shareInstance: GlobalVariable {

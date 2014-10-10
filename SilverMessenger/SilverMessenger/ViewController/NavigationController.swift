@@ -8,11 +8,11 @@
 
 import UIKit
 
-class NavigationController: UINavigationController, AuthenticateDelegate, MessageDelegate {
+class NavigationController: UINavigationController, AuthenticateDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
         let keychain = self.loadKeychain()
         if keychain == nil{
             //navigate to Login view
@@ -20,7 +20,7 @@ class NavigationController: UINavigationController, AuthenticateDelegate, Messag
         }
         else {
             //Do login to websocket
-            MessageSocket.sharedInstance.register(NSStringFromClass(NavigationController), observer: self)
+            MessageSocket.sharedInstance.delegateAuthen = self
             MessageSocket.sharedInstance.authenticateUser(keychain!.companyId, userName: keychain!.username, pwd: keychain!.pwd)
         }
     }
@@ -28,7 +28,7 @@ class NavigationController: UINavigationController, AuthenticateDelegate, Messag
     func didAuthenticate(success: Bool) {
         if success{
             //Navigate to Contact view
-            let vcTabBar = self.storyboard?.instantiateViewControllerWithIdentifier(NSStringFromClass(TabBarViewController)) as TabBarViewController
+            let vcTabBar = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarController") as TabBarViewController
             self.pushViewController(vcTabBar, animated: true)
         }
         else{
@@ -37,9 +37,9 @@ class NavigationController: UINavigationController, AuthenticateDelegate, Messag
     }
 
     func loadKeychain() -> (companyId:String, username:String, pwd:String)?{
-       let companyId: AnyObject? = KeychainWrapper.load(GlobalVariable.shareInstance.companyKey)
-       let username: AnyObject? = KeychainWrapper.load(GlobalVariable.shareInstance.companyKey)
-       let pwd : AnyObject? = KeychainWrapper.load(GlobalVariable.shareInstance.companyKey)
+       let companyId = KeychainWrapper.load(GlobalVariable.shareInstance.companyKey)
+       let username = KeychainWrapper.load(GlobalVariable.shareInstance.usernameKey)
+       let pwd = KeychainWrapper.load(GlobalVariable.shareInstance.passwordKey)
         if companyId == nil{
             return nil
         }

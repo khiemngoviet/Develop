@@ -53,6 +53,7 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         if indicator == MessageIndicator.IsAuthenticate.rawValue {
             if value == "True" {
                 delegateAuthen?.didAuthenticate(true)
+                self.getContact() //getContact
             } else {
                 delegateAuthen?.didAuthenticate(false)
             }
