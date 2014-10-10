@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 exteam.com. All rights reserved.
 //
 
-protocol MessageDelegate {
-    func didReceiveMessage(fromContact: String, toContact:String, contentMess: String)
-    func didChangeStatus(contact:String, status: ContactStatusEnum)
-    func didReceiveContact(message: String)
+@objc protocol MessageDelegate {
+   optional func didReceiveMessage(fromContact: String, toContact:String, contentMess: String)
+   optional func didChangeStatus(contact:String, status: String)
+   optional func didReceiveContact(message: String)
     
-  
+    
 }

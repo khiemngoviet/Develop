@@ -10,7 +10,10 @@ import Foundation
 import CoreData
 
 class BusinessAccess{
-    
+
+    class func saveUser(company:String, userName:String, pwd:String){
+        
+    }
     
     class func createMessageEntity() -> MessageEntity {
         let context = SwiftCoreDataHelper.managedObjectContext()

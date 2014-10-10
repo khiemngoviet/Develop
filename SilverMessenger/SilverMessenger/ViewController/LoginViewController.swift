@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Security
 
 class LoginViewController: UIViewController, AuthenticateDelegate {
     
@@ -39,6 +40,8 @@ class LoginViewController: UIViewController, AuthenticateDelegate {
     func didAuthenticate(success: Bool) {
         activityIndicator.stopAnimating()
         if success {
+            self.saveToKeyChain()
+            MessageSocket.sharedInstance.getContact() //getContact
             GlobalVariable.shareInstance.loginInfo.userName = userNameTextField.text
             let sb = UIStoryboard(name: "Main", bundle: nil)
             let tabVC = sb.instantiateViewControllerWithIdentifier("TabBarController") as UITabBarController
@@ -49,6 +52,16 @@ class LoginViewController: UIViewController, AuthenticateDelegate {
             alert.show()
         }
     }
+    
+    func saveToKeyChain(){
+        KeychainWrapper.delete(GlobalVariable.shareInstance.companyKey)
+        KeychainWrapper.delete(GlobalVariable.shareInstance.usernameKey)
+        KeychainWrapper.delete(GlobalVariable.shareInstance.passwordKey)
+        KeychainWrapper.save(GlobalVariable.shareInstance.companyKey, data: companyIdTextField.text)
+        KeychainWrapper.save(GlobalVariable.shareInstance.usernameKey, data: userNameTextField.text)
+        KeychainWrapper.save(GlobalVariable.shareInstance.passwordKey, data: passwordTextField.text)
+    }
+    
 }
 
 enum LoginStatus{
@@ -63,7 +76,7 @@ enum MessageIndicator: String{
     case MessageOffline = "MessageOffline"
 }
 
-enum ContactStatusEnum: String {
+ enum ContactStatusEnum: String {
     case Online = "Online"
     case Offline = "Offline"
     case Invisible = "Invisible"

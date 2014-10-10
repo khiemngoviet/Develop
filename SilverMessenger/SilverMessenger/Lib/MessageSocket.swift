@@ -53,19 +53,18 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         if indicator == MessageIndicator.IsAuthenticate.rawValue {
             if value == "True" {
                 delegateAuthen?.didAuthenticate(true)
-                self.getContact()
             } else {
                 delegateAuthen?.didAuthenticate(false)
             }
         } else if indicator == MessageIndicator.ContactList.rawValue {
             for observer in observers.values {
-                observer.didReceiveContact(mess)
+                observer.didReceiveContact!(mess)
             }
         } else if indicator == MessageIndicator.StatusChange.rawValue {
             let contact = value.componentsSeparatedByString("#")[0]
-            let status = ContactStatusEnum(rawValue: value.componentsSeparatedByString("#")[1])
+            let status = value.componentsSeparatedByString("#")[1]
             for observer in observers.values{
-                observer.didChangeStatus(contact, status: status!)
+                observer.didChangeStatus!(contact, status: status)
             }
         } else if indicator == MessageIndicator.Message.rawValue {
             let fromContact = value.componentsSeparatedByString("#")[0]
@@ -74,7 +73,7 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
             
             self.updateBubbleMessage(fromContact, toContact: toContact, contentMess: contentMess)
             for observer in observers.values{
-                observer.didReceiveMessage(fromContact, toContact: toContact, contentMess: contentMess)
+                observer.didReceiveMessage!(fromContact, toContact: toContact, contentMess: contentMess)
             }
         }
         
@@ -93,6 +92,8 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         var contact: Contact = GlobalVariable.shareInstance.contactSource[fromContact]!
         contact.recentMessage = contentMess
         createChaChingSound()
+       
+        var uuid = NSUUID().UUIDString
         var messageEntity =  BusinessAccess.createMessageEntity()
         messageEntity.company = GlobalVariable.shareInstance.loginInfo.server!
         messageEntity.userName = GlobalVariable.shareInstance.loginInfo.userName!

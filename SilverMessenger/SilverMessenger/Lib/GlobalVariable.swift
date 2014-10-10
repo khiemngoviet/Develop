@@ -11,9 +11,14 @@ import CoreData
 
 class GlobalVariable: NSObject {
     
+    let companyKey = "company"
+    let usernameKey = "username"
+    let passwordKey = "password"
+    
     var loginInfo: LoginInfo = LoginInfo()
     var contactSource: Dictionary<String, Contact> = [String: Contact]()
     var contactSourceFiltered: Dictionary<String, Contact> = [String: Contact]()
+    
     
     var hideOffline:Bool = false
     var contactStatus:ContactStatusEnum = ContactStatusEnum.Online

@@ -70,10 +70,6 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         }
     }
     
-    func didChangeStatus(contact:String, status: ContactStatusEnum){
-        
-    }
-    
     
     @IBAction func sendMessageTouched(sender: UIButton) {
         if !textInput.text.isEmpty {
@@ -158,11 +154,6 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         var bubbleData:NSBubbleData = NSBubbleData(text: message.message, date: message.date, type: bubbleType)
         return bubbleData
     }
-    
-    
-    
-    func didReceiveContact(message: String){
-        //Do nothing
-    }
+
     
 }

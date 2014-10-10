@@ -576,7 +576,7 @@
         <!--Navigation Controller-->
         <scene sceneID="FKa-n3-q0v">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="t7k-wR-oBA" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="t7k-wR-oBA" customClass="NavigationController" customModule="SilverMessenger" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="j2v-MI-nyi">
@@ -587,9 +587,6 @@
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="NqS-AC-sGr">
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
-                    <connections>
-                        <segue destination="1Py-3H-gLR" kind="relationship" relationship="rootViewController" id="xyK-Ra-lYs"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ghS-kS-PqA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

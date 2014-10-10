@@ -19,5 +19,4 @@ class MessageEntity: NSManagedObject {
     @NSManaged var message: String
     @NSManaged var date: NSDate
     @NSManaged var userName: String
-
 }

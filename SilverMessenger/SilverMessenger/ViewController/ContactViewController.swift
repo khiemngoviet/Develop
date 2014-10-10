@@ -34,12 +34,12 @@ class ContactViewController: UITableViewController, MessageDelegate {
         }
     }
     
-    func didChangeStatus(contact: String, status: ContactStatusEnum) {
+    func didChangeStatus(contact: String, status: String) {
         // find index from dictionary based on key
         var index:Int = GlobalVariable.shareInstance.findIndexFromKey(contact)
         let indexPath = NSIndexPath(forRow: index, inSection: 0)
         let cell = tableView.cellForRowAtIndexPath(indexPath) as ContactCell
-        cell.status = status
+        cell.status = ContactStatusEnum(rawValue: status)!
     }
     
     func didReceiveMessage(fromContact: String, toContact: String, contentMess: String) {
