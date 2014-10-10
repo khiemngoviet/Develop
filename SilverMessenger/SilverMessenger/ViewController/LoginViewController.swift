@@ -76,16 +76,26 @@ class Contact{
     
     var name:String
     var status: ContactStatusEnum
-    var shortMessage: String
-    //var bubbleData = [NSBubbleData]()
+    var recentMessage:String{
+        didSet{
+            if countElements(recentMessage) > 50{
+                self.shortMessage = (recentMessage as NSString).substringWithRange(NSRange(location: 0, length: 50)) + "..."
+            }
+            else{
+                self.shortMessage = recentMessage
+            }
+            
+        }
+    }
+    var shortMessage: String = ""
     var messageSource = [MessageEntity]()
     var showIndicator:Bool = false
     var isInConversation:Bool = false
     
-    init(name: String, status: ContactStatusEnum, shortMessage: String){
+    init(name: String, status: ContactStatusEnum, recentMessage: String){
         self.name = name
         self.status = status
-        self.shortMessage = shortMessage
+        self.recentMessage = recentMessage
     }
     
     

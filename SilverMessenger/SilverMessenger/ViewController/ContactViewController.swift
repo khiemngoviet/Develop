@@ -13,13 +13,12 @@ class ContactViewController: UITableViewController, MessageDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        MessageSocket.sharedInstance.register("ContactViewController",observer: self)
+        MessageSocket.sharedInstance.register("ContactViewController", observer: self)
     }
     
     override func viewDidDisappear(animated: Bool) {
         MessageSocket.sharedInstance.unRegister("ContactViewController", observer: self)
     }
-    
     
     func didReceiveContact(message: String) {
         if self.tabBarController?.selectedIndex == 0 {
@@ -28,7 +27,7 @@ class ContactViewController: UITableViewController, MessageDelegate {
             for value: String in arrContact {
                 let name = value.componentsSeparatedByString(":")[0]
                 let status: ContactStatusEnum = ContactStatusEnum(rawValue: value.componentsSeparatedByString(":")[1])!
-                let contact = Contact(name: name, status: status, shortMessage: "")
+                let contact = Contact(name: name, status: status, recentMessage: "")
                 GlobalVariable.shareInstance.contactSource[name] = contact
             }
             tableView.reloadData()
@@ -52,7 +51,6 @@ class ContactViewController: UITableViewController, MessageDelegate {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as ContactCell
             let contact = GlobalVariable.shareInstance.contactSource[fromContact]!
             cell.newMessageIndicator.hidden = !contact.showIndicator
-            cell.recentLabel?.text = contact.shortMessage
         }
     }
     
@@ -74,7 +72,6 @@ class ContactViewController: UITableViewController, MessageDelegate {
         let contact = GlobalVariable.shareInstance.contactSource[key]!
         cell.contactLabel.text = contact.name
         cell.status = contact.status
-        cell.recentLabel.text = contact.shortMessage
         cell.newMessageIndicator.hidden = !contact.showIndicator
         if indexPath.row % 2 == 0 {
             cell.contentView.backgroundColor = UIColor(red: 0.976, green:0.976, blue:0.976, alpha:1)
@@ -94,22 +91,8 @@ class ContactViewController: UITableViewController, MessageDelegate {
         conversationView.contact = GlobalVariable.shareInstance.contactSource[key]! as Contact
         conversationView.contact.showIndicator = false
         conversationView.contact.isInConversation = true
-        //self.updateBadgeTabValue()
+        conversationView.isFromRecent = false
         nav?.pushViewController(conversationView, animated: true)
-    }
-    
-    func updateBadgeTabValue(){
-        let tabBar = self.navigationController?.tabBarController?.tabBar.items?[0] as UITabBarItem
-        if tabBar.badgeValue != nil {
-            var intCountNotification: Int = (tabBar.badgeValue! as NSString).integerValue
-            intCountNotification -= 1
-            if  intCountNotification == 0 {
-                tabBar.badgeValue = nil
-            }
-            else {
-                tabBar.badgeValue = "\(intCountNotification)"
-            }
-        }
     }
     
 }

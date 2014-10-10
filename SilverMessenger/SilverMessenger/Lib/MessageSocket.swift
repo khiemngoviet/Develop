@@ -5,7 +5,8 @@
 //  Created by Tran Ngoc Hieu on 10/4/14.
 //  Copyright (c) 2014 exteam.com. All rights reserved.
 //
-
+import AVFoundation
+import Foundation
 
 private let _shareInstance = MessageSocket()
 
@@ -38,6 +39,11 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     func unRegister(viewName:String ,observer: MessageDelegate){
        observers.removeValueForKey(viewName)
         let count = observers.count
+    }
+    
+    func disconnect(){
+        let currentUserName = GlobalVariable.shareInstance.loginInfo.userName
+        self.sendMessage("Disconnect~\(currentUserName)")
     }
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
@@ -75,8 +81,8 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     }
     
     func getContact() {
-        let contact = GlobalVariable.shareInstance.loginInfo.userName
-        socket.send("ContactList~\(contact)")
+        let currentUserName = GlobalVariable.shareInstance.loginInfo.userName
+        socket.send("ContactList~\(currentUserName)")
     }
     
     func sendMessage(message:String){
@@ -85,30 +91,39 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     
     func updateBubbleMessage(fromContact: String, toContact:String, contentMess: String){
         var contact: Contact = GlobalVariable.shareInstance.contactSource[fromContact]!
-        
-//        var bubbleData:NSBubbleData = NSBubbleData(text: contentMess, date: NSDate(), type: BubbleTypeSomeoneElse)
-//        contact.bubbleData.append(bubbleData)
-
-        var messageEntity =  BusinessAccess.createMessageEntity(GlobalVariable.shareInstance.objectContext!)
-        messageEntity.contact = toContact
+        contact.recentMessage = contentMess
+        createChaChingSound()
+        var messageEntity =  BusinessAccess.createMessageEntity()
+        messageEntity.company = GlobalVariable.shareInstance.loginInfo.server!
+        messageEntity.userName = GlobalVariable.shareInstance.loginInfo.userName!
         messageEntity.contactFrom = fromContact
         messageEntity.contactTo = toContact
-        messageEntity.content = contentMess
+        messageEntity.message = contentMess
         messageEntity.date = NSDate()
-        BusinessAccess.saveMessageEntities(GlobalVariable.shareInstance.objectContext!)
+        messageEntity.contactRecent = fromContact
+        BusinessAccess.saveMessageEntities()
         contact.messageSource.append(messageEntity)
-        //GlobalVariable.shareInstance.messageEntitiesSource.append(messageEntity)
         
-        if countElements(contentMess) > 50{
-            contact.shortMessage = (contentMess as NSString).substringWithRange(NSRange(location: 0, length: 50)) + "..."
-        }
-        else{
-            contact.shortMessage = contentMess
-        }
         if !contact.showIndicator && !contact.isInConversation{
             contact.showIndicator = true
             self.delegateNotification?.notify()
         }
+    }
+    
+    func createChaChingSound() {
+        var audioPlayer = AVAudioPlayer()
+        
+        var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("NewMessage", ofType: "wav")!)
+        println(alertSound)
+        
+        // Removed deprecated use of AVAudioSessionDelegate protocol
+        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
+        AVAudioSession.sharedInstance().setActive(true, error: nil)
+        
+        var error:NSError?
+        audioPlayer = AVAudioPlayer(contentsOfURL: alertSound, error: &error)
+        audioPlayer.prepareToPlay()
+        audioPlayer.play()
     }
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {

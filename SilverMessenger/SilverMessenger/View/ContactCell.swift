@@ -11,7 +11,6 @@ class ContactCell: UITableViewCell {
     @IBOutlet var newMessageIndicator: UIView!
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet var contactLabel: UILabel!
-    @IBOutlet var recentLabel: UILabel!
     
     var status: ContactStatusEnum {
         didSet {

@@ -14,8 +14,6 @@ class GlobalVariable: NSObject {
     var loginInfo: LoginInfo = LoginInfo()
     var contactSource: Dictionary<String, Contact> = [String: Contact]()
     var contactSourceFiltered: Dictionary<String, Contact> = [String: Contact]()
-
-    var objectContext: NSManagedObjectContext?
     
     var hideOffline:Bool = false
     var contactStatus:ContactStatusEnum = ContactStatusEnum.Online

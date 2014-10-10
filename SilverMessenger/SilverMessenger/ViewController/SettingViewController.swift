@@ -43,4 +43,11 @@ class SettingViewController: UITableViewController {
         
     }
     
+    @IBAction func onLogoutTouched(sender: UIButton) {
+        MessageSocket.sharedInstance.disconnect()
+        let vcLogin = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as LoginViewController
+        self.navigationController?.pushViewController(vcLogin, animated: true)
+    }
+    
+    
 }

@@ -12,10 +12,12 @@ import CoreData
 @objc(MessageEntity)
 class MessageEntity: NSManagedObject {
 
-    @NSManaged var contactFrom: String
-    @NSManaged var content: String
-    @NSManaged var date: NSDate
-    @NSManaged var contactTo: String
-    @NSManaged var contact: String
     @NSManaged var company: String
+    @NSManaged var contactFrom: String
+    @NSManaged var contactTo: String
+    @NSManaged var contactRecent: String
+    @NSManaged var message: String
+    @NSManaged var date: NSDate
+    @NSManaged var userName: String
+
 }

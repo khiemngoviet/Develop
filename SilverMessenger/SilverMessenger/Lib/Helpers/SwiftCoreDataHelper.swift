@@ -4,16 +4,6 @@ import CoreData
 
 class SwiftCoreDataHelper: NSObject {
     
-    class func directoryForDatabaseFilename()->NSString{
-        return NSHomeDirectory().stringByAppendingString("/Library/Private Documents")
-    }
-    
-    
-    class func databaseFilename()->NSString{
-        return "database.sqlite";
-    }
-    
-    
     class func managedObjectContext()->NSManagedObjectContext{
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         let context: NSManagedObjectContext = appDelegate.managedObjectContext!

@@ -14,13 +14,15 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     @IBOutlet var viewInputContainer: UIView!
     @IBOutlet var textInput: UITextField!
     
+    
+    
     @IBOutlet var views: UIView!
     @IBOutlet var tableView: UIBubbleTableView!
     
     
     var contact: Contact!
     var isActive = false
-    
+    var isFromRecent = false
     
     
     override func viewWillAppear(animated: Bool) {
@@ -29,9 +31,9 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         //Load all message from core data for current contact
         contact.messageSource.removeAll(keepCapacity: false)
         let currentLoggedInContact = GlobalVariable.shareInstance.loginInfo.userName!
-        let messages = BusinessAccess.getMessageByContact(currentLoggedInContact, context: GlobalVariable.shareInstance.objectContext!)
+        let messages = BusinessAccess.getMessageByContact(contact.name)
         for message in messages as Array<MessageEntity> {
-           
+            
             contact.messageSource.append(message)
         }
         tableView.reloadData()
@@ -40,7 +42,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     override func viewWillDisappear(animated: Bool) {
         self.isActive = false
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +56,11 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: "keyboardWillbeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        contact.isInConversation = false
+        MessageSocket.sharedInstance.unRegister("ConversationViewController", observer: self)
     }
     
     
@@ -73,22 +80,33 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
             let fromContact:String = GlobalVariable.shareInstance.loginInfo.userName!
             let toContact:String = contact.name
             let messageRequest = "Message~\(fromContact)#\(toContact)#\(textInput.text)"
-            let message = BusinessAccess.createMessageEntity(GlobalVariable.shareInstance.objectContext!)
-            message.contact = fromContact
-            message.contactFrom = fromContact
-            message.contactTo = toContact
-            message.content = textInput.text
-            message.date = NSDate()
-            message.company = GlobalVariable.shareInstance.loginInfo.server!
-            BusinessAccess.saveMessageEntities(GlobalVariable.shareInstance.objectContext!)
-            contact.messageSource.append(message)
+            let messageEntity = BusinessAccess.createMessageEntity()
+            messageEntity.company = GlobalVariable.shareInstance.loginInfo.server!
+            messageEntity.userName = GlobalVariable.shareInstance.loginInfo.userName!
+            messageEntity.contactFrom = fromContact
+            messageEntity.contactTo = toContact
+            messageEntity.contactRecent = toContact
+            messageEntity.message = textInput.text
+            messageEntity.date = NSDate()
+            BusinessAccess.saveMessageEntities()
+            contact.messageSource.append(messageEntity)
             MessageSocket.sharedInstance.sendMessage(messageRequest)
+            textInput.text = ""
             tableView.reloadData()
         }
     }
     
     @IBAction func viewTapped(sender: UITapGestureRecognizer) {
         textInput.resignFirstResponder()
+    }
+    
+    @IBAction func onBackTouched(sender: AnyObject) {
+        //TabBarController
+        var tabBar = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarController") as TabBarViewController
+        if self.isFromRecent{
+            tabBar.selectedIndex = 1
+        }
+        self.navigationController?.pushViewController(tabBar, animated: true)
     }
     
     func keyboardWasShown(notification: NSNotification) {
@@ -134,17 +152,14 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     
     func bubbleTableView(tableView: UIBubbleTableView!, dataForRow row: Int) -> NSBubbleData! {
         let message = contact.messageSource[row]
-        println(message.content)
+        println(message.message)
         let currentLoggedInContact = GlobalVariable.shareInstance.loginInfo.userName!
         let bubbleType = message.contactFrom == currentLoggedInContact ? BubbleTypeMine : BubbleTypeSomeoneElse
-        var bubbleData:NSBubbleData = NSBubbleData(text: message.content, date: message.date, type: BubbleTypeSomeoneElse)
+        var bubbleData:NSBubbleData = NSBubbleData(text: message.message, date: message.date, type: bubbleType)
         return bubbleData
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        contact.isInConversation = false
-        MessageSocket.sharedInstance.unRegister("ConversationViewController", observer: self)
-    }
+    
     
     func didReceiveContact(message: String){
         //Do nothing

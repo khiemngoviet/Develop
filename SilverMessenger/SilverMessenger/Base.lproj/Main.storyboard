@@ -8,7 +8,7 @@
         <!--Login View Controller-->
         <scene sceneID="WdC-LV-9fs">
             <objects>
-                <viewController id="1Py-3H-gLR" userLabel="Login View Controller" customClass="LoginViewController" customModule="SilverMessenger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="1Py-3H-gLR" userLabel="Login View Controller" customClass="LoginViewController" customModule="SilverMessenger" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qsM-zS-g7y"/>
                         <viewControllerLayoutGuide type="bottom" id="9gZ-4H-ssJ"/>
@@ -220,6 +220,9 @@
                                                     <state key="normal" title="Log out">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="onLogoutTouched:" destination="978-5A-HOL" eventType="touchUpInside" id="8IK-7v-HRx"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -351,7 +354,7 @@
                                     <navigationItem title="Title" id="mZv-oJ-P2k">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="NnJ-Fy-Waw">
                                             <connections>
-                                                <segue destination="Ftc-8O-cKl" kind="push" id="TSP-aC-KlS"/>
+                                                <action selector="onBackTouched:" destination="yev-tv-6QT" id="h5L-1p-KHA"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -425,14 +428,8 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GaH-hE-Tgr">
                                             <rect key="frame" x="8" y="3" width="290" height="38"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMm-Zj-WJI" userLabel="Recent">
-                                                    <rect key="frame" x="0.0" y="20" width="290" height="16"/>
-                                                    <fontDescription key="fontDescription" name="KohinoorDevanagari-Book" family="Kohinoor Devanagari" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z8i-Uh-B2P" userLabel="Contact">
-                                                    <rect key="frame" x="0.0" y="3" width="290" height="21"/>
+                                                    <rect key="frame" x="0.0" y="3" width="290" height="32"/>
                                                     <fontDescription key="fontDescription" name="KohinoorDevanagari-Medium" family="Kohinoor Devanagari" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -440,12 +437,10 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="Z8i-Uh-B2P" secondAttribute="trailing" id="0PO-Dm-i09"/>
-                                                <constraint firstItem="NMm-Zj-WJI" firstAttribute="leading" secondItem="GaH-hE-Tgr" secondAttribute="leading" id="5xf-JS-PdX"/>
-                                                <constraint firstAttribute="bottom" secondItem="NMm-Zj-WJI" secondAttribute="bottom" constant="2" id="agO-Ie-nM3"/>
+                                                <constraint firstAttribute="centerY" secondItem="Z8i-Uh-B2P" secondAttribute="centerY" id="DtQ-x1-O1q"/>
                                                 <constraint firstAttribute="height" constant="38" id="lQi-9e-PBN"/>
                                                 <constraint firstItem="Z8i-Uh-B2P" firstAttribute="leading" secondItem="GaH-hE-Tgr" secondAttribute="leading" id="mzB-bn-Z10"/>
                                                 <constraint firstItem="Z8i-Uh-B2P" firstAttribute="top" secondItem="GaH-hE-Tgr" secondAttribute="top" constant="3" id="yzl-nn-gC9"/>
-                                                <constraint firstAttribute="trailing" secondItem="NMm-Zj-WJI" secondAttribute="trailing" id="z5E-Ka-7cY"/>
                                             </constraints>
                                         </view>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="niC-Of-cea">
@@ -469,7 +464,6 @@
                                 <connections>
                                     <outlet property="contactLabel" destination="Z8i-Uh-B2P" id="Ynh-sH-Fam"/>
                                     <outlet property="newMessageIndicator" destination="ydt-8q-w9v" id="kOf-aB-eiB"/>
-                                    <outlet property="recentLabel" destination="NMm-Zj-WJI" id="5U6-RG-86O"/>
                                     <outlet property="statusImageView" destination="niC-Of-cea" id="5FX-mO-m5E"/>
                                 </connections>
                             </tableViewCell>
@@ -486,36 +480,37 @@
             </objects>
             <point key="canvasLocation" x="835" y="623"/>
         </scene>
-        <!--Recents-->
-        <scene sceneID="nAE-R0-VPv">
+        <!--Recent-->
+        <scene sceneID="nlJ-qd-vff">
             <objects>
-                <tableViewController id="0FJ-jU-aUY" customClass="RecentViewController" customModule="SilverMessenger" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="fbo-Jb-F0k">
+                <tableViewController id="BqQ-gg-bST" customClass="RecentViewController" customModule="SilverMessenger" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="VSt-O7-Osx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecentCell" id="k4H-FO-XNh" customClass="RecentCell" customModule="SilverMessenger" customModuleProvider="target">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k4H-FO-XNh" id="QnS-Pj-aT6">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecentCell" id="fbu-2a-Uab" customClass="RecentCell" customModule="SilverMessenger" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="262" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fbu-2a-Uab" id="c0v-a5-1CS">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vea-SH-M31">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sZ8-cs-f0Q">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiP-tN-DYk" userLabel="Contact">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sl-WA-Qhk" userLabel="Contact">
                                                     <rect key="frame" x="8" y="3" width="312" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="HW3-PQ-L0d"/>
+                                                        <constraint firstAttribute="height" constant="21" id="fII-Bh-fLw"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="KohinoorDevanagari-Medium" family="Kohinoor Devanagari" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6aV-OV-dJR" userLabel="Recent">
-                                                    <rect key="frame" x="8" y="22" width="282" height="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ppf-RS-en1" userLabel="Recent">
+                                                    <rect key="frame" x="8" y="23" width="282" height="16"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="16" id="rvz-BV-XRf"/>
+                                                        <constraint firstAttribute="height" constant="16" id="kLp-WO-utp"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="KohinoorDevanagari-Book" family="Kohinoor Devanagari" pointSize="11"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -523,39 +518,39 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="6aV-OV-dJR" firstAttribute="leading" secondItem="Vea-SH-M31" secondAttribute="leading" constant="8" id="4b9-UJ-Zgk"/>
-                                                <constraint firstItem="EiP-tN-DYk" firstAttribute="top" secondItem="Vea-SH-M31" secondAttribute="top" constant="3" id="UGQ-nK-4D4"/>
-                                                <constraint firstItem="EiP-tN-DYk" firstAttribute="leading" secondItem="Vea-SH-M31" secondAttribute="leading" constant="8" id="Wfi-d3-yAm"/>
-                                                <constraint firstAttribute="trailing" secondItem="EiP-tN-DYk" secondAttribute="trailing" id="Y3P-TA-1d1"/>
-                                                <constraint firstAttribute="bottom" secondItem="6aV-OV-dJR" secondAttribute="bottom" constant="5" id="r5s-o0-SdU"/>
-                                                <constraint firstAttribute="trailing" secondItem="6aV-OV-dJR" secondAttribute="trailing" constant="30" id="wr3-Ae-xWV"/>
+                                                <constraint firstAttribute="bottom" secondItem="ppf-RS-en1" secondAttribute="bottom" constant="5" id="Kh4-rh-YLO"/>
+                                                <constraint firstAttribute="trailing" secondItem="7sl-WA-Qhk" secondAttribute="trailing" id="KwN-9v-a37"/>
+                                                <constraint firstItem="7sl-WA-Qhk" firstAttribute="leading" secondItem="sZ8-cs-f0Q" secondAttribute="leading" constant="8" id="S2t-hH-0WP"/>
+                                                <constraint firstItem="ppf-RS-en1" firstAttribute="leading" secondItem="sZ8-cs-f0Q" secondAttribute="leading" constant="8" id="cNH-Up-swa"/>
+                                                <constraint firstItem="7sl-WA-Qhk" firstAttribute="top" secondItem="sZ8-cs-f0Q" secondAttribute="top" constant="3" id="h1S-ay-5Qt"/>
+                                                <constraint firstAttribute="trailing" secondItem="ppf-RS-en1" secondAttribute="trailing" constant="30" id="ljN-SG-Nfr"/>
                                             </constraints>
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Vea-SH-M31" firstAttribute="top" secondItem="QnS-Pj-aT6" secondAttribute="top" id="C9g-xQ-6ia"/>
-                                        <constraint firstAttribute="trailing" secondItem="Vea-SH-M31" secondAttribute="trailing" id="SRh-lI-tJ7"/>
-                                        <constraint firstItem="Vea-SH-M31" firstAttribute="leading" secondItem="QnS-Pj-aT6" secondAttribute="leading" id="lTg-Fo-4bx"/>
-                                        <constraint firstAttribute="bottom" secondItem="Vea-SH-M31" secondAttribute="bottom" id="mWw-zR-Ngi"/>
+                                        <constraint firstItem="sZ8-cs-f0Q" firstAttribute="top" secondItem="c0v-a5-1CS" secondAttribute="top" id="63L-sP-IWh"/>
+                                        <constraint firstAttribute="bottom" secondItem="sZ8-cs-f0Q" secondAttribute="bottom" id="Dg7-63-Y2m"/>
+                                        <constraint firstAttribute="trailing" secondItem="sZ8-cs-f0Q" secondAttribute="trailing" id="TYC-K1-ONY"/>
+                                        <constraint firstItem="sZ8-cs-f0Q" firstAttribute="leading" secondItem="c0v-a5-1CS" secondAttribute="leading" id="YKv-cw-ShF"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="contactLabel" destination="EiP-tN-DYk" id="EY9-xO-c9s"/>
-                                    <outlet property="recentLabel" destination="6aV-OV-dJR" id="xdV-tN-cAg"/>
-                                    <outlet property="view" destination="Vea-SH-M31" id="19t-8V-Qfk"/>
+                                    <outlet property="contactLabel" destination="7sl-WA-Qhk" id="gIo-Xz-BFb"/>
+                                    <outlet property="recentLabel" destination="ppf-RS-en1" id="say-ob-mre"/>
+                                    <outlet property="view" destination="sZ8-cs-f0Q" id="ePX-0V-LrC"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="0FJ-jU-aUY" id="yZB-8K-fvx"/>
-                            <outlet property="delegate" destination="0FJ-jU-aUY" id="RfQ-yT-BC9"/>
+                            <outlet property="dataSource" destination="BqQ-gg-bST" id="1tl-4p-uFN"/>
+                            <outlet property="delegate" destination="BqQ-gg-bST" id="4HT-2j-NQe"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Recents" image="recent_icons" id="7dy-kY-FAb"/>
+                    <tabBarItem key="tabBarItem" title="Recent" image="recent_icons" id="156-8g-vME"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lL9-aW-QxW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rpy-AP-jOx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="845" y="1251"/>
+            <point key="canvasLocation" x="807" y="1265"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="byA-Ma-aRP">
@@ -570,7 +565,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="aB3-dM-vfg" kind="relationship" relationship="viewControllers" id="8H4-e1-gxo"/>
-                        <segue destination="0FJ-jU-aUY" kind="relationship" relationship="viewControllers" id="iNM-R7-KGL"/>
+                        <segue destination="BqQ-gg-bST" kind="relationship" relationship="viewControllers" id="TWv-Rc-8qP"/>
                         <segue destination="978-5A-HOL" kind="relationship" relationship="viewControllers" id="fW4-QQ-Ong"/>
                     </connections>
                 </tabBarController>
@@ -578,10 +573,10 @@
             </objects>
             <point key="canvasLocation" x="302" y="726"/>
         </scene>
-        <!--Main Navigation Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="FKa-n3-q0v">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="t7k-wR-oBA" customClass="MainNavigationController" customModule="SilverMessenger" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="t7k-wR-oBA" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="j2v-MI-nyi">
