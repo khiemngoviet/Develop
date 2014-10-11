@@ -37,6 +37,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
             contact.messageSource.append(message)
         }
         tableView.reloadData()
+        tableView.scrollBubbleViewToBottomAnimated(false)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -52,7 +53,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         self.navigationItem.title = contact.name
         tableView.bubbleDataSource = self
         tableView.snapInterval = 30
-        //tableView.reloadData()
+        
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: "keyboardWillbeHidden:", name: UIKeyboardWillHideNotification, object: nil)
@@ -67,6 +68,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     func didReceiveMessage(fromContact: String, toContact:String, contentMess: String){
         if self.isActive{
             tableView.reloadData()
+            tableView.scrollBubbleViewToBottomAnimated(false)
         }
     }
     
@@ -89,7 +91,20 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
             MessageSocket.sharedInstance.sendMessage(messageRequest)
             textInput.text = ""
             tableView.reloadData()
+            //self.insertData()
+            tableView.scrollBubbleViewToBottomAnimated(false)
         }
+    }
+    
+    func insertData() {
+        let numSec = tableView.numberOfSections() - 1
+        let row = tableView.numberOfRowsInSection(numSec) + 1
+      
+        var indxesPath:[NSIndexPath] = [NSIndexPath]()
+        indxesPath.append(NSIndexPath(forRow:row,inSection:numSec));
+        self.tableView.beginUpdates()
+        self.tableView.insertRowsAtIndexPaths(indxesPath, withRowAnimation: UITableViewRowAnimation.Bottom)
+        self.tableView.endUpdates()
     }
     
     @IBAction func viewTapped(sender: UITapGestureRecognizer) {
@@ -111,30 +126,22 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         
         UIView.beginAnimations(nil, context: nil)
         UIView.setAnimationDuration(0.2)
-        
-        //        viewInputContainer.frame = CGRectMake(viewInputContainer.frame.origin.x, (viewInputContainer.frame.origin.y - kbSize.height - 20), viewInputContainer.frame.size.width, viewInputContainer.frame.size.height)
         tableView.setContentOffset(CGPointMake(0, tableView.contentSize.height -  tableView.frame.size.height), animated: false)
         var frame = mainView.frame
         frame.size.height -= kbSize.height
         mainView.frame = frame
         
         UIView.commitAnimations()
-        
+        tableView.scrollBubbleViewToBottomAnimated(false)
     }
     
     func keyboardWillbeHidden(notification: NSNotification) {
         let userInfo = notification.userInfo!
         var kbSize: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
         
-        //        UIView.beginAnimations(nil, context: nil)
-        //        UIView.setAnimationDuration(0.7)
-        
-        //        tableView.frame = CGRectMake(tableView.frame.origin.x, (tableView.frame.origin.y ), tableView.frame.size.width, tableView.frame.size.height + kbSize.height - 49)
-        //        viewInputContainer.frame = CGRectMake(viewInputContainer.frame.origin.x, (viewInputContainer.frame.origin.y + kbSize.height - 49), viewInputContainer.frame.size.width, viewInputContainer.frame.size.height)
         var frame = mainView.frame
         frame.size.height += kbSize.height
         mainView.frame = frame
-        //UIView.commitAnimations()
     }
     
     
@@ -154,6 +161,6 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         var bubbleData:NSBubbleData = NSBubbleData(text: message.message, date: message.date, type: bubbleType)
         return bubbleData
     }
-
+  
     
 }
