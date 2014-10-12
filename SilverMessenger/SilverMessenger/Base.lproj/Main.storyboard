@@ -320,7 +320,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="2Mv-Le-cm1">
-                        <barButtonItem key="rightBarButtonItem" image="Away.png" style="plain" id="USv-TV-jtM">
+                        <barButtonItem key="rightBarButtonItem" image="Away.png" id="USv-TV-jtM">
                             <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         </barButtonItem>
                     </navigationItem>
