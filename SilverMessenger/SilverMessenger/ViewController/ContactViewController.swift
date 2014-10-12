@@ -8,13 +8,19 @@
 
 import UIKit
 
-class ContactViewController: UITableViewController, MessageDelegate {
+class ContactViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MessageDelegate {
+    
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var searchBar: UISearchBar!
+    
     
     var isHideOffline = false
     var contactSourceFilterd = [String: Contact]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
         MessageSocket.sharedInstance.register("ContactViewController", observer: self)
     }
     
@@ -31,6 +37,10 @@ class ContactViewController: UITableViewController, MessageDelegate {
     
     override func viewDidDisappear(animated: Bool) {
         MessageSocket.sharedInstance.unRegister("ContactViewController", observer: self)
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
     }
     
     func reloadTableView(){
@@ -88,7 +98,7 @@ class ContactViewController: UITableViewController, MessageDelegate {
         }
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if self.contactSourceFilterd.isEmpty {
             return 0
         } else {
@@ -96,11 +106,11 @@ class ContactViewController: UITableViewController, MessageDelegate {
         }
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.contactSourceFilterd.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("ContactCell") as ContactCell
         let key = Array(self.contactSourceFilterd.keys)[indexPath.row]
         let contact = self.contactSourceFilterd[key]!
@@ -116,7 +126,7 @@ class ContactViewController: UITableViewController, MessageDelegate {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         let nav = self.navigationController
         var conversationView: ConversationViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ConversationViewController") as ConversationViewController
         let key:String = Array(self.contactSourceFilterd.keys)[indexPath.row]
@@ -127,7 +137,6 @@ class ContactViewController: UITableViewController, MessageDelegate {
         conversationView.isFromRecent = false
         nav?.pushViewController(conversationView, animated: true)
     }
-    
     
     
 }
