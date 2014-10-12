@@ -21,6 +21,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.searchBar.delegate = self
         MessageSocket.sharedInstance.register("ContactViewController", observer: self)
     }
     
@@ -40,7 +41,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        self.reloadTableView()
     }
     
     func reloadTableView(){
@@ -48,12 +49,32 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         if self.isHideOffline{
             for (key, contact) in GlobalVariable.shareInstance.contactSource{
                 if contact.status != ContactStatusEnum.Offline{
-                    self.contactSourceFilterd[key] = contact
+                    if searchBar.text != ""{
+                        let searchText = self.searchBar.text.lowercaseString
+                        let contactKey = key.lowercaseString as NSString
+                        if contactKey.containsString(searchText){
+                            self.contactSourceFilterd[key] = contact
+                        }
+                    }
+                    else{
+                        self.contactSourceFilterd[key] = contact
+                    }
                 }
             }
         }
         else{
-            self.contactSourceFilterd = GlobalVariable.shareInstance.contactSource
+            for (key, contact) in GlobalVariable.shareInstance.contactSource{
+                if searchBar.text != ""{
+                    let searchText = self.searchBar.text.lowercaseString
+                    let contactKey = key.lowercaseString as NSString
+                    if contactKey.containsString(searchText){
+                        self.contactSourceFilterd[key] = contact
+                    }
+                }
+                else{
+                    self.contactSourceFilterd[key] = contact
+                }
+            }
         }
         self.tableView.reloadData()
     }
