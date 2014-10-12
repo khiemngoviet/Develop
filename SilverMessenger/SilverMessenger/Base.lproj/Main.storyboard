@@ -289,6 +289,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="centerY" secondItem="muT-53-eQR" secondAttribute="centerY" id="7Sy-dt-EfK"/>
                                     <constraint firstAttribute="trailing" secondItem="muT-53-eQR" secondAttribute="trailing" constant="4" id="Cff-c1-eCH"/>
