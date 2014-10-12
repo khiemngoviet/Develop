@@ -238,9 +238,9 @@
 		6E3E4AC019E4DF59000F2233 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6E9BA0F619E57A51004CA0F8 /* SilverMessenger.xcdatamodeld */,
 				6E2B612319E7950300420D4E /* CoreDataHelper.swift */,
 				6E3E4AC819E4E9DF000F2233 /* BusinessAccess.swift */,
-				6E9BA0F619E57A51004CA0F8 /* SilverMessenger.xcdatamodeld */,
 				6E9BA0F919E57E75004CA0F8 /* MessageEntity.swift */,
 			);
 			path = Model;
