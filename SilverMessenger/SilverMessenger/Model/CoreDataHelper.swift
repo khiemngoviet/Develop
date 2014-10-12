@@ -2,7 +2,7 @@
 import UIKit
 import CoreData
 
-class SwiftCoreDataHelper: NSObject {
+class CoreDataHelper: NSObject {
     
     class func managedObjectContext()->NSManagedObjectContext{
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate

@@ -13,18 +13,18 @@ class BusinessAccess{
 
     
     class func createMessageEntity() -> MessageEntity {
-        let context = SwiftCoreDataHelper.managedObjectContext()
-        var messageEntity:MessageEntity = SwiftCoreDataHelper.insertManagedObject(NSStringFromClass(MessageEntity), managedObjectConect: context) as MessageEntity
+        let context = CoreDataHelper.managedObjectContext()
+        var messageEntity:MessageEntity = CoreDataHelper.insertManagedObject(NSStringFromClass(MessageEntity), managedObjectConect: context) as MessageEntity
         return messageEntity
     }
     
     class func saveMessageEntities() {
-        let context = SwiftCoreDataHelper.managedObjectContext()
-        SwiftCoreDataHelper.saveManagedObjectContext(context)
+        let context = CoreDataHelper.managedObjectContext()
+        CoreDataHelper.saveManagedObjectContext(context)
     }
 
     class func getRecentMessageByContact(contact:String) -> String {
-        let context = SwiftCoreDataHelper.managedObjectContext()
+        let context = CoreDataHelper.managedObjectContext()
         let sorDesc = NSSortDescriptor(key: "date", ascending: false)
         let request = NSFetchRequest(entityName: NSStringFromClass(MessageEntity))
         let company = GlobalVariable.shareInstance.loginInfo.server!
@@ -41,7 +41,7 @@ class BusinessAccess{
     }
     
     class func getMessageByContact(contact:String) -> NSArray {
-        let context = SwiftCoreDataHelper.managedObjectContext()
+        let context = CoreDataHelper.managedObjectContext()
         let request = NSFetchRequest(entityName: NSStringFromClass(MessageEntity))
         let company = GlobalVariable.shareInstance.loginInfo.server!
         let userName = GlobalVariable.shareInstance.loginInfo.userName!
@@ -52,7 +52,7 @@ class BusinessAccess{
     }
     
     class func getDistinctContact() -> NSArray {
-        let context = SwiftCoreDataHelper.managedObjectContext()
+        let context = CoreDataHelper.managedObjectContext()
         let request = NSFetchRequest(entityName: NSStringFromClass(MessageEntity))
         let company = GlobalVariable.shareInstance.loginInfo.server!
         let userName = GlobalVariable.shareInstance.loginInfo.userName!
@@ -66,11 +66,11 @@ class BusinessAccess{
     }
     
     class func deleteAllMessages(){
-        let context = SwiftCoreDataHelper.managedObjectContext()
+        let context = CoreDataHelper.managedObjectContext()
         let company = GlobalVariable.shareInstance.loginInfo.server!
         let userName = GlobalVariable.shareInstance.loginInfo.userName!
         let predicate = NSPredicate(format: "company == %@ AND userName == %@",company, userName)
-        let results:NSArray = SwiftCoreDataHelper.fetchEntities(NSStringFromClass(MessageEntity), withPredicate: predicate, managedObjectContext:context)
+        let results:NSArray = CoreDataHelper.fetchEntities(NSStringFromClass(MessageEntity), withPredicate: predicate, managedObjectContext:context)
         for message in results {
             context.deleteObject(message as NSManagedObject)
         }

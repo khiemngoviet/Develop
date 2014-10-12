@@ -32,7 +32,7 @@
 		6E2B612019E7948400420D4E /* UIBubbleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2B611819E7948400420D4E /* UIBubbleTableView.m */; };
 		6E2B612119E7948400420D4E /* UIBubbleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2B611A19E7948400420D4E /* UIBubbleTableViewCell.m */; };
 		6E2B612219E7948400420D4E /* UIBubbleTypingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2B611D19E7948400420D4E /* UIBubbleTypingTableViewCell.m */; };
-		6E2B612419E7950300420D4E /* SwiftCoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2B612319E7950300420D4E /* SwiftCoreDataHelper.swift */; };
+		6E2B612419E7950300420D4E /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2B612319E7950300420D4E /* CoreDataHelper.swift */; };
 		6E34251A19E28A0600802DF4 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E34251919E28A0600802DF4 /* TabBarViewController.swift */; };
 		6E34251C19E28A8500802DF4 /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E34251B19E28A8500802DF4 /* NotificationDelegate.swift */; };
 		6E3E4AC919E4E9DF000F2233 /* BusinessAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3E4AC819E4E9DF000F2233 /* BusinessAccess.swift */; };
@@ -41,7 +41,6 @@
 		6E74EEF219D509290055912B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E74EEF119D509290055912B /* Images.xcassets */; };
 		6E74EEF519D509290055912B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E74EEF319D509290055912B /* LaunchScreen.xib */; };
 		6E74EF0119D509290055912B /* SilverMessengerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E74EF0019D509290055912B /* SilverMessengerTests.swift */; };
-		6E8F596219E7DC1B00E8091A /* AppSetting.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6E8F596119E7DC1B00E8091A /* AppSetting.bundle */; };
 		6E9BA0F819E57A51004CA0F8 /* SilverMessenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BA0F619E57A51004CA0F8 /* SilverMessenger.xcdatamodeld */; };
 		6E9BA0FA19E57E75004CA0F8 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BA0F919E57E75004CA0F8 /* MessageEntity.swift */; };
 		6ED98A3019E5321E00136C27 /* RecentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED98A2F19E5321E00136C27 /* RecentCell.swift */; };
@@ -93,7 +92,7 @@
 		6E2B611B19E7948400420D4E /* UIBubbleTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBubbleTableViewDataSource.h; sourceTree = "<group>"; };
 		6E2B611C19E7948400420D4E /* UIBubbleTypingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBubbleTypingTableViewCell.h; sourceTree = "<group>"; };
 		6E2B611D19E7948400420D4E /* UIBubbleTypingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBubbleTypingTableViewCell.m; sourceTree = "<group>"; };
-		6E2B612319E7950300420D4E /* SwiftCoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftCoreDataHelper.swift; sourceTree = "<group>"; };
+		6E2B612319E7950300420D4E /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		6E34251919E28A0600802DF4 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		6E34251B19E28A8500802DF4 /* NotificationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationDelegate.swift; path = ../NotificationDelegate.swift; sourceTree = "<group>"; };
 		6E3E4AC819E4E9DF000F2233 /* BusinessAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessAccess.swift; sourceTree = "<group>"; };
@@ -106,7 +105,6 @@
 		6E74EEFA19D509290055912B /* SilverMessengerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SilverMessengerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E74EEFF19D509290055912B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E74EF0019D509290055912B /* SilverMessengerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SilverMessengerTests.swift; sourceTree = "<group>"; };
-		6E8F596119E7DC1B00E8091A /* AppSetting.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AppSetting.bundle; sourceTree = "<group>"; };
 		6E9BA0F719E57A51004CA0F8 /* SilverMessenger.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SilverMessenger.xcdatamodel; sourceTree = "<group>"; };
 		6E9BA0F919E57E75004CA0F8 /* MessageEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
 		6ED98A2F19E5321E00136C27 /* RecentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentCell.swift; sourceTree = "<group>"; };
@@ -240,7 +238,7 @@
 		6E3E4AC019E4DF59000F2233 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6E2B612319E7950300420D4E /* SwiftCoreDataHelper.swift */,
+				6E2B612319E7950300420D4E /* CoreDataHelper.swift */,
 				6E3E4AC819E4E9DF000F2233 /* BusinessAccess.swift */,
 				6E9BA0F619E57A51004CA0F8 /* SilverMessenger.xcdatamodeld */,
 				6E9BA0F919E57E75004CA0F8 /* MessageEntity.swift */,
@@ -276,7 +274,6 @@
 				6E74EEE519D509290055912B /* Supporting Files */,
 				379FE90719DFB53600B71CFF /* View */,
 				379FE90519DFB4E300B71CFF /* ViewController */,
-				6E8F596119E7DC1B00E8091A /* AppSetting.bundle */,
 			);
 			path = SilverMessenger;
 			sourceTree = "<group>";
@@ -396,7 +393,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E74EEF019D509290055912B /* Main.storyboard in Resources */,
-				6E8F596219E7DC1B00E8091A /* AppSetting.bundle in Resources */,
 				379FE92019DFB5E300B71CFF /* bubbleMine2.png in Resources */,
 				6E74EEF519D509290055912B /* LaunchScreen.xib in Resources */,
 				6EFF479519E698530097404F /* NewMessage.wav in Resources */,
@@ -433,7 +429,7 @@
 				379FE93D19DFBA2C00B71CFF /* RecentViewController.swift in Sources */,
 				6EEB4F3519E7899200304AC9 /* NavigationController.swift in Sources */,
 				6E34251C19E28A8500802DF4 /* NotificationDelegate.swift in Sources */,
-				6E2B612419E7950300420D4E /* SwiftCoreDataHelper.swift in Sources */,
+				6E2B612419E7950300420D4E /* CoreDataHelper.swift in Sources */,
 				6EEB4F3319E7828200304AC9 /* KeychainWapper.m in Sources */,
 				6E3E4AC919E4E9DF000F2233 /* BusinessAccess.swift in Sources */,
 				379FE97619DFBD2200B71CFF /* MessageDelegate.swift in Sources */,
