@@ -325,19 +325,29 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sbt-f8-hh8" userLabel="Status">
+                                <rect key="frame" x="294" y="37" width="10" height="10"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="10" id="SnW-Ti-PwG"/>
+                                    <constraint firstAttribute="height" constant="10" id="WIV-LS-gNm"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="fXF-5V-e0B" firstAttribute="top" secondItem="sbt-f8-hh8" secondAttribute="bottom" constant="17" id="37a-r4-b3r"/>
                             <constraint firstItem="N0I-0N-Bb4" firstAttribute="leading" secondItem="12s-PF-HRB" secondAttribute="leading" id="5Ii-eM-bSS"/>
                             <constraint firstAttribute="trailing" secondItem="N0I-0N-Bb4" secondAttribute="trailing" id="6Gy-qY-0J2"/>
                             <constraint firstAttribute="trailing" secondItem="hH6-Vj-7zD" secondAttribute="trailing" id="7S0-AL-vnj"/>
                             <constraint firstItem="hH6-Vj-7zD" firstAttribute="leading" secondItem="12s-PF-HRB" secondAttribute="leading" id="DaV-wx-T8H"/>
                             <constraint firstItem="fXF-5V-e0B" firstAttribute="leading" secondItem="12s-PF-HRB" secondAttribute="leading" id="G3G-tQ-gfM"/>
                             <constraint firstItem="fXF-5V-e0B" firstAttribute="top" secondItem="N0I-0N-Bb4" secondAttribute="bottom" id="I1B-In-kK7"/>
+                            <constraint firstAttribute="trailing" secondItem="sbt-f8-hh8" secondAttribute="trailing" constant="16" id="PiO-Y9-s0S"/>
                             <constraint firstItem="hH6-Vj-7zD" firstAttribute="top" secondItem="fXF-5V-e0B" secondAttribute="bottom" id="Q8U-Ak-dwa"/>
                             <constraint firstItem="fXF-5V-e0B" firstAttribute="top" secondItem="N0I-0N-Bb4" secondAttribute="bottom" id="SKk-zz-bsY"/>
                             <constraint firstItem="N0I-0N-Bb4" firstAttribute="top" secondItem="hpe-Do-C3e" secondAttribute="bottom" id="cgQ-8a-Hgd"/>
+                            <constraint firstItem="sbt-f8-hh8" firstAttribute="top" secondItem="hpe-Do-C3e" secondAttribute="bottom" constant="17" id="fgE-JO-lKx"/>
                             <constraint firstItem="TUN-A7-2ts" firstAttribute="top" secondItem="hH6-Vj-7zD" secondAttribute="bottom" id="s5W-R7-ez9"/>
                             <constraint firstAttribute="trailing" secondItem="fXF-5V-e0B" secondAttribute="trailing" id="tz3-qr-PhY"/>
                         </constraints>
@@ -352,6 +362,7 @@
                     <connections>
                         <outlet property="mainView" destination="12s-PF-HRB" id="pyn-XO-RsZ"/>
                         <outlet property="navigationItem" destination="mZv-oJ-P2k" id="vMO-bH-dgc"/>
+                        <outlet property="statusImageView" destination="sbt-f8-hh8" id="XLr-iL-oJO"/>
                         <outlet property="tableView" destination="fXF-5V-e0B" id="1C1-N3-9ei"/>
                         <outlet property="textInput" destination="fku-Yv-bOn" id="TQc-si-BuU"/>
                         <outlet property="view" destination="12s-PF-HRB" id="bT4-nZ-wlf"/>

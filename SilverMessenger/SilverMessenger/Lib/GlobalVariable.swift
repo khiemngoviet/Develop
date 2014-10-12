@@ -19,8 +19,6 @@ class GlobalVariable: NSObject {
     
     var loginInfo: LoginInfo = LoginInfo()
     var contactSource: Dictionary<String, Contact> = [String: Contact]()
-
-    var contactStatus:ContactStatusEnum = ContactStatusEnum.Online
     
     class var shareInstance: GlobalVariable {
         get {
@@ -44,6 +42,17 @@ class GlobalVariable: NSObject {
             index++
         }
         return index
+    }
+    
+    func getDefaultValue(key:String) -> AnyObject?{
+        var defaults = NSUserDefaults.standardUserDefaults()
+        return defaults.valueForKey(key)
+    }
+    
+    func setDefaultValue(key:String, value:AnyObject){
+        var defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setValue(value, forKey: key)
+        defaults.synchronize()
     }
     
 }

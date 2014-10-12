@@ -17,12 +17,13 @@ class SettingViewController: UITableViewController, UIActionSheetDelegate {
     
     var selectedStatus: ContactStatusEnum?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         companyId.text = "\(KeychainWrapper.load(GlobalVariable.shareInstance.companyKey))"
-        var defaults = NSUserDefaults.standardUserDefaults()
-        hideOfflineSwitch.on  = defaults.boolForKey(GlobalVariable.shareInstance.hideOfflineKey)
+        hideOfflineSwitch.on  = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) as Bool
+        
+        let status = ContactStatusEnum(rawValue: GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.statusKey) as String)
+        statusButtons.setTitle(statusContact[status!], forState: UIControlState.Normal)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -41,39 +42,37 @@ class SettingViewController: UITableViewController, UIActionSheetDelegate {
     
     
     @IBAction func onStatusTouched(sender: UIButton) {
-        //        var statusView = self.storyboard?.instantiateViewControllerWithIdentifier("statusView") as StatusViewController
-        //        statusView.view.userInteractionEnabled = true
-        //        self.view.addSubview(statusView.view)
-        
-        
         let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Online", "Invisible","Away","Do not disturb")
         actionSheet.showInView(self.view)
     }
-
+    
     
     func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int)
     {
         switch buttonIndex{
-            
-        case 0:
-            NSLog("Done");
-            break;
         case 1:
-            NSLog("Cancel");
+            self.changeStatus(ContactStatusEnum.Online)
             break;
         case 2:
-            NSLog("Yes");
+            self.changeStatus(ContactStatusEnum.Invisible)
             break;
         case 3:
-            NSLog("No");
+            self.changeStatus(ContactStatusEnum.Away)
+            break;
+        case 4:
+            self.changeStatus(ContactStatusEnum.DoNotDisturb)
             break;
         default:
-            NSLog("Default");
             break;
-            //Some code here..
-            
         }
     }
+    
+    func changeStatus(status:ContactStatusEnum){
+        GlobalVariable.shareInstance.setDefaultValue(GlobalVariable.shareInstance.statusKey, value: status.rawValue)
+        MessageSocket.sharedInstance.changeStatus(status)
+        statusButtons.setTitle(statusContact[status], forState: UIControlState.Normal)
+    }
+    
     
     @IBAction func onLogoutTouched(sender: UIButton) {
         var refreshAlert = UIAlertController(title: "Logout", message: "Are you sure you want to logout?", preferredStyle: UIAlertControllerStyle.Alert)

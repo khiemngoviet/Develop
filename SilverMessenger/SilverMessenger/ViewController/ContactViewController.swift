@@ -20,7 +20,12 @@ class ContactViewController: UITableViewController, MessageDelegate {
     
     override func viewDidAppear(animated: Bool) {
         var defaults = NSUserDefaults.standardUserDefaults()
-        self.isHideOffline = defaults.boolForKey(GlobalVariable.shareInstance.hideOfflineKey)
+        if GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) != nil {
+            self.isHideOffline = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) as Bool
+        }
+        else{
+            GlobalVariable.shareInstance.setDefaultValue(GlobalVariable.shareInstance.hideOfflineKey, value: self.isHideOffline)
+        }
         self.reloadTableView()
     }
     
@@ -57,12 +62,18 @@ class ContactViewController: UITableViewController, MessageDelegate {
         }
     }
     
-    func didChangeStatus(contact: String, status: String) {
+    //Message Delegate function
+    func didChangeStatus(contactKey: String, status: String) {
         // find index from dictionary based on key
-        var index:Int = GlobalVariable.shareInstance.findIndexFromKey(contact)
-        let indexPath = NSIndexPath(forRow: index, inSection: 0)
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as ContactCell
-        cell.status = ContactStatusEnum(rawValue: status)!
+        var contact = GlobalVariable.shareInstance.contactSource[contactKey]
+        if contact != nil {
+            var index:Int = GlobalVariable.shareInstance.findIndexFromKey(contactKey)
+            let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            if cell != nil{
+                (cell as ContactCell).status = ContactStatusEnum(rawValue: status)!
+            }
+        }
     }
     
     func didReceiveMessage(fromContact: String, toContact: String, contentMess: String) {
@@ -106,7 +117,6 @@ class ContactViewController: UITableViewController, MessageDelegate {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        //
         let nav = self.navigationController
         var conversationView: ConversationViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ConversationViewController") as ConversationViewController
         let key:String = Array(self.contactSourceFilterd.keys)[indexPath.row]

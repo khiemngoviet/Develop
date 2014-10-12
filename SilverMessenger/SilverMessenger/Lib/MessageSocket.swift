@@ -26,7 +26,14 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     func authenticateUser(companyId: String, userName: String, pwd: String) {
         GlobalVariable.shareInstance.loginInfo.server = companyId
         GlobalVariable.shareInstance.loginInfo.userName = userName
-        let urlString = NSURL(string: "ws://\(companyId).azurewebsites.net/Chat?username=\(userName)&pass=\(pwd)&status=Online")
+        var status:ContactStatusEnum = ContactStatusEnum.Online
+        if GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.statusKey) != nil{
+            status = ContactStatusEnum(rawValue: (GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.statusKey) as String))!
+        }
+        else{
+            GlobalVariable.shareInstance.setDefaultValue(GlobalVariable.shareInstance.statusKey, value: status.rawValue)
+        }
+        let urlString = NSURL(string: "ws://\(companyId).azurewebsites.net/Chat?username=\(userName)&pass=\(pwd)&status=\(status.rawValue)")
         socket = SRWebSocket(URL: urlString)
         socket.delegate = self
         socket.open()
@@ -37,7 +44,7 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     }
     
     func unRegister(viewName:String ,observer: MessageDelegate){
-       observers.removeValueForKey(viewName)
+        observers.removeValueForKey(viewName)
         let count = observers.count
     }
     
@@ -64,6 +71,7 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         } else if indicator == MessageIndicator.StatusChange.rawValue {
             let contact = value.componentsSeparatedByString("#")[0]
             let status = value.componentsSeparatedByString("#")[1]
+            self.changeContactStatus(contact, status: status)
             for observer in observers.values{
                 observer.didChangeStatus!(contact, status: status)
             }
@@ -80,6 +88,13 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         
     }
     
+    func changeContactStatus(contactKey:String,status:String){
+        var contact = GlobalVariable.shareInstance.contactSource[contactKey]
+        if contact != nil {
+            contact?.status = ContactStatusEnum(rawValue: status)!
+        }
+    }
+    
     func getContact() {
         let currentUserName = GlobalVariable.shareInstance.loginInfo.userName
         socket.send("ContactList~\(currentUserName)")
@@ -89,11 +104,16 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         socket.send(message)
     }
     
+    func changeStatus(status:ContactStatusEnum){
+        let currentUserName = GlobalVariable.shareInstance.loginInfo.userName
+        socket.send("StatusChange~\(currentUserName)#\(status.rawValue)")
+    }
+    
     func updateBubbleMessage(fromContact: String, toContact:String, contentMess: String){
         var contact: Contact = GlobalVariable.shareInstance.contactSource[fromContact]!
         contact.recentMessage = contentMess
         createChaChingSound()
-       
+        
         var uuid = NSUUID().UUIDString
         var messageEntity =  BusinessAccess.createMessageEntity()
         messageEntity.company = GlobalVariable.shareInstance.loginInfo.server!
@@ -129,8 +149,13 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     }
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
-        
+        var timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
     }
+    
+    func update() {
+        self.sendMessage("KeepAlive")
+    }
+   
     
     func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
         

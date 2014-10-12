@@ -9,14 +9,11 @@
 import UIKit
 
 class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbleTableViewDataSource, MessageDelegate {
-    
-    @IBOutlet var navigationItems: UINavigationItem!
+
     @IBOutlet var mainView: UIView!
     @IBOutlet var viewInputContainer: UIView!
     @IBOutlet var textInput: UITextField!
-    
-    
-    
+    @IBOutlet var statusImageView: UIImageView!
     @IBOutlet var views: UIView!
     @IBOutlet var tableView: UIBubbleTableView!
     
@@ -28,6 +25,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     
     override func viewWillAppear(animated: Bool) {
         self.isActive = true
+        self.setStatus(contact.status)
         navigationItem.title = contact.name
         //Load all message from core data for current contact
         contact.messageSource.removeAll(keepCapacity: false)
@@ -44,13 +42,17 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         self.isActive = false
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        contact.isInConversation = false
+        MessageSocket.sharedInstance.unRegister("ConversationViewController", observer: self)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        MessageSocket.sharedInstance.register("ConversationViewController",observer: self)
+        MessageSocket.sharedInstance.register(NSStringFromClass(ConversationViewController),observer: self)
         
         textInput.delegate = self
-        self.navigationItem.title = contact.name
         tableView.bubbleDataSource = self
         tableView.snapInterval = 30
         
@@ -59,11 +61,24 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         notificationCenter.addObserver(self, selector: "keyboardWillbeHidden:", name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        contact.isInConversation = false
-        MessageSocket.sharedInstance.unRegister("ConversationViewController", observer: self)
+    func setStatus(status:ContactStatusEnum){
+        switch status{
+        case .Online:
+            statusImageView.image = UIImage(named:"Online.png")
+        case .Away:
+            statusImageView.image = UIImage(named:"Away.png")
+        case .DoNotDisturb:
+            statusImageView.image = UIImage(named:"DonotDisturb.png")
+        default:
+            statusImageView.image = nil
+        }
     }
     
+    //Message Delegate function begin
+    func didChangeStatus(contactKey: String, status: String) {
+        self.setStatus(ContactStatusEnum(rawValue: status)!)
+    }
+    //Message Delegate function end
     
     func didReceiveMessage(fromContact: String, toContact:String, contentMess: String){
         if self.isActive{

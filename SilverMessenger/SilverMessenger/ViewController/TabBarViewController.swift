@@ -13,6 +13,7 @@ class TabBarViewController: UITabBarController, NotificationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         MessageSocket.sharedInstance.delegateNotification = self
+        self.tabBar.translucent = false
     }
     
     func notify() {
