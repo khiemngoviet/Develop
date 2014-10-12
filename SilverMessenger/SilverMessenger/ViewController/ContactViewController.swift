@@ -146,17 +146,17 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         return cell
     }
+
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        let nav = self.navigationController
-        var conversationView: ConversationViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ConversationViewController") as ConversationViewController
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let indexPath = self.tableView.indexPathForCell(sender as ContactCell)!
+        var conversationView: ConversationViewController = segue.destinationViewController as ConversationViewController
         let key:String = Array(self.contactSourceFilterd.keys)[indexPath.row]
         let contacs =  self.contactSourceFilterd[key]!
         conversationView.contact = self.contactSourceFilterd[key]! as Contact
         conversationView.contact.showIndicator = false
         conversationView.contact.isInConversation = true
         conversationView.isFromRecent = false
-        nav?.pushViewController(conversationView, animated: true)
     }
     
     

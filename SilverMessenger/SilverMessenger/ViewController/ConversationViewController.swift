@@ -9,23 +9,42 @@
 import UIKit
 
 class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbleTableViewDataSource, MessageDelegate {
-
+    
     @IBOutlet var mainView: UIView!
     @IBOutlet var viewInputContainer: UIView!
     @IBOutlet var textInput: UITextField!
-    @IBOutlet var statusImageView: UIImageView!
-    @IBOutlet var views: UIView!
     @IBOutlet var tableView: UIBubbleTableView!
+    @IBOutlet var imageStatus: UIBarButtonItem!
     
     
     var contact: Contact!
     var isActive = false
     var isFromRecent = false
     
+    var status:ContactStatusEnum = ContactStatusEnum.Offline{
+        didSet{
+            switch status{
+            case .Online:
+                imageStatus.image = UIImage(named: "Online.png")
+                imageStatus.tintColor = UIColor(red:0, green:0.765, blue:0.275, alpha:1)
+            case .Away:
+                imageStatus.image = UIImage(named: "Online.png")
+                imageStatus.tintColor = UIColor(red:1, green:0.8, blue:0.247, alpha:1)
+            case .DoNotDisturb:
+                imageStatus.image = UIImage(named: "Online.png")
+                imageStatus.tintColor = UIColor(red:0.965, green:0, blue:0.157, alpha:1)
+            case .Offline:
+                imageStatus.image = UIImage(named: "Online.png")
+                imageStatus.tintColor = UIColor(red:0.8, green:0.8, blue:0.8, alpha:1)
+            default:
+                imageStatus.image = nil
+            }
+        }
+    }
     
     override func viewWillAppear(animated: Bool) {
         self.isActive = true
-        self.setStatus(contact.status)
+        self.status = contact.status
         navigationItem.title = contact.name
         //Load all message from core data for current contact
         contact.messageSource.removeAll(keepCapacity: false)
@@ -38,11 +57,10 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         tableView.scrollBubbleViewToBottomAnimated(false)
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        self.isActive = false
-    }
     
     override func viewDidDisappear(animated: Bool) {
+       
+        self.isActive = false
         contact.isInConversation = false
         MessageSocket.sharedInstance.unRegister("ConversationViewController", observer: self)
     }
@@ -50,33 +68,22 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         MessageSocket.sharedInstance.register(NSStringFromClass(ConversationViewController),observer: self)
         
         textInput.delegate = self
         tableView.bubbleDataSource = self
         tableView.snapInterval = 30
-        
+
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: "keyboardWillbeHidden:", name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    func setStatus(status:ContactStatusEnum){
-        switch status{
-        case .Online:
-            statusImageView.image = UIImage(named:"Online.png")
-        case .Away:
-            statusImageView.image = UIImage(named:"Away.png")
-        case .DoNotDisturb:
-            statusImageView.image = UIImage(named:"DonotDisturb.png")
-        default:
-            statusImageView.image = nil
-        }
-    }
     
     //Message Delegate function begin
     func didChangeStatus(contactKey: String, status: String) {
-        self.setStatus(ContactStatusEnum(rawValue: status)!)
+        self.status = ContactStatusEnum(rawValue: status)!
     }
     //Message Delegate function end
     
@@ -114,7 +121,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     func insertData() {
         let numSec = tableView.numberOfSections() - 1
         let row = tableView.numberOfRowsInSection(numSec) + 1
-      
+        
         var indxesPath:[NSIndexPath] = [NSIndexPath]()
         indxesPath.append(NSIndexPath(forRow:row,inSection:numSec));
         self.tableView.beginUpdates()
@@ -122,28 +129,24 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         self.tableView.endUpdates()
     }
     
+    
     @IBAction func viewTapped(sender: UITapGestureRecognizer) {
         textInput.resignFirstResponder()
     }
     
-    @IBAction func onBackTouched(sender: AnyObject) {
-        //TabBarController
-        var tabBar = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarController") as TabBarViewController
-        if self.isFromRecent{
-            tabBar.selectedIndex = 1
-        }
-        self.navigationController?.pushViewController(tabBar, animated: true)
-    }
     
     func keyboardWasShown(notification: NSNotification) {
         let userInfo = notification.userInfo!
         var kbSize: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+        let tabBarHeight =  self.tabBarController?.tabBar.frame.size.height
         
         UIView.beginAnimations(nil, context: nil)
         UIView.setAnimationDuration(0.2)
         tableView.setContentOffset(CGPointMake(0, tableView.contentSize.height -  tableView.frame.size.height), animated: false)
+        
         var frame = mainView.frame
         frame.size.height -= kbSize.height
+        frame.size.height += tabBarHeight!
         mainView.frame = frame
         
         UIView.commitAnimations()
@@ -153,9 +156,11 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     func keyboardWillbeHidden(notification: NSNotification) {
         let userInfo = notification.userInfo!
         var kbSize: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+        let tabBarHeight =  self.tabBarController?.tabBar.frame.size.height
         
         var frame = mainView.frame
         frame.size.height += kbSize.height
+        frame.size.height -= tabBarHeight!
         mainView.frame = frame
     }
     
@@ -170,12 +175,11 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     
     func bubbleTableView(tableView: UIBubbleTableView!, dataForRow row: Int) -> NSBubbleData! {
         let message = contact.messageSource[row]
-        println(message.message)
         let currentLoggedInContact = GlobalVariable.shareInstance.loginInfo.userName!
         let bubbleType = message.contactFrom == currentLoggedInContact ? BubbleTypeMine : BubbleTypeSomeoneElse
         var bubbleData:NSBubbleData = NSBubbleData(text: message.message, date: message.date, type: bubbleType)
         return bubbleData
     }
-  
+    
     
 }

@@ -46,6 +46,7 @@
 		6ED98A3019E5321E00136C27 /* RecentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED98A2F19E5321E00136C27 /* RecentCell.swift */; };
 		6EEB4F3319E7828200304AC9 /* KeychainWapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EEB4F3219E7828200304AC9 /* KeychainWapper.m */; };
 		6EEB4F3519E7899200304AC9 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEB4F3419E7899200304AC9 /* NavigationController.swift */; };
+		6EF2775E19EA9A8E00475E5F /* Offline.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EF2775D19EA9A8E00475E5F /* Offline.png */; };
 		6EFF479519E698530097404F /* NewMessage.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6EFF479419E698530097404F /* NewMessage.wav */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +113,7 @@
 		6EEB4F3119E7826D00304AC9 /* KeychainWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeychainWrapper.h; sourceTree = "<group>"; };
 		6EEB4F3219E7828200304AC9 /* KeychainWapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWapper.m; sourceTree = "<group>"; };
 		6EEB4F3419E7899200304AC9 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		6EF2775D19EA9A8E00475E5F /* Offline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Offline.png; sourceTree = "<group>"; };
 		6EFF479419E698530097404F /* NewMessage.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = NewMessage.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,6 +171,7 @@
 		379FE90819DFB57D00B71CFF /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				6EF2775D19EA9A8E00475E5F /* Offline.png */,
 				6EFF479419E698530097404F /* NewMessage.wav */,
 				379FE90A19DFB5E300B71CFF /* Away.png */,
 				379FE90B19DFB5E300B71CFF /* background_gradient_basic_background_gradient_gray_11_5000x4000.jpg */,
@@ -403,6 +406,7 @@
 				379FE92819DFB5E300B71CFF /* missingAvatar@2x.png in Resources */,
 				6E74EEF219D509290055912B /* Images.xcassets in Resources */,
 				379FE92319DFB5E300B71CFF /* bubbleSomeone2.png in Resources */,
+				6EF2775E19EA9A8E00475E5F /* Offline.png in Resources */,
 				379FE91E19DFB5E300B71CFF /* background_gradient_basic_background_gradient_gray_11_5000x4000.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

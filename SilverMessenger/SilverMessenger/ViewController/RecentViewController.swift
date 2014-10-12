@@ -84,17 +84,18 @@ class RecentViewController: UITableViewController{
             return 1
         }
     }
+
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let nav = self.navigationController
-        var conversationView: ConversationViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ConversationViewController") as ConversationViewController
-        let key:String = Array(recentContactSource.keys)[indexPath.row]
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let indexPath = self.tableView.indexPathForCell(sender as RecentCell)!
+        var conversationView: ConversationViewController = segue.destinationViewController as ConversationViewController
+        let key:String = Array(self.recentContactSource.keys)[indexPath.row]
         let contacs =  recentContactSource[key]!
         conversationView.contact = recentContactSource[key]! as Contact
         conversationView.contact.showIndicator = false
         conversationView.contact.isInConversation = true
         conversationView.isFromRecent = true
-        nav?.pushViewController(conversationView, animated: true)
+
     }
     
  
