@@ -9,92 +9,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SilverMessenger/Lib/MessageSocket.swift"
-            timestampString = "434945030.621834"
+            filePath = "SilverMessenger/ViewController/NavigationController.swift"
+            timestampString = "434970901.90962"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "webSocket(_:didCloseWithCode:reason:wasClean:)"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "viewDidLoad()"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SilverMessenger/Lib/MessageSocket.swift"
-            timestampString = "434945077.982658"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "webSocket(_:didFailWithError:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SilverMessenger/Application/AppDelegate.swift"
-            timestampString = "434946768.081251"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "applicationWillEnterForeground(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SilverMessenger/ViewController/LoginViewController.swift"
-            timestampString = "434947521.203951"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "didAuthenticate(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SilverMessenger.LoginViewController.didAuthenticate (SilverMessenger.LoginViewController)(Swift.Bool) -&gt; ()"
-                  moduleName = "SilverMessenger"
-                  urlString = "file:///Volumes/DATA/Develop/SilverMessenger/SilverMessenger/ViewController/LoginViewController.swift"
-                  timestampString = "434947745.280611"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "protocol witness for SilverMessenger.AuthenticateDelegate.didAuthenticate &lt;A : SilverMessenger.AuthenticateDelegate&gt;(inout SilverMessenger.AuthenticateDelegate.Self)(Swift.Bool) -&gt; () in conformance SilverMessenger.LoginViewController : SilverMessenger.AuthenticateDelegate"
-                  moduleName = "SilverMessenger"
-                  urlString = "file:///Volumes/DATA/Develop/SilverMessenger/SilverMessenger/ViewController/LoginViewController.swift"
-                  timestampString = "434947745.280935"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40"
-                  offsetFromSymbolStart = "15">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

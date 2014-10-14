@@ -14,4 +14,5 @@
 #import "UIBubbleTableViewDataSource.h"
 #import "UIBubbleTypingTableViewCell.h"
 #import "KeychainWrapper.h"
+#import "Reachability.h"
 

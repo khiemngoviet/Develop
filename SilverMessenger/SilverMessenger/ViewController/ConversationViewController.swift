@@ -42,7 +42,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     }
     
     override func viewWillAppear(animated: Bool) {
-        MessageSocket.sharedInstance.register(NSStringFromClass(ConversationViewController),observer: self)
+        GlobalVariable.shareInstance.register("ConversationViewController",observer: self)
         self.isActive = true
         self.status = contact.status
         navigationItem.title = contact.name
@@ -62,7 +62,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
        
         self.isActive = false
         contact.isInConversation = false
-        MessageSocket.sharedInstance.unRegister("ConversationViewController", observer: self)
+        GlobalVariable.shareInstance.unRegister("ConversationViewController", observer: self)
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.removeObserver(self)
     }

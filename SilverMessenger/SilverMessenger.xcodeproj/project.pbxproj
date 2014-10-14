@@ -22,9 +22,7 @@
 		379FE93E19DFBA2C00B71CFF /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379FE93519DFBA2C00B71CFF /* SettingViewController.swift */; };
 		379FE97419DFBD2200B71CFF /* GlobalVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379FE97019DFBD2200B71CFF /* GlobalVariable.swift */; };
 		379FE97519DFBD2200B71CFF /* LoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379FE97119DFBD2200B71CFF /* LoginInfo.swift */; };
-		379FE97619DFBD2200B71CFF /* MessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379FE97219DFBD2200B71CFF /* MessageDelegate.swift */; };
 		379FE97719DFBD2200B71CFF /* MessageSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379FE97319DFBD2200B71CFF /* MessageSocket.swift */; };
-		379FE97B19DFBECE00B71CFF /* AuthenticateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379FE97A19DFBECE00B71CFF /* AuthenticateDelegate.swift */; };
 		379FE97D19DFC87600B71CFF /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379FE97C19DFC87600B71CFF /* ContactCell.swift */; };
 		6E2B611E19E7948400420D4E /* NSBubbleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2B611419E7948400420D4E /* NSBubbleData.m */; };
 		6E2B611F19E7948400420D4E /* UIBubbleHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2B611619E7948400420D4E /* UIBubbleHeaderTableViewCell.m */; };
@@ -35,12 +33,17 @@
 		6E2FD71419EB8D87002D1F1B /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2FD71319EB8D87002D1F1B /* SRWebSocket.m */; };
 		6E2FD71719EB8E5F002D1F1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2FD71619EB8E5F002D1F1B /* AppDelegate.swift */; };
 		6E34251A19E28A0600802DF4 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E34251919E28A0600802DF4 /* TabBarViewController.swift */; };
-		6E34251C19E28A8500802DF4 /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E34251B19E28A8500802DF4 /* NotificationDelegate.swift */; };
 		6E3E4AC919E4E9DF000F2233 /* BusinessAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3E4AC819E4E9DF000F2233 /* BusinessAccess.swift */; };
 		6E74EEF019D509290055912B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E74EEEE19D509290055912B /* Main.storyboard */; };
 		6E74EEF219D509290055912B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E74EEF119D509290055912B /* Images.xcassets */; };
 		6E74EEF519D509290055912B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E74EEF319D509290055912B /* LaunchScreen.xib */; };
 		6E74EF0119D509290055912B /* SilverMessengerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E74EF0019D509290055912B /* SilverMessengerTests.swift */; };
+		6E867E3B19ED070800F8C355 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E3A19ED070800F8C355 /* Reachability.m */; };
+		6E867E4019ED107700F8C355 /* AuthenticateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E3D19ED107700F8C355 /* AuthenticateDelegate.swift */; };
+		6E867E4119ED107700F8C355 /* MessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E3E19ED107700F8C355 /* MessageDelegate.swift */; };
+		6E867E4219ED107700F8C355 /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E3F19ED107700F8C355 /* NotificationDelegate.swift */; };
+		6E867E4419ED10D200F8C355 /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E4319ED10D200F8C355 /* ReachabilityManager.swift */; };
+		6E867E4619ED14DC00F8C355 /* ReachabilityDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E4519ED14DC00F8C355 /* ReachabilityDelegate.swift */; };
 		6E9BA0F819E57A51004CA0F8 /* SilverMessenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BA0F619E57A51004CA0F8 /* SilverMessenger.xcdatamodeld */; };
 		6E9BA0FA19E57E75004CA0F8 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BA0F919E57E75004CA0F8 /* MessageEntity.swift */; };
 		6ED98A3019E5321E00136C27 /* RecentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED98A2F19E5321E00136C27 /* RecentCell.swift */; };
@@ -76,9 +79,7 @@
 		379FE93519DFBA2C00B71CFF /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		379FE97019DFBD2200B71CFF /* GlobalVariable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVariable.swift; sourceTree = "<group>"; };
 		379FE97119DFBD2200B71CFF /* LoginInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInfo.swift; sourceTree = "<group>"; };
-		379FE97219DFBD2200B71CFF /* MessageDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageDelegate.swift; path = ../MessageDelegate.swift; sourceTree = "<group>"; };
 		379FE97319DFBD2200B71CFF /* MessageSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageSocket.swift; sourceTree = "<group>"; };
-		379FE97A19DFBECE00B71CFF /* AuthenticateDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthenticateDelegate.swift; path = ../AuthenticateDelegate.swift; sourceTree = "<group>"; };
 		379FE97C19DFC87600B71CFF /* ContactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
 		6E2B611319E7948400420D4E /* NSBubbleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBubbleData.h; sourceTree = "<group>"; };
 		6E2B611419E7948400420D4E /* NSBubbleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBubbleData.m; sourceTree = "<group>"; };
@@ -96,7 +97,6 @@
 		6E2FD71319EB8D87002D1F1B /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
 		6E2FD71619EB8E5F002D1F1B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E34251919E28A0600802DF4 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		6E34251B19E28A8500802DF4 /* NotificationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationDelegate.swift; path = ../NotificationDelegate.swift; sourceTree = "<group>"; };
 		6E3E4AC819E4E9DF000F2233 /* BusinessAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessAccess.swift; sourceTree = "<group>"; };
 		6E74EEE219D509290055912B /* SilverMessenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SilverMessenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E74EEE619D509290055912B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,6 +106,13 @@
 		6E74EEFA19D509290055912B /* SilverMessengerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SilverMessengerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E74EEFF19D509290055912B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E74EF0019D509290055912B /* SilverMessengerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SilverMessengerTests.swift; sourceTree = "<group>"; };
+		6E867E3919ED070800F8C355 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		6E867E3A19ED070800F8C355 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		6E867E3D19ED107700F8C355 /* AuthenticateDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticateDelegate.swift; sourceTree = "<group>"; };
+		6E867E3E19ED107700F8C355 /* MessageDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDelegate.swift; sourceTree = "<group>"; };
+		6E867E3F19ED107700F8C355 /* NotificationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
+		6E867E4319ED10D200F8C355 /* ReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
+		6E867E4519ED14DC00F8C355 /* ReachabilityDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityDelegate.swift; sourceTree = "<group>"; };
 		6E9BA0F719E57A51004CA0F8 /* SilverMessenger.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SilverMessenger.xcdatamodel; sourceTree = "<group>"; };
 		6E9BA0F919E57E75004CA0F8 /* MessageEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
 		6ED98A2F19E5321E00136C27 /* RecentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentCell.swift; sourceTree = "<group>"; };
@@ -181,26 +188,18 @@
 		379FE95319DFBBDB00B71CFF /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				6E867E3C19ED107700F8C355 /* Delegates */,
+				6E867E3819ED06F500F8C355 /* Reachability */,
 				6E2FD71119EB8D87002D1F1B /* SRWebsocket */,
 				6EEB4F2B19E77EF800304AC9 /* KeyChainWrapper */,
 				6E2B611219E7948400420D4E /* UIBubble */,
-				6E2B611119E7942C00420D4E /* Delegates */,
 				379FE97019DFBD2200B71CFF /* GlobalVariable.swift */,
 				379FE97119DFBD2200B71CFF /* LoginInfo.swift */,
 				379FE97319DFBD2200B71CFF /* MessageSocket.swift */,
+				6E867E4319ED10D200F8C355 /* ReachabilityManager.swift */,
 				6EE5249019D56BE90004CCAF /* SilverMessenger-Bridging-Header.h */,
 			);
 			path = Lib;
-			sourceTree = "<group>";
-		};
-		6E2B611119E7942C00420D4E /* Delegates */ = {
-			isa = PBXGroup;
-			children = (
-				379FE97219DFBD2200B71CFF /* MessageDelegate.swift */,
-				379FE97A19DFBECE00B71CFF /* AuthenticateDelegate.swift */,
-				6E34251B19E28A8500802DF4 /* NotificationDelegate.swift */,
-			);
-			path = Delegates;
 			sourceTree = "<group>";
 		};
 		6E2B611219E7948400420D4E /* UIBubble */ = {
@@ -304,6 +303,26 @@
 				6E74EEFF19D509290055912B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6E867E3819ED06F500F8C355 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				6E867E3919ED070800F8C355 /* Reachability.h */,
+				6E867E3A19ED070800F8C355 /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
+		6E867E3C19ED107700F8C355 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				6E867E3D19ED107700F8C355 /* AuthenticateDelegate.swift */,
+				6E867E3E19ED107700F8C355 /* MessageDelegate.swift */,
+				6E867E3F19ED107700F8C355 /* NotificationDelegate.swift */,
+				6E867E4519ED14DC00F8C355 /* ReachabilityDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 		6EEB4F2B19E77EF800304AC9 /* KeyChainWrapper */ = {
@@ -429,16 +448,18 @@
 				6E2B612219E7948400420D4E /* UIBubbleTypingTableViewCell.m in Sources */,
 				379FE93819DFBA2C00B71CFF /* ContactViewController.swift in Sources */,
 				379FE93919DFBA2C00B71CFF /* ConversationViewController.swift in Sources */,
-				379FE97B19DFBECE00B71CFF /* AuthenticateDelegate.swift in Sources */,
 				379FE93D19DFBA2C00B71CFF /* RecentViewController.swift in Sources */,
+				6E867E4019ED107700F8C355 /* AuthenticateDelegate.swift in Sources */,
 				6EEB4F3519E7899200304AC9 /* NavigationController.swift in Sources */,
-				6E34251C19E28A8500802DF4 /* NotificationDelegate.swift in Sources */,
 				6E2B612419E7950300420D4E /* CoreDataHelper.swift in Sources */,
 				6EEB4F3319E7828200304AC9 /* KeychainWapper.m in Sources */,
+				6E867E4619ED14DC00F8C355 /* ReachabilityDelegate.swift in Sources */,
+				6E867E3B19ED070800F8C355 /* Reachability.m in Sources */,
 				6E3E4AC919E4E9DF000F2233 /* BusinessAccess.swift in Sources */,
-				379FE97619DFBD2200B71CFF /* MessageDelegate.swift in Sources */,
+				6E867E4219ED107700F8C355 /* NotificationDelegate.swift in Sources */,
 				6E2B611F19E7948400420D4E /* UIBubbleHeaderTableViewCell.m in Sources */,
 				6ED98A3019E5321E00136C27 /* RecentCell.swift in Sources */,
+				6E867E4419ED10D200F8C355 /* ReachabilityManager.swift in Sources */,
 				6E2B612019E7948400420D4E /* UIBubbleTableView.m in Sources */,
 				379FE97419DFBD2200B71CFF /* GlobalVariable.swift in Sources */,
 				6E9BA0F819E57A51004CA0F8 /* SilverMessenger.xcdatamodeld in Sources */,
@@ -446,6 +467,7 @@
 				6E2B611E19E7948400420D4E /* NSBubbleData.m in Sources */,
 				379FE93E19DFBA2C00B71CFF /* SettingViewController.swift in Sources */,
 				379FE97719DFBD2200B71CFF /* MessageSocket.swift in Sources */,
+				6E867E4119ED107700F8C355 /* MessageDelegate.swift in Sources */,
 				6E2FD71719EB8E5F002D1F1B /* AppDelegate.swift in Sources */,
 				379FE93B19DFBA2C00B71CFF /* LoginViewController.swift in Sources */,
 				379FE97D19DFC87600B71CFF /* ContactCell.swift in Sources */,

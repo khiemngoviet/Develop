@@ -45,7 +45,6 @@ class LoginViewController: UIViewController, AuthenticateDelegate {
             let sb = UIStoryboard(name: "Main", bundle: nil)
             let tabVC = sb.instantiateViewControllerWithIdentifier("TabBarController") as UITabBarController
             self.navigationController?.pushViewController(tabVC, animated: true)
-            MessageSocket.sharedInstance.getContact()
         } else {
             // Show message
             let alert = UIAlertView(title: "", message: "Login failed.", delegate: nil, cancelButtonTitle: "OK")

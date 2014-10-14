@@ -11,6 +11,8 @@ import CoreData
 
 class GlobalVariable: NSObject {
     
+    var observers = [String: MessageDelegate]()
+    
     let companyKey = "company"
     let usernameKey = "username"
     let passwordKey = "password"
@@ -65,6 +67,21 @@ class GlobalVariable: NSObject {
         else{
             return ("\(companyId)", "\(username)", "\(pwd)")
         }
+    }
+    
+    func register(viewName:String, observer: MessageDelegate) {
+        let counts = GlobalVariable.shareInstance.observers.count
+        observers[viewName] = observer
+    }
+    
+    func unRegister(viewName:String ,observer: MessageDelegate){
+        let counts = GlobalVariable.shareInstance.observers.count
+        observers.removeValueForKey(viewName)
+        let count = observers.count
+    }
+    
+    func clearObServer(){
+        observers.removeAll(keepCapacity: false)
     }
     
 }

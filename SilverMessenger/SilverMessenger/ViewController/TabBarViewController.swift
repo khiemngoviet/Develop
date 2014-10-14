@@ -14,6 +14,7 @@ class TabBarViewController: UITabBarController, NotificationDelegate {
         super.viewDidLoad()
         MessageSocket.sharedInstance.delegateNotification = self
         self.tabBar.translucent = false
+        
     }
     
     func notify() {
@@ -42,5 +43,18 @@ class TabBarViewController: UITabBarController, NotificationDelegate {
             }
         }
     }
+    
+//    func initReachabilityHost(hostName:String){
+//       var hostReachability = Reachability(hostName: hostName)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("reachabilityChanged"), name: kReachabilityChangedNotification, object: nil)
+//        hostReachability?.startNotifier()
+//    }
+//    
+//    func reachabilityChanged(noti:NSNotification){
+//        let reachability = noti.object as Reachability
+//        let status = reachability.currentReachabilityStatus()
+//        
+//    }
+
     
 }

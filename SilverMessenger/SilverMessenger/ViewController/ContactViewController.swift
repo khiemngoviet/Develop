@@ -22,7 +22,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.searchBar.delegate = self
-        
+        MessageSocket.sharedInstance.getContact()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -30,8 +30,9 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     override func viewDidAppear(animated: Bool) {
-        MessageSocket.sharedInstance.register(NSStringFromClass(ContactViewController), observer: self)
+        GlobalVariable.shareInstance.register("ContactViewController", observer: self)
         
+        MessageSocket.sharedInstance.getContact()
         var defaults = NSUserDefaults.standardUserDefaults()
         if GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) != nil {
             self.isHideOffline = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) as Bool
@@ -44,7 +45,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidDisappear(animated: Bool) {
         self.isActive = false
-        MessageSocket.sharedInstance.unRegister(NSStringFromClass(ContactViewController), observer: self)
+        GlobalVariable.shareInstance.unRegister("ContactViewController", observer: self)
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {

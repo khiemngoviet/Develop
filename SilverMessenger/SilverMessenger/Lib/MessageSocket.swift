@@ -17,7 +17,7 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     var delegateAuthen: AuthenticateDelegate?
     var delegateNotification: NotificationDelegate?
     
-    var observers = [String: MessageDelegate]()
+    
     
     var timer:NSTimer!
     var timerReconnect:NSTimer!
@@ -42,18 +42,7 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         socket.open()
     }
     
-    func register(viewName:String, observer: MessageDelegate) {
-        observers[viewName] = observer
-    }
-    
-    func unRegister(viewName:String ,observer: MessageDelegate){
-        observers.removeValueForKey(viewName)
-        let count = observers.count
-    }
-    
-    func clearObServer(){
-        observers.removeAll(keepCapacity: false)
-    }
+   
     
     func disconnect(){
         let currentUserName = GlobalVariable.shareInstance.loginInfo.userName
@@ -72,14 +61,14 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
                 delegateAuthen?.didAuthenticate(false)
             }
         } else if indicator == MessageIndicator.ContactList.rawValue {
-            for observer in observers.values {
+            for observer in GlobalVariable.shareInstance.observers.values {
                 observer.didReceiveContact!(mess)
             }
         } else if indicator == MessageIndicator.StatusChange.rawValue {
             let contact = value.componentsSeparatedByString("#")[0]
             let status = value.componentsSeparatedByString("#")[1]
             self.changeContactStatus(contact, status: status)
-            for observer in observers.values{
+            for observer in GlobalVariable.shareInstance.observers.values{
                 observer.didChangeStatus!(contact, status: status)
             }
         } else if indicator == MessageIndicator.Message.rawValue {
@@ -88,7 +77,7 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
             let contentMess = value.componentsSeparatedByString("#")[2]
             
             self.updateBubbleMessage(fromContact, toContact: toContact, contentMess: contentMess)
-            for observer in observers.values{
+            for observer in GlobalVariable.shareInstance.observers.values{
                 observer.didReceiveMessage!(fromContact, toContact: toContact, contentMess: contentMess)
             }
         }

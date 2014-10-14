@@ -87,6 +87,7 @@ class SettingViewController: UITableViewController, UIActionSheetDelegate {
     }
     
     func doSignout(){
+        GlobalVariable.shareInstance.clearObServer()
         MessageSocket.sharedInstance.disconnect()
         KeychainWrapper.delete(GlobalVariable.shareInstance.companyKey)
         KeychainWrapper.delete(GlobalVariable.shareInstance.usernameKey)
