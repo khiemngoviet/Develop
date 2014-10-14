@@ -7,9 +7,11 @@
 //
 
 @objc protocol MessageDelegate {
-   optional func didReceiveMessage(fromContact: String, toContact:String, contentMess: String)
-   optional func didChangeStatus(contactKey:String, status: String)
-   optional func didReceiveContact(message: String)
+    
+     var isActive:Bool {get set}
+    optional func didReceiveMessage(fromContact: String, toContact:String, contentMess: String)
+    optional func didChangeStatus(contactKey:String, status: String)
+    optional func didReceiveContact(message: String)
     
     
 }

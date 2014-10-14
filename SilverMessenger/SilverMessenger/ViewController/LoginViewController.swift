@@ -45,6 +45,7 @@ class LoginViewController: UIViewController, AuthenticateDelegate {
             let sb = UIStoryboard(name: "Main", bundle: nil)
             let tabVC = sb.instantiateViewControllerWithIdentifier("TabBarController") as UITabBarController
             self.navigationController?.pushViewController(tabVC, animated: true)
+            MessageSocket.sharedInstance.getContact()
         } else {
             // Show message
             let alert = UIAlertView(title: "", message: "Login failed.", delegate: nil, cancelButtonTitle: "OK")
@@ -59,6 +60,18 @@ class LoginViewController: UIViewController, AuthenticateDelegate {
         KeychainWrapper.save(GlobalVariable.shareInstance.companyKey, data: companyIdTextField.text)
         KeychainWrapper.save(GlobalVariable.shareInstance.usernameKey, data: userNameTextField.text)
         KeychainWrapper.save(GlobalVariable.shareInstance.passwordKey, data: passwordTextField.text)
+    }
+    
+    @IBAction func viewInsideTapped(sender: UITapGestureRecognizer) {
+        userNameTextField.resignFirstResponder()
+        companyIdTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+    }
+   
+    @IBAction func viewContainerTapped(sender: UITapGestureRecognizer) {
+        userNameTextField.resignFirstResponder()
+        companyIdTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
     }
     
 }

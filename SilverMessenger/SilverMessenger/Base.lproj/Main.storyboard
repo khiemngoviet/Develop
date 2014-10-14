@@ -60,14 +60,19 @@
                                         <rect key="frame" x="99" y="228" width="20" height="20"/>
                                     </activityIndicatorView>
                                 </subviews>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="219" id="CrS-1k-qaX"/>
                                     <constraint firstAttribute="height" constant="255" id="JGF-ms-YaJ"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="255" id="hVx-WM-g4f"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="y87-bl-Vpr" appends="YES" id="lHe-Cf-bnT"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="euj-fw-McQ" firstAttribute="top" secondItem="yJE-Au-V37" secondAttribute="top" constant="80" id="Lby-dD-4gV"/>
                             <constraint firstItem="9gZ-4H-ssJ" firstAttribute="top" secondItem="nJ7-ZE-fTT" secondAttribute="bottom" id="c1D-Ji-C4V"/>
@@ -76,6 +81,9 @@
                             <constraint firstItem="nJ7-ZE-fTT" firstAttribute="leading" secondItem="yJE-Au-V37" secondAttribute="leading" id="x27-a9-O5c"/>
                             <constraint firstItem="nJ7-ZE-fTT" firstAttribute="top" secondItem="qsM-zS-g7y" secondAttribute="bottom" id="xhw-yV-r9E"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="8W3-Lq-QWd" appends="YES" id="e2i-qx-oEM"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="rdR-j4-jn7"/>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -89,6 +97,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Px4-Z7-zdk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="y87-bl-Vpr" userLabel="Tap Gesture Recognizer Inside">
+                    <connections>
+                        <action selector="viewInsideTapped:" destination="1Py-3H-gLR" id="Qae-lp-Grk"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="8W3-Lq-QWd" userLabel="Tap Gesture Recognizer Container">
+                    <connections>
+                        <action selector="viewContainerTapped:" destination="1Py-3H-gLR" id="dft-Ku-IBO"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="430" y="-94"/>
         </scene>
@@ -362,9 +380,10 @@
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="dKN-da-BhP">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="dKN-da-BhP">
                                 <rect key="frame" x="0.0" y="108" width="320" height="411"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" restorationIdentifier="ContactCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" id="Vem-jV-yYl" customClass="ContactCell" customModule="SilverMessenger" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="262" width="320" height="44"/>
@@ -428,6 +447,7 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="7xZ-wN-gJr" secondAttribute="trailing" id="4n9-rW-VkV"/>
                             <constraint firstItem="dKN-da-BhP" firstAttribute="top" secondItem="7xZ-wN-gJr" secondAttribute="bottom" id="629-jP-VF0"/>
@@ -622,6 +642,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="MU0-JN-sQc"/>
+        <segue reference="dKe-JK-8gW"/>
     </inferredMetricsTieBreakers>
 </document>

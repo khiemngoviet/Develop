@@ -13,7 +13,7 @@ class NavigationController: UINavigationController, AuthenticateDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        let keychain = self.loadKeychain()
+        let keychain = GlobalVariable.shareInstance.loadKeychain()
         if keychain == nil{
             //navigate to Login view
             self.navigateToLoginView()
@@ -30,23 +30,14 @@ class NavigationController: UINavigationController, AuthenticateDelegate {
             //Navigate to Contact view
             let vcTabBar = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarController") as TabBarViewController
             self.pushViewController(vcTabBar, animated: true)
+            MessageSocket.sharedInstance.getContact()
         }
         else{
             self.navigateToLoginView()
         }
     }
 
-    func loadKeychain() -> (companyId:String, username:String, pwd:String)?{
-       let companyId = KeychainWrapper.load(GlobalVariable.shareInstance.companyKey)
-       let username = KeychainWrapper.load(GlobalVariable.shareInstance.usernameKey)
-       let pwd = KeychainWrapper.load(GlobalVariable.shareInstance.passwordKey)
-        if companyId == nil{
-            return nil
-        }
-        else{
-            return ("\(companyId)", "\(username)", "\(pwd)")
-        }
-    }
+    
   
 
     func navigateToLoginView(){

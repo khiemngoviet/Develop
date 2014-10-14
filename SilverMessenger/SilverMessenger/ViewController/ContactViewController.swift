@@ -13,7 +13,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet var tableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     
-    
+    var isActive: Bool = false
     var isHideOffline = false
     var contactSourceFilterd = [String: Contact]()
     
@@ -22,10 +22,16 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.searchBar.delegate = self
-        MessageSocket.sharedInstance.register("ContactViewController", observer: self)
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.isActive = true
     }
     
     override func viewDidAppear(animated: Bool) {
+        MessageSocket.sharedInstance.register(NSStringFromClass(ContactViewController), observer: self)
+        
         var defaults = NSUserDefaults.standardUserDefaults()
         if GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) != nil {
             self.isHideOffline = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) as Bool
@@ -37,7 +43,8 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     override func viewDidDisappear(animated: Bool) {
-        MessageSocket.sharedInstance.unRegister("ContactViewController", observer: self)
+        self.isActive = false
+        MessageSocket.sharedInstance.unRegister(NSStringFromClass(ContactViewController), observer: self)
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
@@ -80,7 +87,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func didReceiveContact(message: String) {
-        if self.tabBarController?.selectedIndex == 0 {
+        if self.isActive {
             let contactPart: String = message.componentsSeparatedByString("~")[1]
             let arrContact = contactPart.componentsSeparatedByString(",") //[Contact:Status]
             for value: String in arrContact {
@@ -146,7 +153,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         return cell
     }
-
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let indexPath = self.tableView.indexPathForCell(sender as ContactCell)!
@@ -154,10 +161,17 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         let key:String = Array(self.contactSourceFilterd.keys)[indexPath.row]
         let contacs =  self.contactSourceFilterd[key]!
         conversationView.contact = self.contactSourceFilterd[key]! as Contact
-        conversationView.contact.showIndicator = false
+        if conversationView.contact.showIndicator {
+            conversationView.contact.showIndicator = false
+            MessageSocket.sharedInstance.clearNotificationBagle()
+        }
         conversationView.contact.isInConversation = true
         conversationView.isFromRecent = false
     }
+    
+    
+    
+    
     
     
 }

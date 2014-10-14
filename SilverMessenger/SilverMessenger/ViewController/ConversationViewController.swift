@@ -16,9 +16,8 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     @IBOutlet var tableView: UIBubbleTableView!
     @IBOutlet var imageStatus: UIBarButtonItem!
     
-    
+    var isActive:Bool = false
     var contact: Contact!
-    var isActive = false
     var isFromRecent = false
     
     var status:ContactStatusEnum = ContactStatusEnum.Offline{
@@ -43,6 +42,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     }
     
     override func viewWillAppear(animated: Bool) {
+        MessageSocket.sharedInstance.register(NSStringFromClass(ConversationViewController),observer: self)
         self.isActive = true
         self.status = contact.status
         navigationItem.title = contact.name
@@ -63,13 +63,15 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         self.isActive = false
         contact.isInConversation = false
         MessageSocket.sharedInstance.unRegister("ConversationViewController", observer: self)
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.removeObserver(self)
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        MessageSocket.sharedInstance.register(NSStringFromClass(ConversationViewController),observer: self)
+        
         
         textInput.delegate = self
         tableView.bubbleDataSource = self

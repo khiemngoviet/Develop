@@ -8,5 +8,7 @@
 
 import Foundation
 protocol NotificationDelegate{
+    
     func notify()
+    func clearNotification ()
 }

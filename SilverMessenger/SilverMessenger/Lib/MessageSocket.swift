@@ -19,6 +19,9 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     
     var observers = [String: MessageDelegate]()
     
+    var timer:NSTimer!
+    var timerReconnect:NSTimer!
+    
     class var sharedInstance: MessageSocket {
         return _shareInstance
     }
@@ -48,6 +51,10 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         let count = observers.count
     }
     
+    func clearObServer(){
+        observers.removeAll(keepCapacity: false)
+    }
+    
     func disconnect(){
         let currentUserName = GlobalVariable.shareInstance.loginInfo.userName
         self.sendMessage("Disconnect~\(currentUserName)")
@@ -60,7 +67,7 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         if indicator == MessageIndicator.IsAuthenticate.rawValue {
             if value == "True" {
                 delegateAuthen?.didAuthenticate(true)
-                self.getContact() //getContact
+                //self.getContact() //getContact
             } else {
                 delegateAuthen?.didAuthenticate(false)
             }
@@ -128,16 +135,22 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         
         if !contact.showIndicator && !contact.isInConversation{
             contact.showIndicator = true
-            self.delegateNotification?.notify()
+            self.notifyBagle()
         }
+    }
+    
+    func notifyBagle(){
+        self.delegateNotification?.notify()
+    }
+    
+    func clearNotificationBagle(){
+        self.delegateNotification?.clearNotification()
     }
     
     func createChaChingSound() {
         var audioPlayer = AVAudioPlayer()
         
         var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("NewMessage", ofType: "wav")!)
-        println(alertSound)
-        
         // Removed deprecated use of AVAudioSessionDelegate protocol
         AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
         AVAudioSession.sharedInstance().setActive(true, error: nil)
@@ -149,19 +162,38 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     }
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
-        var timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
     }
     
     func update() {
         self.sendMessage("KeepAlive")
     }
-   
+    
+    
+    
     
     func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
-        
+        if timer != nil{
+            timer.invalidate()
+            timer = nil
+        }
+        //54: login fail (connection closed by server)
+        //57: network connection unplugged
+        if error.code != 54 && error.code != 57{
+            let alert = UIAlertView(title: "", message: "\(error)", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        println(error.code)
     }
     
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
-        
+        if timer != nil{
+            timer.invalidate()
+            timer = nil
+        }
+        if code != 1000 && code != 1001{
+            let alert = UIAlertView(title: "", message: "\(reason)", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
     }
 }

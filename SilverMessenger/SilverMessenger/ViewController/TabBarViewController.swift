@@ -9,7 +9,7 @@
 import UIKit
 
 class TabBarViewController: UITabBarController, NotificationDelegate {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         MessageSocket.sharedInstance.delegateNotification = self
@@ -28,5 +28,19 @@ class TabBarViewController: UITabBarController, NotificationDelegate {
         }
         tabBarItem.badgeValue = "\(indicatorCount)"
     }
-
+    
+    func clearNotification() {
+        var tabBarItem:UITabBarItem =  self.tabBar.items?[0] as UITabBarItem
+        var indicatorCount: Int
+        if tabBarItem.badgeValue != nil {
+            indicatorCount = (tabBarItem.badgeValue! as NSString).integerValue
+            if indicatorCount > 1 {
+                tabBarItem.badgeValue = "\(indicatorCount - 1)"
+            }
+            else if indicatorCount == 1{
+                tabBarItem.badgeValue = nil
+            }
+        }
+    }
+    
 }
