@@ -171,6 +171,16 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     
+    @IBAction func searchButtonTapped(sender: UIBarButtonItem) {
+        let constr: NSLayoutConstraint = searchBar.constraints()[0] as NSLayoutConstraint
+        if searchBar.hidden{
+            constr.constant = 44
+        }
+        else{
+            constr.constant = 0
+        }
+        searchBar.hidden = !searchBar.hidden
+    }
     
     
     

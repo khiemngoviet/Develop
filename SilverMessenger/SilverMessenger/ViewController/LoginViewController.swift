@@ -75,52 +75,6 @@ class LoginViewController: UIViewController, AuthenticateDelegate {
     
 }
 
-enum LoginStatus{
-    case Fail, Success
-}
-
-enum MessageIndicator: String{
-    case IsAuthenticate = "IsAuthenticate"
-    case ContactList = "ContactList"
-    case StatusChange = "StatusChange"
-    case Message = "Message"
-    case MessageOffline = "MessageOffline"
-}
-
- enum ContactStatusEnum: String {
-    case Online = "Online"
-    case Offline = "Offline"
-    case Invisible = "Invisible"
-    case Away = "Away"
-    case DoNotDisturb = "DoNotDisturb"
-}
 
 
-class Contact{
-    
-    var name:String
-    var status: ContactStatusEnum
-    var recentMessage:String{
-        didSet{
-            if countElements(recentMessage) > 50{
-                self.shortMessage = (recentMessage as NSString).substringWithRange(NSRange(location: 0, length: 50)) + "..."
-            }
-            else{
-                self.shortMessage = recentMessage
-            }
-            
-        }
-    }
-    var shortMessage: String = ""
-    var messageSource = [MessageEntity]()
-    var showIndicator:Bool = false
-    var isInConversation:Bool = false
-    
-    init(name: String, status: ContactStatusEnum, recentMessage: String){
-        self.name = name
-        self.status = status
-        self.recentMessage = recentMessage
-    }
-    
-    
-}
+

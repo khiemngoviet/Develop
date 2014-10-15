@@ -34,6 +34,8 @@
 		6E2FD71719EB8E5F002D1F1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2FD71619EB8E5F002D1F1B /* AppDelegate.swift */; };
 		6E34251A19E28A0600802DF4 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E34251919E28A0600802DF4 /* TabBarViewController.swift */; };
 		6E3E4AC919E4E9DF000F2233 /* BusinessAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3E4AC819E4E9DF000F2233 /* BusinessAccess.swift */; };
+		6E3F7CCD19EE7476002A4F79 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3F7CCC19EE7476002A4F79 /* Contact.swift */; };
+		6E3F7CCF19EE749B002A4F79 /* Enumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3F7CCE19EE749B002A4F79 /* Enumeration.swift */; };
 		6E74EEF019D509290055912B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E74EEEE19D509290055912B /* Main.storyboard */; };
 		6E74EEF219D509290055912B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E74EEF119D509290055912B /* Images.xcassets */; };
 		6E74EEF519D509290055912B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E74EEF319D509290055912B /* LaunchScreen.xib */; };
@@ -96,6 +98,8 @@
 		6E2FD71619EB8E5F002D1F1B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E34251919E28A0600802DF4 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		6E3E4AC819E4E9DF000F2233 /* BusinessAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessAccess.swift; sourceTree = "<group>"; };
+		6E3F7CCC19EE7476002A4F79 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		6E3F7CCE19EE749B002A4F79 /* Enumeration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enumeration.swift; sourceTree = "<group>"; };
 		6E74EEE219D509290055912B /* SilverMessenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SilverMessenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E74EEE619D509290055912B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E74EEEF19D509290055912B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -192,6 +196,8 @@
 				379FE97019DFBD2200B71CFF /* GlobalVariable.swift */,
 				379FE97119DFBD2200B71CFF /* LoginInfo.swift */,
 				379FE97319DFBD2200B71CFF /* MessageSocket.swift */,
+				6E3F7CCC19EE7476002A4F79 /* Contact.swift */,
+				6E3F7CCE19EE749B002A4F79 /* Enumeration.swift */,
 				6EE5249019D56BE90004CCAF /* SilverMessenger-Bridging-Header.h */,
 			);
 			path = Lib;
@@ -446,8 +452,10 @@
 				6E867E4019ED107700F8C355 /* AuthenticateDelegate.swift in Sources */,
 				6EEB4F3519E7899200304AC9 /* NavigationController.swift in Sources */,
 				6E2B612419E7950300420D4E /* CoreDataHelper.swift in Sources */,
+				6E3F7CCD19EE7476002A4F79 /* Contact.swift in Sources */,
 				6EEB4F3319E7828200304AC9 /* KeychainWapper.m in Sources */,
 				6E867E3B19ED070800F8C355 /* Reachability.m in Sources */,
+				6E3F7CCF19EE749B002A4F79 /* Enumeration.swift in Sources */,
 				6E3E4AC919E4E9DF000F2233 /* BusinessAccess.swift in Sources */,
 				6E867E4219ED107700F8C355 /* NotificationDelegate.swift in Sources */,
 				6E2B611F19E7948400420D4E /* UIBubbleHeaderTableViewCell.m in Sources */,
