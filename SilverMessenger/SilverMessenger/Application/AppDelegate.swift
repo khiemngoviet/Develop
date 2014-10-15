@@ -64,8 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if MessageSocket.sharedInstance.socket.readyState.value == 3{ //Socket closed state
             let keychain = GlobalVariable.shareInstance.loadKeychain()
             //reconnect to socket
-            GlobalVariable.shareInstance.clearObServer()
-            MessageSocket.sharedInstance.authenticateUser(keychain!.companyId, userName: keychain!.username, pwd: keychain!.pwd)
+            MessageSocket.sharedInstance.reconnect()
         }
     }
     
