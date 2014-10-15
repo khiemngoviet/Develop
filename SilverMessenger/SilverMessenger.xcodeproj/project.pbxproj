@@ -42,8 +42,6 @@
 		6E867E4019ED107700F8C355 /* AuthenticateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E3D19ED107700F8C355 /* AuthenticateDelegate.swift */; };
 		6E867E4119ED107700F8C355 /* MessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E3E19ED107700F8C355 /* MessageDelegate.swift */; };
 		6E867E4219ED107700F8C355 /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E3F19ED107700F8C355 /* NotificationDelegate.swift */; };
-		6E867E4419ED10D200F8C355 /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E4319ED10D200F8C355 /* ReachabilityManager.swift */; };
-		6E867E4619ED14DC00F8C355 /* ReachabilityDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E4519ED14DC00F8C355 /* ReachabilityDelegate.swift */; };
 		6E9BA0F819E57A51004CA0F8 /* SilverMessenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BA0F619E57A51004CA0F8 /* SilverMessenger.xcdatamodeld */; };
 		6E9BA0FA19E57E75004CA0F8 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BA0F919E57E75004CA0F8 /* MessageEntity.swift */; };
 		6ED98A3019E5321E00136C27 /* RecentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED98A2F19E5321E00136C27 /* RecentCell.swift */; };
@@ -111,8 +109,6 @@
 		6E867E3D19ED107700F8C355 /* AuthenticateDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticateDelegate.swift; sourceTree = "<group>"; };
 		6E867E3E19ED107700F8C355 /* MessageDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDelegate.swift; sourceTree = "<group>"; };
 		6E867E3F19ED107700F8C355 /* NotificationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
-		6E867E4319ED10D200F8C355 /* ReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
-		6E867E4519ED14DC00F8C355 /* ReachabilityDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityDelegate.swift; sourceTree = "<group>"; };
 		6E9BA0F719E57A51004CA0F8 /* SilverMessenger.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SilverMessenger.xcdatamodel; sourceTree = "<group>"; };
 		6E9BA0F919E57E75004CA0F8 /* MessageEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
 		6ED98A2F19E5321E00136C27 /* RecentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentCell.swift; sourceTree = "<group>"; };
@@ -196,7 +192,6 @@
 				379FE97019DFBD2200B71CFF /* GlobalVariable.swift */,
 				379FE97119DFBD2200B71CFF /* LoginInfo.swift */,
 				379FE97319DFBD2200B71CFF /* MessageSocket.swift */,
-				6E867E4319ED10D200F8C355 /* ReachabilityManager.swift */,
 				6EE5249019D56BE90004CCAF /* SilverMessenger-Bridging-Header.h */,
 			);
 			path = Lib;
@@ -320,7 +315,6 @@
 				6E867E3D19ED107700F8C355 /* AuthenticateDelegate.swift */,
 				6E867E3E19ED107700F8C355 /* MessageDelegate.swift */,
 				6E867E3F19ED107700F8C355 /* NotificationDelegate.swift */,
-				6E867E4519ED14DC00F8C355 /* ReachabilityDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -453,13 +447,11 @@
 				6EEB4F3519E7899200304AC9 /* NavigationController.swift in Sources */,
 				6E2B612419E7950300420D4E /* CoreDataHelper.swift in Sources */,
 				6EEB4F3319E7828200304AC9 /* KeychainWapper.m in Sources */,
-				6E867E4619ED14DC00F8C355 /* ReachabilityDelegate.swift in Sources */,
 				6E867E3B19ED070800F8C355 /* Reachability.m in Sources */,
 				6E3E4AC919E4E9DF000F2233 /* BusinessAccess.swift in Sources */,
 				6E867E4219ED107700F8C355 /* NotificationDelegate.swift in Sources */,
 				6E2B611F19E7948400420D4E /* UIBubbleHeaderTableViewCell.m in Sources */,
 				6ED98A3019E5321E00136C27 /* RecentCell.swift in Sources */,
-				6E867E4419ED10D200F8C355 /* ReachabilityManager.swift in Sources */,
 				6E2B612019E7948400420D4E /* UIBubbleTableView.m in Sources */,
 				379FE97419DFBD2200B71CFF /* GlobalVariable.swift in Sources */,
 				6E9BA0F819E57A51004CA0F8 /* SilverMessenger.xcdatamodeld in Sources */,

@@ -17,10 +17,9 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     var delegateAuthen: AuthenticateDelegate?
     var delegateNotification: NotificationDelegate?
     
-    
-    
     var timer:NSTimer!
-    var timerReconnect:NSTimer!
+    var isReconnect:Bool = false
+    
     
     class var sharedInstance: MessageSocket {
         return _shareInstance
@@ -42,7 +41,12 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         socket.open()
     }
     
-   
+    func reconnect(){
+        let keychain = GlobalVariable.shareInstance.loadKeychain()
+        self.isReconnect = true
+        self.authenticateUser(keychain!.companyId, userName: keychain!.username, pwd: keychain!.pwd)
+    }
+    
     
     func disconnect(){
         let currentUserName = GlobalVariable.shareInstance.loginInfo.userName
@@ -53,35 +57,46 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         let mess = message as String
         let indicator = mess.componentsSeparatedByString("~")[0]
         let value = mess.componentsSeparatedByString("~")[1]
-        if indicator == MessageIndicator.IsAuthenticate.rawValue {
-            if value == "True" {
-                delegateAuthen?.didAuthenticate(true)
-                //self.getContact() //getContact
-            } else {
-                delegateAuthen?.didAuthenticate(false)
-            }
-        } else if indicator == MessageIndicator.ContactList.rawValue {
-            for observer in GlobalVariable.shareInstance.observers.values {
-                observer.didReceiveContact!(mess)
-            }
-        } else if indicator == MessageIndicator.StatusChange.rawValue {
-            let contact = value.componentsSeparatedByString("#")[0]
-            let status = value.componentsSeparatedByString("#")[1]
-            self.changeContactStatus(contact, status: status)
-            for observer in GlobalVariable.shareInstance.observers.values{
-                observer.didChangeStatus!(contact, status: status)
-            }
-        } else if indicator == MessageIndicator.Message.rawValue {
-            let fromContact = value.componentsSeparatedByString("#")[0]
-            let toContact = value.componentsSeparatedByString("#")[1]
-            let contentMess = value.componentsSeparatedByString("#")[2]
-            
-            self.updateBubbleMessage(fromContact, toContact: toContact, contentMess: contentMess)
-            for observer in GlobalVariable.shareInstance.observers.values{
-                observer.didReceiveMessage!(fromContact, toContact: toContact, contentMess: contentMess)
+        
+        if !self.isReconnect{
+            if indicator == MessageIndicator.IsAuthenticate.rawValue {
+                if value == "True" {
+                    delegateAuthen?.didAuthenticate(true)
+                    //self.getContact() //getContact
+                } else {
+                    delegateAuthen?.didAuthenticate(false)
+                }
+            } else if indicator == MessageIndicator.ContactList.rawValue {
+                for observer in GlobalVariable.shareInstance.observers.values {
+                    observer.didReceiveContact!(mess)
+                }
+            } else if indicator == MessageIndicator.StatusChange.rawValue {
+                let contact = value.componentsSeparatedByString("#")[0]
+                let status = value.componentsSeparatedByString("#")[1]
+                self.changeContactStatus(contact, status: status)
+                for observer in GlobalVariable.shareInstance.observers.values{
+                    observer.didChangeStatus!(contact, status: status)
+                }
+            } else if indicator == MessageIndicator.Message.rawValue {
+                let fromContact = value.componentsSeparatedByString("#")[0]
+                let toContact = value.componentsSeparatedByString("#")[1]
+                let contentMess = value.componentsSeparatedByString("#")[2]
+                
+                self.updateBubbleMessage(fromContact, toContact: toContact, contentMess: contentMess)
+                for observer in GlobalVariable.shareInstance.observers.values{
+                    observer.didReceiveMessage!(fromContact, toContact: toContact, contentMess: contentMess)
+                }
             }
         }
-        
+        else{ //reconnect
+            if indicator == MessageIndicator.IsAuthenticate.rawValue {
+                if value == "False" {
+                    let alert = UIAlertView(title: "", message: "Login failed.", delegate: nil, cancelButtonTitle: "Ok")
+                    alert.show()
+                }
+            }
+            self.isReconnect = false
+        }
     }
     
     func changeContactStatus(contactKey:String,status:String){
@@ -150,15 +165,15 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         audioPlayer.play()
     }
     
-    func webSocketDidOpen(webSocket: SRWebSocket!) {
-        timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
-    }
-    
     func update() {
         self.sendMessage("KeepAlive")
     }
     
     
+    
+    func webSocketDidOpen(webSocket: SRWebSocket!) {
+        timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
+    }
     
     
     func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {

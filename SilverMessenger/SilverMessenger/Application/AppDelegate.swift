@@ -13,11 +13,38 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
+    var reachability: Reachability?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        self.initReachabilityHost()
         return true
+    }
+    
+    func initReachabilityHost(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: kReachabilityChangedNotification, object: nil)
+        reachability = Reachability(hostName: "silversf.azurewebsites.net")
+        reachability?.startNotifier()
+    }
+    
+    func reachabilityChanged(note: NSNotification){
+        let reachability = note.object as Reachability
+        let status = reachability.currentReachabilityStatus().value
+        let appState = UIApplication.sharedApplication().applicationState
+        if status == 0{ //Host is not reachable
+            if appState == UIApplicationState.Active{
+                //Show alert
+                let alert = UIAlertView(title: "", message: "Can not connect to server.", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+        }
+        else{ //Host is reachable
+            let socketState = MessageSocket.sharedInstance.socket?.readyState.value
+            if socketState == 3{ //Socket in closed state
+                //reconnect socket
+                MessageSocket.sharedInstance.reconnect()
+            }
+        }
     }
     
     func applicationWillResignActive(application: UIApplication) {
@@ -49,6 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: kReachabilityChangedNotification, object: nil)
         self.saveContext()
     }
     
