@@ -463,7 +463,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Contact" id="GSp-R4-dkB">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="GGt-Av-Enn" userLabel="Search button">
-                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="searchButtonTapped:" destination="kZy-sh-DaH" id="jWm-2K-xOA"/>
                             </connections>
