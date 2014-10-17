@@ -58,9 +58,9 @@ class GlobalVariable: NSObject {
     }
     
     func loadKeychain() -> (companyId:String, username:String, pwd:String)?{
-        let companyId = KeychainWrapper.load(GlobalVariable.shareInstance.companyKey)
-        let username = KeychainWrapper.load(GlobalVariable.shareInstance.usernameKey)
-        let pwd = KeychainWrapper.load(GlobalVariable.shareInstance.passwordKey)
+        let companyId: AnyObject! = KeychainWrapper.load(GlobalVariable.shareInstance.companyKey)
+        let username: AnyObject! = KeychainWrapper.load(GlobalVariable.shareInstance.usernameKey)
+        let pwd: AnyObject! = KeychainWrapper.load(GlobalVariable.shareInstance.passwordKey)
         if companyId == nil{
             return nil
         }
