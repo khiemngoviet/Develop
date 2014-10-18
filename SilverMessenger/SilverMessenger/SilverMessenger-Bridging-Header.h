@@ -15,4 +15,5 @@
 #import "UIBubbleTypingTableViewCell.h"
 #import "KeychainWrapper.h"
 #import "Reachability.h"
+#import "CSGrowingTextView.h"
 

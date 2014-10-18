@@ -1,0 +1,10 @@
+PODS:
+  - CSGrowingTextView (1.0.0)
+
+DEPENDENCIES:
+  - CSGrowingTextView (~> 1.0)
+
+SPEC CHECKSUMS:
+  CSGrowingTextView: 11b32067eea7f7802d009d5879dfc77126a98057
+
+COCOAPODS: 0.34.2

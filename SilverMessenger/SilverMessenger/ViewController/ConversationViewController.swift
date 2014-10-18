@@ -8,13 +8,20 @@
 
 import UIKit
 
-class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbleTableViewDataSource, MessageDelegate {
+
+class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, UIBubbleTableViewDataSource, MessageDelegate {
     
     @IBOutlet var mainView: UIView!
     @IBOutlet var viewInputContainer: UIView!
-    @IBOutlet var textInput: UITextField!
     @IBOutlet var tableView: UIBubbleTableView!
     @IBOutlet var imageStatus: UIBarButtonItem!
+    
+    @IBOutlet var textInputGrowing: CSGrowingTextView!
+    @IBOutlet var growingTextInputConstraint: NSLayoutConstraint!
+
+
+    @IBOutlet var heightInputViewConstraint: NSLayoutConstraint!
+
     
     var isActive:Bool = false
     var contact: Contact!
@@ -70,10 +77,12 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-        textInput.delegate = self
+        textInputGrowing.delegate = self
+        textInputGrowing.placeholderLabel.text = "Message"
+        textInputGrowing.minimumNumberOfLines = 1
+        textInputGrowing.maximumNumberOfLines = 5
+        textInputGrowing.enablesNewlineCharacter = true
+        textInputGrowing.growDirection = CSGrowDirection.Down
         tableView.bubbleDataSource = self
         tableView.snapInterval = 30
 
@@ -96,24 +105,29 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
         }
     }
     
+    func growingTextView(growingTextView: CSGrowingTextView!, willChangeHeight height: CGFloat) {
+        heightInputViewConstraint.constant = height + 6
+        growingTextInputConstraint.constant = height
+    }
+    
     
     @IBAction func sendMessageTouched(sender: UIButton) {
-        if !textInput.text.isEmpty {
+        if !textInputGrowing.internalTextView.text.isEmpty {
             let fromContact:String = GlobalVariable.shareInstance.loginInfo.userName!
             let toContact:String = contact.name
-            let messageRequest = "Message~\(fromContact)#\(toContact)#\(textInput.text)"
+            let messageRequest = "Message~\(fromContact)#\(toContact)#\(textInputGrowing.internalTextView.text)"
             let messageEntity = BusinessAccess.createMessageEntity()
             messageEntity.company = GlobalVariable.shareInstance.loginInfo.server!
             messageEntity.userName = GlobalVariable.shareInstance.loginInfo.userName!
             messageEntity.contactFrom = fromContact
             messageEntity.contactTo = toContact
             messageEntity.contactRecent = toContact
-            messageEntity.message = textInput.text
+            messageEntity.message = textInputGrowing.internalTextView.text
             messageEntity.date = NSDate()
             BusinessAccess.saveMessageEntities()
             contact.messageSource.append(messageEntity)
             MessageSocket.sharedInstance.sendMessage(messageRequest)
-            textInput.text = ""
+            textInputGrowing.internalTextView.text = ""
             tableView.reloadData()
             //self.insertData()
             tableView.scrollBubbleViewToBottomAnimated(false)
@@ -133,7 +147,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UIBubbl
     
     
     @IBAction func viewTapped(sender: UITapGestureRecognizer) {
-        textInput.resignFirstResponder()
+        textInputGrowing.resignFirstResponder()
     }
     
     

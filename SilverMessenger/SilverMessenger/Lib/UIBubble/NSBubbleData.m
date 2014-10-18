@@ -72,10 +72,10 @@ const UIEdgeInsets textInsetsSomeone = {5, 15, 11, 10};
     label.text = (text ? text : @"");
     label.font = font;
     if(type == BubbleTypeSomeoneElse){
-        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
     }
     else
-        label.textColor = [UIColor whiteColor];
+        label.textColor = [UIColor blackColor];
     
 #if !__has_feature(objc_arc)
     [label autorelease];

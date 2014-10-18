@@ -9,6 +9,7 @@
 import UIKit
 import Security
 
+
 class LoginViewController: UIViewController, AuthenticateDelegate {
     
     @IBOutlet var companyIdTextField: UITextField!
