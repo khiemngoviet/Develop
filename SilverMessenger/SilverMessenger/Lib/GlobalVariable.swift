@@ -82,6 +82,11 @@ class GlobalVariable: NSObject {
     
     func clearObServer(){
         observers.removeAll(keepCapacity: false)
+       
+    }
+    
+    func containObServer(obServer:String) -> Bool{
+        return observers[obServer] != nil
     }
     
 }

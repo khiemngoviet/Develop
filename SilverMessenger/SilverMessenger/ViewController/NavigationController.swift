@@ -30,7 +30,6 @@ class NavigationController: UINavigationController, AuthenticateDelegate {
             //Navigate to Contact view
             let vcTabBar = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarController") as TabBarViewController
             self.pushViewController(vcTabBar, animated: true)
-            MessageSocket.sharedInstance.getContact()
         }
         else{
             self.navigateToLoginView()

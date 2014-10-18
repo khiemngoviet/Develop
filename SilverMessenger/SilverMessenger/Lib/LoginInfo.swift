@@ -18,6 +18,11 @@ class LoginInfo {
         self.server = server
         self.userName = userName
     }
+    
+    func clearInfo(){
+        self.server = nil
+        self.userName = nil
+    }
 }
 
 

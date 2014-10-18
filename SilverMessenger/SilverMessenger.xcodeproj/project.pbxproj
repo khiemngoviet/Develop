@@ -119,7 +119,7 @@
 		6E9BA0F919E57E75004CA0F8 /* MessageEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
 		6EC7FB1C1739149866A2C797 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ED98A2F19E5321E00136C27 /* RecentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentCell.swift; sourceTree = "<group>"; };
-		6EE5249019D56BE90004CCAF /* SilverMessenger-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SilverMessenger-Bridging-Header.h"; sourceTree = "<group>"; };
+		6EE5249019D56BE90004CCAF /* SilverMessenger-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SilverMessenger-Bridging-Header.h"; path = "../SilverMessenger-Bridging-Header.h"; sourceTree = "<group>"; };
 		6EEB4F3119E7826D00304AC9 /* KeychainWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeychainWrapper.h; sourceTree = "<group>"; };
 		6EEB4F3219E7828200304AC9 /* KeychainWapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWapper.m; sourceTree = "<group>"; };
 		6EEB4F3419E7899200304AC9 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -193,6 +193,7 @@
 		379FE95319DFBBDB00B71CFF /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				6EE5249019D56BE90004CCAF /* SilverMessenger-Bridging-Header.h */,
 				6E867E3C19ED107700F8C355 /* Delegates */,
 				6E867E3819ED06F500F8C355 /* Reachability */,
 				6E2FD71119EB8D87002D1F1B /* SRWebsocket */,
@@ -276,7 +277,6 @@
 		6E74EEE419D509290055912B /* SilverMessenger */ = {
 			isa = PBXGroup;
 			children = (
-				6EE5249019D56BE90004CCAF /* SilverMessenger-Bridging-Header.h */,
 				6E2FD71519EB8E5F002D1F1B /* Application */,
 				6E3E4AC019E4DF59000F2233 /* Model */,
 				379FE90819DFB57D00B71CFF /* Asset */,

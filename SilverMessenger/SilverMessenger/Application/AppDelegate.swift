@@ -23,26 +23,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func initReachabilityHost(){
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: kReachabilityChangedNotification, object: nil)
-        reachability = Reachability(hostName: "silversf.azurewebsites.net")
+        reachability = Reachability(hostName: "\(GlobalVariable.shareInstance.loginInfo.server).azurewebsites.net")
         reachability?.startNotifier()
     }
     
     func reachabilityChanged(note: NSNotification){
-        let reachability = note.object as Reachability
-        let status = reachability.currentReachabilityStatus().value
-        let appState = UIApplication.sharedApplication().applicationState
-        if status == 0{ //Host is not reachable
-            if appState == UIApplicationState.Active{
-                //Show alert
-                let alert = UIAlertView(title: "", message: "Can not connect to server.", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+        if GlobalVariable.shareInstance.loginInfo.server != nil{
+            let reachability = note.object as Reachability
+            let status = reachability.currentReachabilityStatus().value
+            let appState = UIApplication.sharedApplication().applicationState
+            if status == 0{ //Host is not reachable
+                if appState == UIApplicationState.Active{
+                    //Show alert
+                    let alert = UIAlertView(title: "", message: "Can not connect to server.", delegate: nil, cancelButtonTitle: "Ok")
+                    alert.show()
+                }
             }
-        }
-        else{ //Host is reachable
-            let socketState = MessageSocket.sharedInstance.socket?.readyState.value
-            if socketState == 3{ //Socket in closed state
-                //reconnect socket
-                MessageSocket.sharedInstance.reconnect()
+            else{ //Host is reachable
+                let socketState = MessageSocket.sharedInstance.socket?.readyState.value
+                if socketState == 3{ //Socket in closed state
+                    //reconnect socket
+                    MessageSocket.sharedInstance.reconnect()
+                }
             }
         }
     }

@@ -22,17 +22,19 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.searchBar.delegate = self
+        GlobalVariable.shareInstance.register("ContactViewController", observer: self)
         MessageSocket.sharedInstance.getContact()
     }
     
     override func viewWillAppear(animated: Bool) {
+        if !GlobalVariable.shareInstance.containObServer("ContactViewController"){
+            GlobalVariable.shareInstance.register("ContactViewController", observer: self)
+        }
         self.isActive = true
     }
     
     override func viewDidAppear(animated: Bool) {
-        GlobalVariable.shareInstance.register("ContactViewController", observer: self)
         
-        MessageSocket.sharedInstance.getContact()
         var defaults = NSUserDefaults.standardUserDefaults()
         if GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) != nil {
             self.isHideOffline = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) as Bool

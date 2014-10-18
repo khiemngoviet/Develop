@@ -94,7 +94,10 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
     
     //Message Delegate function begin
     func didChangeStatus(contactKey: String, status: String) {
-        self.status = ContactStatusEnum(rawValue: status)!
+        //if contactKey equal to current contact then update its status
+        if contactKey == self.contact.name{
+            self.status = ContactStatusEnum(rawValue: status)!
+        }
     }
     //Message Delegate function end
     
