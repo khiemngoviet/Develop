@@ -22,32 +22,26 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.searchBar.delegate = self
-        GlobalVariable.shareInstance.register("ContactViewController", observer: self)
+        MessageSocket.sharedInstance.register("ContactViewController", observer: self)
         MessageSocket.sharedInstance.getContact()
     }
     
     override func viewWillAppear(animated: Bool) {
-        if !GlobalVariable.shareInstance.containObServer("ContactViewController"){
-            GlobalVariable.shareInstance.register("ContactViewController", observer: self)
+        if !MessageSocket.sharedInstance.containObServer("ContactViewController"){
+            MessageSocket.sharedInstance.register("ContactViewController", observer: self)
         }
         self.isActive = true
     }
     
     override func viewDidAppear(animated: Bool) {
-        
         var defaults = NSUserDefaults.standardUserDefaults()
-        if GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) != nil {
-            self.isHideOffline = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) as Bool
-        }
-        else{
-            GlobalVariable.shareInstance.setDefaultValue(GlobalVariable.shareInstance.hideOfflineKey, value: self.isHideOffline)
-        }
+        self.isHideOffline = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) as Bool
         self.reloadTableView()
     }
     
     override func viewDidDisappear(animated: Bool) {
         self.isActive = false
-        GlobalVariable.shareInstance.unRegister("ContactViewController", observer: self)
+        MessageSocket.sharedInstance.unRegister("ContactViewController", observer: self)
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {

@@ -8,15 +8,18 @@
 import AVFoundation
 import Foundation
 
+
 private let _shareInstance = MessageSocket()
 
 class MessageSocket: NSObject, SRWebSocketDelegate {
     
     var socket: SRWebSocket!
+    var observers = [String: MessageDelegate]()
     
     var delegateAuthen: AuthenticateDelegate?
     var delegateNotification: NotificationDelegate?
     
+    var audioPlayer:AVAudioPlayer?
     var timer:NSTimer!
     var isReconnect:Bool = false
     
@@ -28,13 +31,8 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     func authenticateUser(companyId: String, userName: String, pwd: String) {
         GlobalVariable.shareInstance.loginInfo.server = companyId
         GlobalVariable.shareInstance.loginInfo.userName = userName
-        var status:ContactStatusEnum = ContactStatusEnum.Online
-        if GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.statusKey) != nil{
-            status = ContactStatusEnum(rawValue: (GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.statusKey) as String))!
-        }
-        else{
-            GlobalVariable.shareInstance.setDefaultValue(GlobalVariable.shareInstance.statusKey, value: status.rawValue)
-        }
+        
+       let status = ContactStatusEnum(rawValue: (GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.statusKey) as String))!
         let urlString = NSURL(string: "ws://\(companyId).azurewebsites.net/Chat?username=\(userName)&pass=\(pwd)&status=\(status.rawValue)")
         socket = SRWebSocket(URL: urlString)
         socket.delegate = self
@@ -62,19 +60,18 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
             if indicator == MessageIndicator.IsAuthenticate.rawValue {
                 if value == "True" {
                     delegateAuthen?.didAuthenticate(true)
-                    //self.getContact() //getContact
                 } else {
                     delegateAuthen?.didAuthenticate(false)
                 }
             } else if indicator == MessageIndicator.ContactList.rawValue {
-                for observer in GlobalVariable.shareInstance.observers.values {
+                for observer in MessageSocket.sharedInstance.observers.values {
                     observer.didReceiveContact!(mess)
                 }
             } else if indicator == MessageIndicator.StatusChange.rawValue {
                 let contact = value.componentsSeparatedByString("#")[0]
                 let status = value.componentsSeparatedByString("#")[1]
                 self.changeContactStatus(contact, status: status)
-                for observer in GlobalVariable.shareInstance.observers.values{
+                for observer in MessageSocket.sharedInstance.observers.values{
                     observer.didChangeStatus!(contact, status: status)
                 }
             } else if indicator == MessageIndicator.Message.rawValue {
@@ -83,12 +80,12 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
                 let contentMess = value.componentsSeparatedByString("#")[2]
                 
                 self.updateBubbleMessage(fromContact, toContact: toContact, contentMess: contentMess)
-                for observer in GlobalVariable.shareInstance.observers.values{
+                for observer in MessageSocket.sharedInstance.observers.values{
                     observer.didReceiveMessage!(fromContact, toContact: toContact, contentMess: contentMess)
                 }
             }
         }
-        else{ //reconnect
+        else{ //reconnect -> Do nothing
             if indicator == MessageIndicator.IsAuthenticate.rawValue {
                 if value == "False" {
                     let alert = UIAlertView(title: "", message: "Login failed.", delegate: nil, cancelButtonTitle: "Ok")
@@ -123,7 +120,6 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     func updateBubbleMessage(fromContact: String, toContact:String, contentMess: String){
         var contact: Contact = GlobalVariable.shareInstance.contactSource[fromContact]!
         contact.recentMessage = contentMess
-        createChaChingSound()
         
         var uuid = NSUUID().UUIDString
         var messageEntity =  BusinessAccess.createMessageEntity()
@@ -140,6 +136,10 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         if !contact.showIndicator && !contact.isInConversation{
             contact.showIndicator = true
             self.notifyBagle()
+            self.playNotificationSound(SoundNotificationType.NewMessage)
+        }
+        else{
+            self.playNotificationSound(SoundNotificationType.InSessionIncoming)
         }
     }
     
@@ -151,18 +151,24 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         self.delegateNotification?.clearNotification()
     }
     
-    func createChaChingSound() {
-        var audioPlayer = AVAudioPlayer()
-        
-        var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("NewMessage", ofType: "wav")!)
-        // Removed deprecated use of AVAudioSessionDelegate protocol
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
-        
-        var error:NSError?
-        audioPlayer = AVAudioPlayer(contentsOfURL: alertSound, error: &error)
-        audioPlayer.prepareToPlay()
-        audioPlayer.play()
+    func playNotificationSound(type: SoundNotificationType) {
+        let enabledSound = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.enabledSoundKey) as Bool
+        if enabledSound{
+            var resourcePath = NSBundle.mainBundle().resourcePath
+            var path:NSString!
+            switch type{
+            case .NewMessage:
+                path = NSString(string: "\(resourcePath!)/soundsNewMessage.mp3")
+            case .InSessionIncoming:
+                path = NSString(string: "\(resourcePath!)/soundInSessionIncoming.mp3")
+            case .InSessionOutgoing:
+                path = NSString(string: "\(resourcePath!)/soundInSessionOutgoing.mp3")
+            }
+            var alertSound = NSURL(fileURLWithPath: path)
+            var error:NSError?
+            audioPlayer = AVAudioPlayer(contentsOfURL: alertSound, error: &error)
+            audioPlayer!.play()
+        }
     }
     
     func update() {
@@ -199,5 +205,25 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
             let alert = UIAlertView(title: "", message: "\(reason)", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
+    }
+    
+    func register(viewName:String, observer: MessageDelegate) {
+        let counts = MessageSocket.sharedInstance.observers.count
+        observers[viewName] = observer
+    }
+    
+    func unRegister(viewName:String ,observer: MessageDelegate){
+        let counts = MessageSocket.sharedInstance.observers.count
+        observers.removeValueForKey(viewName)
+        let count = observers.count
+    }
+    
+    func clearObServer(){
+        observers.removeAll(keepCapacity: false)
+        
+    }
+    
+    func containObServer(obServer:String) -> Bool{
+        return observers[obServer] != nil
     }
 }

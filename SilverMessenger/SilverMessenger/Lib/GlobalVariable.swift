@@ -11,12 +11,13 @@ import CoreData
 
 class GlobalVariable: NSObject {
     
-    var observers = [String: MessageDelegate]()
+    
     
     let companyKey = "company"
     let usernameKey = "username"
     let passwordKey = "password"
     let hideOfflineKey = "hideOffline"
+    let enabledSoundKey = "enabledSound"
     let statusKey = "status"
     
     var loginInfo: LoginInfo = LoginInfo()
@@ -69,25 +70,7 @@ class GlobalVariable: NSObject {
         }
     }
     
-    func register(viewName:String, observer: MessageDelegate) {
-        let counts = GlobalVariable.shareInstance.observers.count
-        observers[viewName] = observer
-    }
-    
-    func unRegister(viewName:String ,observer: MessageDelegate){
-        let counts = GlobalVariable.shareInstance.observers.count
-        observers.removeValueForKey(viewName)
-        let count = observers.count
-    }
-    
-    func clearObServer(){
-        observers.removeAll(keepCapacity: false)
-       
-    }
-    
-    func containObServer(obServer:String) -> Bool{
-        return observers[obServer] != nil
-    }
+   
     
 }
 

@@ -12,6 +12,8 @@ class SettingViewController: UITableViewController, UIActionSheetDelegate {
     @IBOutlet var statusButtons: UIButton!
     @IBOutlet var companyId: UILabel!
     @IBOutlet var hideOfflineSwitch: UISwitch!
+    @IBOutlet var enabledSound: UISwitch!
+    
     
     let statusContact = [ContactStatusEnum.Online : "Online", ContactStatusEnum.Invisible:"InVisible", ContactStatusEnum.DoNotDisturb : "Do not disturb", ContactStatusEnum.Away: "Away"]
     
@@ -21,7 +23,7 @@ class SettingViewController: UITableViewController, UIActionSheetDelegate {
         super.viewDidLoad()
         companyId.text = "\(KeychainWrapper.load(GlobalVariable.shareInstance.companyKey))"
         hideOfflineSwitch.on  = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) as Bool
-        
+        enabledSound.on = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.enabledSoundKey) as Bool
         let status = ContactStatusEnum(rawValue: GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.statusKey) as String)
         statusButtons.setTitle(statusContact[status!], forState: UIControlState.Normal)
     }
@@ -34,18 +36,21 @@ class SettingViewController: UITableViewController, UIActionSheetDelegate {
     
     
     @IBAction func onHideOfflineSwitched(sender: UISwitch) {
-        let bds = sender.on
         var defaults = NSUserDefaults.standardUserDefaults()
         defaults.setBool(sender.on, forKey: GlobalVariable.shareInstance.hideOfflineKey)
         defaults.synchronize()
     }
-    
     
     @IBAction func onStatusTouched(sender: UIButton) {
         let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Online", "Invisible","Away","Do not disturb")
         actionSheet.showInView(self.view)
     }
     
+    @IBAction func onSoundSwitched(sender: UISwitch) {
+        var defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setBool(sender.on, forKey: GlobalVariable.shareInstance.enabledSoundKey)
+        defaults.synchronize()
+    }
     
     func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int)
     {
@@ -87,7 +92,7 @@ class SettingViewController: UITableViewController, UIActionSheetDelegate {
     }
     
     func doSignout(){
-        GlobalVariable.shareInstance.clearObServer()
+        MessageSocket.sharedInstance.clearObServer()
         GlobalVariable.shareInstance.loginInfo.clearInfo()
         MessageSocket.sharedInstance.disconnect()
         KeychainWrapper.delete(GlobalVariable.shareInstance.companyKey)

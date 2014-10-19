@@ -49,7 +49,7 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
     }
     
     override func viewWillAppear(animated: Bool) {
-        GlobalVariable.shareInstance.register("ConversationViewController",observer: self)
+        MessageSocket.sharedInstance.register("ConversationViewController",observer: self)
         self.isActive = true
         self.status = contact.status
         navigationItem.title = contact.name
@@ -69,7 +69,7 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
        
         self.isActive = false
         contact.isInConversation = false
-        GlobalVariable.shareInstance.unRegister("ConversationViewController", observer: self)
+        MessageSocket.sharedInstance.unRegister("ConversationViewController", observer: self)
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.removeObserver(self)
     }
@@ -116,6 +116,7 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
     
     @IBAction func sendMessageTouched(sender: UIButton) {
         if !textInputGrowing.internalTextView.text.isEmpty {
+            MessageSocket.sharedInstance.playNotificationSound(SoundNotificationType.InSessionOutgoing)
             let fromContact:String = GlobalVariable.shareInstance.loginInfo.userName!
             let toContact:String = contact.name
             let messageRequest = "Message~\(fromContact)#\(toContact)#\(textInputGrowing.internalTextView.text)"

@@ -176,6 +176,33 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="QAW-zg-Jga">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QAW-zg-Jga" id="gqR-8e-cEI">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sound" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNW-cI-eLf">
+                                                    <rect key="frame" x="14" y="11" width="51" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="AEK-DF-hiE">
+                                                    <rect key="frame" x="263" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="onHideOfflineSwitched:" destination="978-5A-HOL" eventType="valueChanged" id="Kts-6o-2na"/>
+                                                        <action selector="onSoundSwitched:" destination="978-5A-HOL" eventType="valueChanged" id="Sz0-xB-Ttf"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="CNW-cI-eLf" secondAttribute="centerY" id="23q-Zu-kuz"/>
+                                                <constraint firstItem="CNW-cI-eLf" firstAttribute="leading" secondItem="gqR-8e-cEI" secondAttribute="leading" constant="14" id="SHs-Fl-EvG"/>
+                                                <constraint firstAttribute="trailing" secondItem="AEK-DF-hiE" secondAttribute="trailing" constant="8" id="x6c-nI-HGt"/>
+                                                <constraint firstAttribute="centerY" secondItem="AEK-DF-hiE" secondAttribute="centerY" id="yvb-8Y-8x2"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="h8Y-Q3-mv7">
@@ -262,6 +289,7 @@
                     <navigationItem key="navigationItem" id="cCH-ih-OXt"/>
                     <connections>
                         <outlet property="companyId" destination="9iE-TT-pdE" id="USC-Vf-bzz"/>
+                        <outlet property="enabledSound" destination="AEK-DF-hiE" id="Hq1-7F-82n"/>
                         <outlet property="hideOfflineSwitch" destination="jzV-8M-GVZ" id="Jjw-Qf-pEA"/>
                         <outlet property="statusButtons" destination="tRJ-28-bdu" id="Nyg-ng-Iem"/>
                     </connections>

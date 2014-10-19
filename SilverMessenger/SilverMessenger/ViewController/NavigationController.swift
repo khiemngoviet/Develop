@@ -12,7 +12,7 @@ class NavigationController: UINavigationController, AuthenticateDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        self.initSettingValue()
         let keychain = GlobalVariable.shareInstance.loadKeychain()
         if keychain == nil{
             //navigate to Login view
@@ -36,11 +36,24 @@ class NavigationController: UINavigationController, AuthenticateDelegate {
         }
     }
 
-    
-  
-
     func navigateToLoginView(){
         let vcLogin = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as LoginViewController
         self.pushViewController(vcLogin, animated: true)
+    }
+    
+    func initSettingValue(){
+        let contactStatus: AnyObject? = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.statusKey)
+        let hideOfflineSetting: AnyObject? = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey)
+        let enabledSound: AnyObject? = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.enabledSoundKey)
+        if contactStatus == nil {
+            GlobalVariable.shareInstance.setDefaultValue(GlobalVariable.shareInstance.statusKey, value: ContactStatusEnum.Online.rawValue)
+        }
+        if hideOfflineSetting == nil{
+            GlobalVariable.shareInstance.setDefaultValue(GlobalVariable.shareInstance.hideOfflineKey, value: false)
+        }
+        if enabledSound == nil{
+            GlobalVariable.shareInstance.setDefaultValue(GlobalVariable.shareInstance.enabledSoundKey, value: true)
+        }
+
     }
 }

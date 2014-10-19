@@ -23,3 +23,9 @@ enum ContactStatusEnum: String {
     case Away = "Away"
     case DoNotDisturb = "DoNotDisturb"
 }
+
+enum SoundNotificationType{
+    case NewMessage
+    case InSessionIncoming
+    case InSessionOutgoing
+}
