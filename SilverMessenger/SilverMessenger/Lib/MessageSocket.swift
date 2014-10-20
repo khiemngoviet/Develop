@@ -49,6 +49,7 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     func disconnect(){
         let currentUserName = GlobalVariable.shareInstance.loginInfo.userName
         self.sendMessage("Disconnect~\(currentUserName)")
+        self.socket.closeWithCode(10000, reason: "Signed out")
     }
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
@@ -97,7 +98,7 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     }
     
     func changeContactStatus(contactKey:String,status:String){
-        var contact = GlobalVariable.shareInstance.contactSource[contactKey]
+        var contact = GlobalVariable.shareInstance.contactSource.getContactByKey(GlobalVariable.shareInstance.contactSource, key: contactKey)
         if contact != nil {
             contact?.status = ContactStatusEnum(rawValue: status)!
         }
@@ -118,7 +119,7 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
     }
     
     func updateBubbleMessage(fromContact: String, toContact:String, contentMess: String){
-        var contact: Contact = GlobalVariable.shareInstance.contactSource[fromContact]!
+        var contact: Contact = GlobalVariable.shareInstance.contactSource.getContactByKey(GlobalVariable.shareInstance.contactSource, key: fromContact)!
         contact.recentMessage = contentMess
         
         var uuid = NSUUID().UUIDString

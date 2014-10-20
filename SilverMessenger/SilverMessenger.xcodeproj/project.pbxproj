@@ -49,6 +49,7 @@
 		6E867E4019ED107700F8C355 /* AuthenticateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E3D19ED107700F8C355 /* AuthenticateDelegate.swift */; };
 		6E867E4119ED107700F8C355 /* MessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E3E19ED107700F8C355 /* MessageDelegate.swift */; };
 		6E867E4219ED107700F8C355 /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E867E3F19ED107700F8C355 /* NotificationDelegate.swift */; };
+		6E8EE2D119F4C0A2007C73E6 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8EE2D019F4C0A2007C73E6 /* Extension.swift */; };
 		6E9BA0F819E57A51004CA0F8 /* SilverMessenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BA0F619E57A51004CA0F8 /* SilverMessenger.xcdatamodeld */; };
 		6E9BA0FA19E57E75004CA0F8 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BA0F919E57E75004CA0F8 /* MessageEntity.swift */; };
 		6ED98A3019E5321E00136C27 /* RecentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED98A2F19E5321E00136C27 /* RecentCell.swift */; };
@@ -124,6 +125,7 @@
 		6E867E3D19ED107700F8C355 /* AuthenticateDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticateDelegate.swift; sourceTree = "<group>"; };
 		6E867E3E19ED107700F8C355 /* MessageDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDelegate.swift; sourceTree = "<group>"; };
 		6E867E3F19ED107700F8C355 /* NotificationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
+		6E8EE2D019F4C0A2007C73E6 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		6E9BA0F719E57A51004CA0F8 /* SilverMessenger.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SilverMessenger.xcdatamodel; sourceTree = "<group>"; };
 		6E9BA0F919E57E75004CA0F8 /* MessageEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
 		6EC7FB1C1739149866A2C797 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,6 +214,7 @@
 				379FE97319DFBD2200B71CFF /* MessageSocket.swift */,
 				6E3F7CCC19EE7476002A4F79 /* Contact.swift */,
 				6E3F7CCE19EE749B002A4F79 /* Enumeration.swift */,
+				6E8EE2D019F4C0A2007C73E6 /* Extension.swift */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				379FE93D19DFBA2C00B71CFF /* RecentViewController.swift in Sources */,
 				6E867E4019ED107700F8C355 /* AuthenticateDelegate.swift in Sources */,
 				6EEB4F3519E7899200304AC9 /* NavigationController.swift in Sources */,
+				6E8EE2D119F4C0A2007C73E6 /* Extension.swift in Sources */,
 				6E2B612419E7950300420D4E /* CoreDataHelper.swift in Sources */,
 				6E3F7CCD19EE7476002A4F79 /* Contact.swift in Sources */,
 				6EEB4F3319E7828200304AC9 /* KeychainWapper.m in Sources */,

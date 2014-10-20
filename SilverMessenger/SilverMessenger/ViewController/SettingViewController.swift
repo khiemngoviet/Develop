@@ -10,18 +10,21 @@ import UIKit
 
 class SettingViewController: UITableViewController, UIActionSheetDelegate {
     @IBOutlet var statusButtons: UIButton!
+    
+    @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var companyId: UILabel!
     @IBOutlet var hideOfflineSwitch: UISwitch!
     @IBOutlet var enabledSound: UISwitch!
     
     
-    let statusContact = [ContactStatusEnum.Online : "Online", ContactStatusEnum.Invisible:"InVisible", ContactStatusEnum.DoNotDisturb : "Do not disturb", ContactStatusEnum.Away: "Away"]
+    let statusContact = [ContactStatusEnum.Online : "Online", ContactStatusEnum.Invisible:"InVisible", ContactStatusEnum.DoNotDisturb : "Do Not Disturb", ContactStatusEnum.Away: "Away"]
     
     var selectedStatus: ContactStatusEnum?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        companyId.text = "\(KeychainWrapper.load(GlobalVariable.shareInstance.companyKey))"
+        companyId.text = GlobalVariable.shareInstance.loginInfo.server
+        usernameLabel.text = GlobalVariable.shareInstance.loginInfo.userName
         hideOfflineSwitch.on  = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) as Bool
         enabledSound.on = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.enabledSoundKey) as Bool
         let status = ContactStatusEnum(rawValue: GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.statusKey) as String)

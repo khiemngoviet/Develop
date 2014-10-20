@@ -19,7 +19,7 @@ enum MessageIndicator: String{
 enum ContactStatusEnum: String {
     case Online = "Online"
     case Offline = "Offline"
-    case Invisible = "Invisible"
+    case Invisible = "InVisible"
     case Away = "Away"
     case DoNotDisturb = "DoNotDisturb"
 }
@@ -29,3 +29,6 @@ enum SoundNotificationType{
     case InSessionIncoming
     case InSessionOutgoing
 }
+
+
+

@@ -23,7 +23,7 @@ class BusinessAccess{
         CoreDataHelper.saveManagedObjectContext(context)
     }
 
-    class func getRecentMessageByContact(contact:String) -> String {
+    class func getRecentMessageByContact(contact:String) -> (latestDate:NSDate, recentMess:String)? {
         let context = CoreDataHelper.managedObjectContext()
         let sorDesc = NSSortDescriptor(key: "date", ascending: false)
         let request = NSFetchRequest(entityName: NSStringFromClass(MessageEntity))
@@ -35,9 +35,9 @@ class BusinessAccess{
         request.fetchLimit = 1
         var results:NSArray = context.executeFetchRequest(request, error: nil)!
         if results.count > 0{
-            return (results.firstObject as MessageEntity).message
+            return ((results.firstObject as MessageEntity).date, (results.firstObject as MessageEntity).message)
         }
-        return ""
+        return nil
     }
     
     class func getMessageByContact(contact:String) -> NSArray {

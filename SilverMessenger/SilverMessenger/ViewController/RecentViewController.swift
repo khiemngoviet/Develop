@@ -12,11 +12,10 @@ import UIKit
 class RecentViewController: UITableViewController{
 
     
-    var recentContactSource = [String:Contact]()
+    var recentContactSource = [Contact]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //BusinessAccess.deleteAllMessages(GlobalVariable.shareInstance.objectContext!)
     }
     
@@ -31,38 +30,37 @@ class RecentViewController: UITableViewController{
     }
     
     func getAllMessages() {
+        self.recentContactSource.removeAll(keepCapacity: true)
         //get distinct by contactTo
         let results = BusinessAccess.getDistinctContact()
         
         for dict in results as Array<NSDictionary> {
           let contactKey =  dict.valueForKey("contactRecent") as String
-          let contactKeySource = Array(GlobalVariable.shareInstance.contactSource.keys)
-            if contains(contactKeySource, contactKey) {
+          let isContainContact = GlobalVariable.shareInstance.contactSource.containContact(GlobalVariable.shareInstance.contactSource, key: contactKey)
+            if isContainContact {
                 //Add contactSource to recentContactSource
-                var contact = GlobalVariable.shareInstance.contactSource[contactKey]
-                contact?.recentMessage = BusinessAccess.getRecentMessageByContact(contactKey)
-                recentContactSource[contactKey] = contact
+                var contact = GlobalVariable.shareInstance.contactSource.getContactByKey(GlobalVariable.shareInstance.contactSource, key: contactKey)
+                let (latestDate, recentMess) = BusinessAccess.getRecentMessageByContact(contactKey)!
+                contact?.recentMessage = recentMess
+                contact?.latestDate = latestDate
+                recentContactSource.append(contact!)
             }
             else{
                 var contact = Contact(name: contactKey, status: ContactStatusEnum.Offline, recentMessage: "")
-                contact.recentMessage = BusinessAccess.getRecentMessageByContact(contactKey)
-                recentContactSource[contactKey] = contact
+                let (latestDate, recentMess) = BusinessAccess.getRecentMessageByContact(contactKey)!
+                contact.recentMessage = recentMess
+                contact.latestDate = latestDate
+                recentContactSource.append(contact)
             }
-          //Filter messages by current contact
-//            let filteredByContact = messages.filter{
-//                let s = $0
-//                return s.contactTo == contact || s.contactFrom == contact
-//            }
-//            messageSource[contact] = filteredByContact
         }
+        self.recentContactSource.sort {$0 ! $1}
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("RecentCell") as RecentCell
-        let contactName = Array(recentContactSource.keys)[indexPath.row] as String
-        let contact = recentContactSource[contactName]
-        cell.contactLabel.text = contactName
-        cell.recentLabel.text = contact?.shortMessage
+        let contact = recentContactSource[indexPath.row]
+        cell.contactLabel.text = contact.name
+        cell.recentLabel.text = contact.shortMessage
         if indexPath.row % 2 == 0 {
             cell.contentView.backgroundColor = UIColor(red: 0.976, green:0.976, blue:0.976, alpha:1)
         }
@@ -89,9 +87,7 @@ class RecentViewController: UITableViewController{
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let indexPath = self.tableView.indexPathForCell(sender as RecentCell)!
         var conversationView: ConversationViewController = segue.destinationViewController as ConversationViewController
-        let key:String = Array(self.recentContactSource.keys)[indexPath.row]
-        let contacs =  recentContactSource[key]!
-        conversationView.contact = recentContactSource[key]! as Contact
+        conversationView.contact = recentContactSource[indexPath.row]
         conversationView.contact.showIndicator = false
         conversationView.contact.isInConversation = true
         conversationView.isFromRecent = true
