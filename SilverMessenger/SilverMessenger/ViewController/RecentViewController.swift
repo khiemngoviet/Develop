@@ -16,6 +16,7 @@ class RecentViewController: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.barTintColor =  UIColor(red:0.973, green:0.957, blue:0.859, alpha:1)
         //BusinessAccess.deleteAllMessages(GlobalVariable.shareInstance.objectContext!)
     }
     

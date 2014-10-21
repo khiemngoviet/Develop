@@ -23,6 +23,8 @@ class SettingViewController: UITableViewController, UIActionSheetDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideOfflineSwitch.tintColor = UIColor.orangeColor()
+        self.enabledSound.tintColor = UIColor.orangeColor()
         companyId.text = GlobalVariable.shareInstance.loginInfo.server
         usernameLabel.text = GlobalVariable.shareInstance.loginInfo.userName
         hideOfflineSwitch.on  = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) as Bool

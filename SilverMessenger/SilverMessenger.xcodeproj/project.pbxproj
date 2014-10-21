@@ -685,7 +685,7 @@
 				OTHER_LDFLAGS = (
 					"-licucore",
 					"-ObjC",
-					"-l\"Pods-CSGrowingTextView\"",
+					"-lPods-CSGrowingTextView",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
@@ -706,7 +706,7 @@
 				OTHER_LDFLAGS = (
 					"-licucore",
 					"-ObjC",
-					"-l\"Pods-CSGrowingTextView\"",
+					"-lPods-CSGrowingTextView",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;

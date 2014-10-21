@@ -66,7 +66,6 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
     
     
     override func viewDidDisappear(animated: Bool) {
-       
         self.isActive = false
         contact.isInConversation = false
         MessageSocket.sharedInstance.unRegister("ConversationViewController", observer: self)
@@ -77,6 +76,7 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.viewInputContainer.backgroundColor = UIColor(red:0.973, green:0.957, blue:0.859, alpha:1)
         textInputGrowing.delegate = self
         textInputGrowing.placeholderLabel.text = "Message"
         textInputGrowing.minimumNumberOfLines = 1

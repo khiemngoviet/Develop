@@ -14,7 +14,8 @@ class TabBarViewController: UITabBarController, NotificationDelegate {
         super.viewDidLoad()
         MessageSocket.sharedInstance.delegateNotification = self
         self.tabBar.translucent = false
-        
+//        self.tabBar.tintColor = UIColor.whiteColor()
+       self.tabBar.barTintColor = UIColor(red: 0.227, green:0.227, blue:0.235, alpha:1)
     }
     
     func notify() {
