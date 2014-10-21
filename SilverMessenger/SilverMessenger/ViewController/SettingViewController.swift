@@ -27,13 +27,14 @@ class SettingViewController: UITableViewController, UIActionSheetDelegate {
         self.enabledSound.tintColor = UIColor.orangeColor()
         companyId.text = GlobalVariable.shareInstance.loginInfo.server
         usernameLabel.text = GlobalVariable.shareInstance.loginInfo.userName
-        hideOfflineSwitch.on  = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) as Bool
+        
         enabledSound.on = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.enabledSoundKey) as Bool
         let status = ContactStatusEnum(rawValue: GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.statusKey) as String)
         statusButtons.setTitle(statusContact[status!], forState: UIControlState.Normal)
     }
     
     override func viewWillAppear(animated: Bool) {
+        hideOfflineSwitch.on  = GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.hideOfflineKey) as Bool
         if selectedStatus != nil {
             statusButtons.setTitle(statusContact[selectedStatus!], forState: UIControlState.Normal)
         }
