@@ -23,6 +23,7 @@ class SettingViewController: UITableViewController, UIActionSheetDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.backgroundColor = UIColor(red:0.973, green:0.957, blue:0.859, alpha:1)
         self.hideOfflineSwitch.tintColor = UIColor.orangeColor()
         self.enabledSound.tintColor = UIColor.orangeColor()
         companyId.text = GlobalVariable.shareInstance.loginInfo.server

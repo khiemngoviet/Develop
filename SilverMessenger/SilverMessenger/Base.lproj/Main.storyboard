@@ -481,22 +481,16 @@
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NB3-x2-t4M">
                                                     <rect key="frame" x="8" y="3" width="290" height="38"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahh-vl-wi9" userLabel="Contact">
-                                                            <rect key="frame" x="0.0" y="3" width="290" height="32"/>
-                                                            <fontDescription key="fontDescription" name="KohinoorDevanagari-Medium" family="Kohinoor Devanagari" pointSize="15"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="centerY" secondItem="ahh-vl-wi9" secondAttribute="centerY" id="1TG-Dv-7jP"/>
-                                                        <constraint firstItem="ahh-vl-wi9" firstAttribute="leading" secondItem="NB3-x2-t4M" secondAttribute="leading" id="95R-ra-JAa"/>
                                                         <constraint firstAttribute="height" constant="38" id="RRJ-8X-MH6"/>
-                                                        <constraint firstAttribute="trailing" secondItem="ahh-vl-wi9" secondAttribute="trailing" id="Rea-22-L4n"/>
-                                                        <constraint firstItem="ahh-vl-wi9" firstAttribute="top" secondItem="NB3-x2-t4M" secondAttribute="top" constant="3" id="ari-1h-LJI"/>
                                                     </constraints>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Contact" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahh-vl-wi9" userLabel="Contact">
+                                                    <rect key="frame" x="8" y="6" width="290" height="32"/>
+                                                    <fontDescription key="fontDescription" name="KohinoorDevanagari-Medium" family="Kohinoor Devanagari" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="3QL-TN-abt" secondAttribute="centerY" id="AWP-nB-Au1"/>
@@ -733,6 +727,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="dKe-JK-8gW"/>
+        <segue reference="MU0-JN-sQc"/>
     </inferredMetricsTieBreakers>
 </document>

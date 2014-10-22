@@ -84,7 +84,7 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
         textInputGrowing.enablesNewlineCharacter = true
         textInputGrowing.growDirection = CSGrowDirection.Down
         tableView.bubbleDataSource = self
-        tableView.snapInterval = 30
+        tableView.snapInterval = 15
 
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardWillShowNotification, object: nil)

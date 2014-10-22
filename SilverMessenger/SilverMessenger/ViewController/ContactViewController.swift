@@ -54,6 +54,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func reloadTableView(){
+        self.sortContact()
         self.contactSourceFilterd.removeAll(keepCapacity: false)
         if self.isHideOffline{
             for contact in GlobalVariable.shareInstance.contactSource{
@@ -100,7 +101,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
                 let contact = Contact(name: name, status: status, recentMessage: "")
                 GlobalVariable.shareInstance.contactSource.append(contact)
             }
-            self.sortContact()
+            
             self.reloadTableView()
         }
     }
