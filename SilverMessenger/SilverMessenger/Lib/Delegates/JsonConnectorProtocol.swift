@@ -9,11 +9,11 @@
 import Foundation
 
 @objc protocol JsonConnectorProtocol{
-    func didAuthenticate(isAuthenticate:Bool);
+   
 }
 
 @objc protocol NoteConnectorProtocol: JsonConnectorProtocol{
-    func didReceivePolicies(policies: NSDictionary);
-    func didReceiveBusinessEntities(businessEntities: NSDictionary);
+   optional func didReceivePolicies(policies: NSArray);
+   optional func didReceiveBusinessEntities(businessEntities: NSArray);
 }
 

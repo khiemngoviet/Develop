@@ -14,8 +14,8 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
     @IBOutlet var mainView: UIView!
     @IBOutlet var viewInputContainer: UIView!
     @IBOutlet var tableView: UIBubbleTableView!
-    @IBOutlet var imageStatus: UIBarButtonItem!
     
+    @IBOutlet var titleNavigation: UINavigationItem!
     @IBOutlet var textInputGrowing: CSGrowingTextView!
     @IBOutlet var growingTextInputConstraint: NSLayoutConstraint!
 
@@ -31,19 +31,21 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
         didSet{
             switch status{
             case .Online:
-                imageStatus.image = UIImage(named: "Online.png")
-                imageStatus.tintColor = UIColor(red:0, green:0.765, blue:0.275, alpha:1)
+                let titleLabel = titleNavigation.titleView as UILabel
+                titleLabel.textColor = UIColor(red:0, green:0.702, blue:0.925, alpha:1)
             case .Away:
-                imageStatus.image = UIImage(named: "Online.png")
-                imageStatus.tintColor = UIColor(red:1, green:0.8, blue:0.247, alpha:1)
+                let titleLabel = titleNavigation.titleView as UILabel
+                titleLabel.textColor = UIColor(red:1, green:0.8, blue:0.247, alpha:1)
             case .DoNotDisturb:
-                imageStatus.image = UIImage(named: "Online.png")
-                imageStatus.tintColor = UIColor(red:0.965, green:0, blue:0.157, alpha:1)
+                let titleLabel = titleNavigation.titleView as UILabel
+            titleLabel.textColor = UIColor(red:0.965, green:0, blue:0.157, alpha:1)
             case .Offline:
-                imageStatus.image = UIImage(named: "Online.png")
-                imageStatus.tintColor = UIColor(red:0.8, green:0.8, blue:0.8, alpha:1)
+                let titleLabel = titleNavigation.titleView as UILabel
+                titleLabel.textColor = UIColor.darkGrayColor()
             default:
-                imageStatus.image = nil
+                let titleLabel = titleNavigation.titleView as UILabel
+                titleLabel.textColor = UIColor.darkGrayColor()
+
             }
         }
     }
@@ -76,6 +78,13 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var titleLabel = UILabel()
+        titleLabel.bounds = CGRect(x: 0, y: 0, width: 100, height: 30)
+        titleLabel.textAlignment = NSTextAlignment.Center
+        titleLabel.font = UIFont.boldSystemFontOfSize(20)
+        titleLabel.text = contact.name
+        titleNavigation.titleView = titleLabel
+        
         self.viewInputContainer.backgroundColor = UIColor(red:0.973, green:0.957, blue:0.859, alpha:1)
         textInputGrowing.delegate = self
         textInputGrowing.placeholderLabel.text = "Message"
