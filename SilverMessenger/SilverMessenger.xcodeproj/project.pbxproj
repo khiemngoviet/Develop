@@ -43,8 +43,9 @@
 		6E3E4AC919E4E9DF000F2233 /* BusinessAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3E4AC819E4E9DF000F2233 /* BusinessAccess.swift */; };
 		6E3F7CCD19EE7476002A4F79 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3F7CCC19EE7476002A4F79 /* Contact.swift */; };
 		6E3F7CCF19EE749B002A4F79 /* Enumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3F7CCE19EE749B002A4F79 /* Enumeration.swift */; };
-		6E4478A81A008EE1002C4CC9 /* JsonConnectorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4478A71A008EE1002C4CC9 /* JsonConnectorProtocol.swift */; };
+		6E4478A81A008EE1002C4CC9 /* JsonConnectorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4478A71A008EE1002C4CC9 /* JsonConnectorDelegate.swift */; };
 		6E4478AA1A0091FC002C4CC9 /* JsonConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4478A91A0091FC002C4CC9 /* JsonConnector.swift */; };
+		6E511FC71A031F6000A85AEE /* SaveToNoteDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E511FC61A031F6000A85AEE /* SaveToNoteDelegate.swift */; };
 		6E5EF16419F3654F00684A94 /* Property List.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E5EF16319F3654F00684A94 /* Property List.plist */; };
 		6E5EF16619F36A7900684A94 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5EF16519F36A7900684A94 /* AVFoundation.framework */; };
 		6E74EEF019D509290055912B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E74EEEE19D509290055912B /* Main.storyboard */; };
@@ -119,8 +120,9 @@
 		6E3E4AC819E4E9DF000F2233 /* BusinessAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessAccess.swift; sourceTree = "<group>"; };
 		6E3F7CCC19EE7476002A4F79 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		6E3F7CCE19EE749B002A4F79 /* Enumeration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enumeration.swift; sourceTree = "<group>"; };
-		6E4478A71A008EE1002C4CC9 /* JsonConnectorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonConnectorProtocol.swift; sourceTree = "<group>"; };
+		6E4478A71A008EE1002C4CC9 /* JsonConnectorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonConnectorDelegate.swift; sourceTree = "<group>"; };
 		6E4478A91A0091FC002C4CC9 /* JsonConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonConnector.swift; path = ../JsonConnector.swift; sourceTree = "<group>"; };
+		6E511FC61A031F6000A85AEE /* SaveToNoteDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveToNoteDelegate.swift; sourceTree = "<group>"; };
 		6E5EF16319F3654F00684A94 /* Property List.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
 		6E5EF16519F36A7900684A94 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6E74EEE219D509290055912B /* SilverMessenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SilverMessenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -365,7 +367,8 @@
 				6E867E3D19ED107700F8C355 /* AuthenticateDelegate.swift */,
 				6E867E3E19ED107700F8C355 /* MessageDelegate.swift */,
 				6E867E3F19ED107700F8C355 /* NotificationDelegate.swift */,
-				6E4478A71A008EE1002C4CC9 /* JsonConnectorProtocol.swift */,
+				6E4478A71A008EE1002C4CC9 /* JsonConnectorDelegate.swift */,
+				6E511FC61A031F6000A85AEE /* SaveToNoteDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -556,12 +559,13 @@
 				6E2B612419E7950300420D4E /* CoreDataHelper.swift in Sources */,
 				6E16E8FE1A02350A00700F17 /* NoteSelectionViewController.swift in Sources */,
 				6E4478AA1A0091FC002C4CC9 /* JsonConnector.swift in Sources */,
-				6E4478A81A008EE1002C4CC9 /* JsonConnectorProtocol.swift in Sources */,
+				6E4478A81A008EE1002C4CC9 /* JsonConnectorDelegate.swift in Sources */,
 				6E3F7CCD19EE7476002A4F79 /* Contact.swift in Sources */,
 				6EEB4F3319E7828200304AC9 /* KeychainWapper.m in Sources */,
 				6E867E3B19ED070800F8C355 /* Reachability.m in Sources */,
 				6E3F7CCF19EE749B002A4F79 /* Enumeration.swift in Sources */,
 				6E3E4AC919E4E9DF000F2233 /* BusinessAccess.swift in Sources */,
+				6E511FC71A031F6000A85AEE /* SaveToNoteDelegate.swift in Sources */,
 				6E867E4219ED107700F8C355 /* NotificationDelegate.swift in Sources */,
 				6E2B611F19E7948400420D4E /* UIBubbleHeaderTableViewCell.m in Sources */,
 				6ED98A3019E5321E00136C27 /* RecentCell.swift in Sources */,

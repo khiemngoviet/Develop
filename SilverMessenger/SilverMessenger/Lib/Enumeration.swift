@@ -30,5 +30,10 @@ enum SoundNotificationType{
     case InSessionOutgoing
 }
 
+enum NoteType:String{
+    case Policy = "Policy"
+    case BusinessEntity = "BusinessEntity"
+}
+
 
 

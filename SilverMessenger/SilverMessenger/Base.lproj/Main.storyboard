@@ -446,18 +446,18 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CodeSelectionCell" textLabel="1Oz-Wh-mP9" detailTextLabel="3Mu-jX-asU" style="IBUITableViewCellStyleSubtitle" id="zD1-Gl-DPb">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CodeSelectionCell" textLabel="1Oz-Wh-mP9" detailTextLabel="XMe-jH-srl" style="IBUITableViewCellStyleSubtitle" id="zD1-Gl-DPb">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zD1-Gl-DPb" id="Tre-cU-8gq">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Oz-Wh-mP9">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Oz-Wh-mP9">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Mu-jX-asU">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XMe-jH-srl">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -473,6 +473,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="aok-lP-6PF"/>
+                    <connections>
+                        <outlet property="searchBar" destination="KHb-YY-UGo" id="XnR-xN-ZKF"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cbI-0J-k0b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -565,6 +568,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="segmentControl" destination="SZr-Dp-eeS" id="Pjf-W1-PgG"/>
                         <outlet property="subjectTextField" destination="m2Q-FB-G6M" id="Ghl-hf-k8F"/>
                     </connections>
                 </tableViewController>

@@ -18,7 +18,7 @@ class NoteConnector: JsonConnector {
                 if responseObject.isKindOfClass(NSDictionary)
                 {
                     let policiesArr = (responseObject as NSDictionary).objectForKey("GetPoliciesResult") as NSArray
-                    (self.delegate as NoteConnectorProtocol).didReceivePolicies!(policiesArr)
+                    (self.delegate as NoteConnectorDelegate).didReceivePolicies!(policiesArr)
                 }
             },
             failure:{(operation:AFHTTPRequestOperation!,error:NSError!)in
@@ -34,7 +34,7 @@ class NoteConnector: JsonConnector {
                 if responseObject.isKindOfClass(NSDictionary)
                 {
                     let businessArr = (responseObject as NSDictionary).objectForKey("GetBusinessEntitiesResult") as NSArray
-                    (self.delegate as NoteConnectorProtocol).didReceiveBusinessEntities!((businessArr))
+                    (self.delegate as NoteConnectorDelegate).didReceiveBusinessEntities!((businessArr))
                 }
             },
             failure:{(operation:AFHTTPRequestOperation!,error:NSError!)in

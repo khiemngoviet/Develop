@@ -9,7 +9,7 @@
 import Foundation
 class JsonConnector {
     var authenticateDelegate: AuthenticateDelegate!
-    var delegate:JsonConnectorProtocol!
+    var delegate:JsonConnectorDelegate!
         
     let connectorManager: AFHTTPRequestOperationManager!
     var token:String!

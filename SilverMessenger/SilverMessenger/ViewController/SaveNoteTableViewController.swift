@@ -8,12 +8,15 @@
 
 import UIKit
 
-class SaveNoteTableViewController: UITableViewController, AuthenticateDelegate {
+class SaveNoteTableViewController: UITableViewController, AuthenticateDelegate, SaveToNoteDelegate {
     
     var connector:NoteConnector!
-    var footerSection:UITableViewHeaderFooterView!
+    var headerSec:UITableViewHeaderFooterView?
+    var selectedCode:String = ""
     
+    @IBOutlet var segmentControl: UISegmentedControl!
     @IBOutlet var subjectTextField: UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +29,10 @@ class SaveNoteTableViewController: UITableViewController, AuthenticateDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
-        footerSection = self.tableView.footerViewForSection(0)
+         headerSec = self.tableView.headerViewForSection(0)
     }
+    
+
     
     func didAuthenticate(isAuthenticate: Bool) {
         if !isAuthenticate{
@@ -46,6 +51,7 @@ class SaveNoteTableViewController: UITableViewController, AuthenticateDelegate {
         else{
              cell.textLabel.text = "Business Code    "
         }
+        cell.detailTextLabel?.text = "Select"
     }
     
     @IBAction func onSaveTouched(sender: AnyObject) {
@@ -55,9 +61,17 @@ class SaveNoteTableViewController: UITableViewController, AuthenticateDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let noteSelectionVC =  segue.destinationViewController as NoteSelectionViewController
         noteSelectionVC.connector = self.connector
+        noteSelectionVC.delegate = self
+        noteSelectionVC.noteType = self.segmentControl.selectedSegmentIndex == 0 ? NoteType.Policy : NoteType.BusinessEntity
     }
 
- 
+    func onSelectedCode(noteType: String, code: String, description: String) {
+        self.selectedCode = code
+        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        var cell = self.tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+        cell.textLabel.text = code
+        cell.detailTextLabel?.text = description
+    }
     
     
 }
