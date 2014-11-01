@@ -8,12 +8,11 @@
 
 import Foundation
 class JsonConnector {
-    var authenticateDelegate: AuthenticateDelegate!
+    var authenticateDelegate: JsonAuthenticateDelegate!
     var delegate:JsonConnectorDelegate!
         
     let connectorManager: AFHTTPRequestOperationManager!
-    var token:String!
-        
+    
     init(){
         let companyid = GlobalVariable.shareInstance.loginInfo.server!
         var url:NSURL = NSURL(string: "http://\(companyid).azurewebsites.net/json")!
@@ -27,12 +26,12 @@ class JsonConnector {
             success:{(operation:AFHTTPRequestOperation!,responseObject:AnyObject!)in
                 if responseObject.isKindOfClass(NSDictionary)
                 {
-                    self.token = (responseObject as NSDictionary).objectForKey("AuthenticateResult") as NSString
-                    self.authenticateDelegate.didAuthenticate(true)
+                    GlobalVariable.shareInstance.token = (responseObject as NSDictionary).objectForKey("AuthenticateResult") as NSString
+                    self.authenticateDelegate.didJsonAuthenticate(true)
                 }
             },
             failure:{(operation:AFHTTPRequestOperation!,error:NSError!)in
-               self.authenticateDelegate.didAuthenticate(false)
+               self.authenticateDelegate.didJsonAuthenticate(false)
         })
     }
 }

@@ -7,6 +7,8 @@
 //
 
 import Foundation
-protocol SaveToNoteDelegate{
-    func onSelectedCode(noteType:String, code:String, description:String);
+
+@objc protocol SaveNoteConnectorDelegate: JsonConnectorDelegate{
+    optional func didPostNote(success:Bool);
+    optional func onSelectedCode(noteType:String, code:String, description:String);
 }

@@ -8,20 +8,21 @@
 
 import UIKit
 
-class NoteSelectionViewController: UITableViewController, UISearchBarDelegate, NoteConnectorDelegate {
+class NoteSelectionViewController: UITableViewController, UISearchBarDelegate, NoteSelectionConnectorDelegate {
     
     
     @IBOutlet var searchBar: UISearchBar!
     
-    var connector:NoteConnector!
+    var connector:NoteSelectionConnector!
     var tableData:NSArray!
     var tabeDataFiltered:NSArray!
     var noteType: NoteType = NoteType.Policy
     var lastSelectedIndexPath:NSIndexPath!
-    var delegate: SaveToNoteDelegate!
+    var delegate: SaveNoteConnectorDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.connector = NoteSelectionConnector()
         searchBar.delegate = self
         self.navigationItem.title = self.noteType == NoteType.Policy ? "Select Policy Code" : "Select Business Code"
         connector.delegate = self
@@ -117,7 +118,7 @@ class NoteSelectionViewController: UITableViewController, UISearchBarDelegate, N
                 var item = self.tabeDataFiltered[indexPath!.row] as NSDictionary
                 var code = self.noteType == NoteType.Policy ? item["PolicyCode"] as NSString : item["BusinessCode"] as NSString
                 let description = self.noteType == NoteType.Policy ? item["PolicyDescription"] as NSString : item["BusinessName"] as NSString
-                self.delegate.onSelectedCode(self.noteType.rawValue, code: code, description: description)
+                self.delegate.onSelectedCode!(self.noteType.rawValue, code: code, description: description)
             }
         }
     }

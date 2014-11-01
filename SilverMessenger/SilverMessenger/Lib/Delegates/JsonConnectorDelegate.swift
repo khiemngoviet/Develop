@@ -9,11 +9,10 @@
 import Foundation
 
 @objc protocol JsonConnectorDelegate{
-   
+    
 }
 
-@objc protocol NoteConnectorDelegate: JsonConnectorDelegate{
-   optional func didReceivePolicies(policies: NSArray);
-   optional func didReceiveBusinessEntities(businessEntities: NSArray);
-}
+
+
+
 

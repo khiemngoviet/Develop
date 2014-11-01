@@ -18,10 +18,10 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
     @IBOutlet var titleNavigation: UINavigationItem!
     @IBOutlet var textInputGrowing: CSGrowingTextView!
     @IBOutlet var growingTextInputConstraint: NSLayoutConstraint!
-
-
+    
+    
     @IBOutlet var heightInputViewConstraint: NSLayoutConstraint!
-
+    
     
     var isActive:Bool = false
     var contact: Contact!
@@ -38,14 +38,14 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
                 titleLabel.textColor = UIColor(red:1, green:0.8, blue:0.247, alpha:1)
             case .DoNotDisturb:
                 let titleLabel = titleNavigation.titleView as UILabel
-            titleLabel.textColor = UIColor(red:0.965, green:0, blue:0.157, alpha:1)
+                titleLabel.textColor = UIColor(red:0.965, green:0, blue:0.157, alpha:1)
             case .Offline:
                 let titleLabel = titleNavigation.titleView as UILabel
                 titleLabel.textColor = UIColor.darkGrayColor()
             default:
                 let titleLabel = titleNavigation.titleView as UILabel
                 titleLabel.textColor = UIColor.darkGrayColor()
-
+                
             }
         }
     }
@@ -57,7 +57,6 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
         navigationItem.title = contact.name
         //Load all message from core data for current contact
         contact.messageSource.removeAll(keepCapacity: false)
-        let currentLoggedInContact = GlobalVariable.shareInstance.loginInfo.userName!
         let messages = BusinessAccess.getMessageByContact(contact.name)
         for message in messages as Array<MessageEntity> {
             contact.messageSource.append(message)
@@ -94,7 +93,7 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
         textInputGrowing.growDirection = CSGrowDirection.Down
         tableView.bubbleDataSource = self
         tableView.snapInterval = 15
-
+        
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: "keyboardWillbeHidden:", name: UIKeyboardWillHideNotification, object: nil)
@@ -208,6 +207,18 @@ class ConversationViewController: UIViewController, CSGrowingTextViewDelegate, U
         let bubbleType = message.contactFrom == currentLoggedInContact ? BubbleTypeMine : BubbleTypeSomeoneElse
         var bubbleData:NSBubbleData = NSBubbleData(text: message.message, date: message.date, type: bubbleType)
         return bubbleData
+    }
+    
+    @IBAction func onNoteTouch(sender: UIBarButtonItem) {
+        if self.contact.messageSource.count > 0{
+            var saveNoteVC = self.storyboard?.instantiateViewControllerWithIdentifier("SaveNoteTableViewController") as SaveNoteTableViewController
+            saveNoteVC.contact = self.contact
+            self.navigationController?.pushViewController(saveNoteVC, animated: true)
+        }
+        else{
+            let alert = UIAlertView(title: "", message: "Cannot save to notes while chat is empty.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
     }
     
     

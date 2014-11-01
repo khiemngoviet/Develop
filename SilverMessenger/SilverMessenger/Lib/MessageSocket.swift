@@ -11,7 +11,7 @@ import Foundation
 
 private let _shareInstance = MessageSocket()
 
-class MessageSocket: NSObject, SRWebSocketDelegate {
+class MessageSocket: NSObject, SRWebSocketDelegate, JsonAuthenticateDelegate {
     
     var socket: SRWebSocket!
     var observers = [String: MessageDelegate]()
@@ -32,11 +32,23 @@ class MessageSocket: NSObject, SRWebSocketDelegate {
         GlobalVariable.shareInstance.loginInfo.server = companyId
         GlobalVariable.shareInstance.loginInfo.userName = userName
         
-       let status = ContactStatusEnum(rawValue: (GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.statusKey) as String))!
+        let status = ContactStatusEnum(rawValue: (GlobalVariable.shareInstance.getDefaultValue(GlobalVariable.shareInstance.statusKey) as String))!
         let urlString = NSURL(string: "ws://\(companyId).azurewebsites.net/Chat?username=\(userName)&pass=\(pwd)&status=\(status.rawValue)")
         socket = SRWebSocket(URL: urlString)
         socket.delegate = self
         socket.open()
+        
+        //Conect to Json service
+        let jsonConnector = JsonConnector()
+        jsonConnector.authenticateDelegate = self
+        jsonConnector.authenticate(userName, pwd: pwd)
+    }
+    
+    func didJsonAuthenticate(success: Bool) {
+        if !success{
+            let alert = UIAlertView(title: "", message: "Cannot connect to Json Service.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
     }
     
     func reconnect(){

@@ -10,8 +10,8 @@ import Foundation
 import CoreData
 
 class GlobalVariable: NSObject {
-    
-    
+
+    var token:String!
     
     let companyKey = "company"
     let usernameKey = "username"
@@ -36,21 +36,7 @@ class GlobalVariable: NSObject {
         }
     }
     
-    //    func findIndexFromKey(key:String) -> Int{
-    //        var index:Int = 0
-    //        for keyDict in GlobalVariable.shareInstance.contactSource.keys {
-    //            if keyDict == key{
-    //                break
-    //            }
-    //            index++
-    //        }
-    //        return index
-    //    }
-    
-    
-    
-   
-    
+
     func getDefaultValue(key:String) -> AnyObject?{
         var defaults = NSUserDefaults.standardUserDefaults()
         return defaults.valueForKey(key)

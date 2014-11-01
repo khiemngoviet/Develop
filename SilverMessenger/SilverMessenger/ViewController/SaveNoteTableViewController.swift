@@ -8,11 +8,13 @@
 
 import UIKit
 
-class SaveNoteTableViewController: UITableViewController, AuthenticateDelegate, SaveToNoteDelegate {
+class SaveNoteTableViewController: UITableViewController, SaveNoteConnectorDelegate {
     
-    var connector:NoteConnector!
+    var connector:SaveNoteConnector!
+    var contact:Contact!
     var headerSec:UITableViewHeaderFooterView?
     var selectedCode:String = ""
+    var content:String!
     
     @IBOutlet var segmentControl: UISegmentedControl!
     @IBOutlet var subjectTextField: UITextField!
@@ -20,51 +22,92 @@ class SaveNoteTableViewController: UITableViewController, AuthenticateDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        connector = NoteConnector()
-        connector.authenticateDelegate = self
-        let username = GlobalVariable.shareInstance.loginInfo.userName!
-        let keychain = GlobalVariable.shareInstance.loadKeychain()!
-        let pwd = keychain.pwd
-        connector.authenticate(username, pwd: pwd)
+        connector = SaveNoteConnector()
+        connector.delegate = self
     }
     
     override func viewDidAppear(animated: Bool) {
-         headerSec = self.tableView.headerViewForSection(0)
+        headerSec = self.tableView.headerViewForSection(0)
     }
     
 
-    
-    func didAuthenticate(isAuthenticate: Bool) {
-        if !isAuthenticate{
-            let alert = UIAlertView(title: "", message: "Cannot connect to Service.", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-        }
-        
-    }
+  
     
     @IBAction func onSegmentValueChanged(sender: UISegmentedControl) {
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         var cell = self.tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
         if sender.selectedSegmentIndex == 0{
-             cell.textLabel.text = "Policy Code      "
+            cell.textLabel.text = "Policy Code      "
         }
         else{
-             cell.textLabel.text = "Business Code    "
+            cell.textLabel.text = "Business Code    "
         }
         cell.detailTextLabel?.text = "Select"
     }
     
     @IBAction func onSaveTouched(sender: AnyObject) {
+        if !self.selectedCode.isEmpty {
+            var chatDataArr = NSMutableArray()
+            
+            for message in self.contact.messageSource{
+                var chatData: NSDictionary = [
+                    "Date": "\(message.date)",
+                    "From": message.contactFrom,
+                    "Content": message.message,
+                    "IsIncomming": message.contactFrom == GlobalVariable.shareInstance.loginInfo.userName! ? false : true
+                ]
+                println(message.date)
+                chatDataArr.addObject(chatData)
+            }
+            
+            var newSaveNote: NSDictionary = [
+                "Username": GlobalVariable.shareInstance.loginInfo.userName!,
+                "IsPolicy": self.segmentControl.selectedSegmentIndex == 0 ? true : false,
+                "IsEntity": self.segmentControl.selectedSegmentIndex == 0 ? false : true,
+                "PolicyCode": self.selectedCode,
+                "BusinessCode": self.selectedCode,
+                "Subject": self.subjectTextField.text,
+                "ChatData": chatDataArr
+            ]
+            let jsonData = NSJSONSerialization.dataWithJSONObject(newSaveNote, options: nil, error: nil)
+            let jsonString = NSString(data: jsonData!, encoding: NSUTF8StringEncoding)
+            self.connector.SaveNotes(newSaveNote)
+        }
+        else{
+            let alert = UIAlertView(title: "", message: "Please select Policy/Business Entity Code", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+    }
+    
+    func didPostNote(success: Bool) {
+        if success{
+            //clear chat data
+            BusinessAccess.deleteMessageByContact(self.contact.name)
+            var savedInform = UIAlertController(title: "", message: "Notes was saved \nChat session was deleted.", preferredStyle: UIAlertControllerStyle.Alert)
+            savedInform.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                self.backToParent()
+            }))
+            presentViewController(savedInform, animated: true, completion: nil)
+        }
+        else{
+            let alert = UIAlertView(title: "", message: "It had problem while saving note.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+    }
+    
+    func backToParent(){
+        self.navigationController?.popViewControllerAnimated(true)
         
     }
     
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let noteSelectionVC =  segue.destinationViewController as NoteSelectionViewController
-        noteSelectionVC.connector = self.connector
         noteSelectionVC.delegate = self
         noteSelectionVC.noteType = self.segmentControl.selectedSegmentIndex == 0 ? NoteType.Policy : NoteType.BusinessEntity
     }
 
+    
     func onSelectedCode(noteType: String, code: String, description: String) {
         self.selectedCode = code
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)

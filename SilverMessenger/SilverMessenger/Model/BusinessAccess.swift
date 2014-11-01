@@ -77,4 +77,13 @@ class BusinessAccess{
         context.save(nil)
     }
     
+    class func deleteMessageByContact(contact:String){
+        let context = CoreDataHelper.managedObjectContext()
+        let results = self.getMessageByContact(contact)
+        for message in results {
+            context.deleteObject(message as NSManagedObject)
+        }
+        context.save(nil)
+    }
+    
 }
