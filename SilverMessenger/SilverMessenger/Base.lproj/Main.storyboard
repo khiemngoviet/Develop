@@ -551,11 +551,11 @@
                     <navigationItem key="navigationItem" id="ci2-Ls-Glv">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="SZr-Dp-eeS">
-                            <rect key="frame" x="84" y="7" width="152" height="31"/>
+                            <rect key="frame" x="84" y="7" width="152" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Policy"/>
-                                <segment title="Business Enity" width="100"/>
+                                <segment title="Business Entity" width="100"/>
                             </segments>
                             <connections>
                                 <action selector="onSegmentValueChanged:" destination="UHR-gH-Hnw" eventType="valueChanged" id="QGo-TE-Jnx"/>

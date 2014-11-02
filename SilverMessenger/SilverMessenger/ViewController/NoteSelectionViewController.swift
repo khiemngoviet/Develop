@@ -24,7 +24,7 @@ class NoteSelectionViewController: UITableViewController, UISearchBarDelegate, N
         super.viewDidLoad()
         self.connector = NoteSelectionConnector()
         searchBar.delegate = self
-        self.navigationItem.title = self.noteType == NoteType.Policy ? "Select Policy Code" : "Select Business Code"
+        self.navigationItem.title = self.noteType == NoteType.Policy ? "Select Policy" : "Select Business Entity"
         connector.delegate = self
         if self.noteType == NoteType.Policy{
             self.getPolicies()
